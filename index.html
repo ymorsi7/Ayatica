@@ -112,20 +112,13 @@
       border: 1px solid #555;
     }
     #verse-details {
-      width: 400px;
-      background-color: #3b3b3b;
+    width: 400px;
+      background-color: #2b2b2b;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
-    #verse-details h3 {
-      margin: 0;
-      font-size: 1.5em;
-    }
-    #verse-details p {
-      font-size: 1em;
-      margin-top: 10px;
-    }
+
     #explanation {
       width: 400px;
       color: #03ac00;
@@ -177,7 +170,7 @@
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #2b2b2b;
     max-width: 600px;
     margin-top: 20px;
     font-family: Arial, sans-serif;
@@ -185,13 +178,13 @@
 
 #verse-details h3 {
     font-size: 18px;
-    color: #333;
+    color:  #04d600;
     margin-top: 0;
 }
 
 #verse-details p {
     font-size: 16px;
-    color: #555;
+    color: white;
     line-height: 1.6;
 }
 
@@ -208,7 +201,7 @@
 
 #explanation p {
     font-size: 15px;
-    color: #555;
+    color: white;
     line-height: 1.4;
     margin: 5px 0 0;
 }
@@ -244,6 +237,164 @@
     </div>
     <div id="explanation"></div>
   </div>
+
+
+
+    <style>
+     body {
+      font-family: Arial, sans-serif;
+      background-color: #2b2b2b;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    .miracle-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 80%;
+      max-width: 1200px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .verse-content {
+      flex: 1;
+      padding: 20px;
+    }
+    .verse-content h2 {
+      color: #03ac00;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+    .verse-content p {
+      font-size: 1em;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .verse-content .arabic {
+      font-size: 1.5em;
+      text-align: right;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+    .animation-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #creation-burst-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        padding: 20px;
+        height: 400px;
+        width: 400px;
+        color: white;
+        position: relative;
+    }
+    .creation-tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font-size: 14px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 4px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        visibility: hidden;
+        z-index: 1000;
+    }
+      </style>
+<section class="miracle-section">
+    <div class="verse-content">
+      <h2>Scientific Miracle: Expansion of the Universe</h2>
+      <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
+      <p><strong>Translation:</strong> "And the heaven We constructed with strength, and indeed, We are [its] expander." (Surah Adh-Dhariyat, 51:47)</p>
+      <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by observations of distant galaxies moving away from us.</p>
+    </div>
+    <div class="animation-container">
+      <div id="creation-burst-container">
+        <div id="creation-burst"></div>
+      </div>
+    </div>
+  </section>
+  
+  <script>
+    const width = 400, height = 400;
+    const layers = [
+        { name: "Earth", description: "The foundation of life" },
+        { name: "Sky 1", description: "The first heaven" },
+        { name: "Sky 2", description: "The second heaven" },
+        { name: "Sky 3", description: "The third heaven" },
+        { name: "Sky 4", description: "The fourth heaven" },
+        { name: "Sky 5", description: "The fifth heaven" },
+        { name: "Sky 6", description: "The sixth heaven" },
+        { name: "Sky 7", description: "The seventh heaven" },
+    ];
+  
+    const tooltip = d3.select("#creation-burst-container")
+        .append("div")
+        .attr("class", "creation-tooltip");
+  
+    const svg = d3.select("#creation-burst")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
+  
+    const color = d3.scaleSequential(d3.interpolateCool).domain([0, layers.length]);
+    const maxRadius = 180;
+  
+    function animateLayers() {
+        layers.forEach((layer, i) => {
+            svg.append("circle")
+                .attr("r", 0)
+                .attr("fill", color(i))
+                .attr("opacity", 0.6)
+                .attr("stroke", "#fff")
+                .attr("stroke-width", 1.5)
+                .on("mouseover", function (event) {
+                    tooltip.style("opacity", 1)
+                        .style("visibility", "visible")
+                        .html(`<strong>${layer.name}</strong><br>${layer.description}`);
+                })
+                .on("mousemove", function (event) {
+                    tooltip.style("top", `${event.pageY - 20}px`)
+                        .style("left", `${event.pageX + 10}px`);
+                })
+                .on("mouseout", function () {
+                    tooltip.style("opacity", 0)
+                        .style("visibility", "hidden");
+                })
+                .transition()
+                .delay(i * 800) // Delay for each layer to expand in sequence
+                .duration(4000) // Slower expansion
+                .ease(d3.easeElasticOut)
+                .attr("r", maxRadius * (i + 1) / layers.length)
+                .attr("opacity", 0.3); // Keep circle visible for hover
+        });
+    }
+  
+    setInterval(() => {
+        svg.selectAll("circle").remove();
+        animateLayers();
+    }, 6000);
+  
+    animateLayers();
+  </script>
+
 
   <section id="writeup">
     <h2 style="color: #03ac00;">About the Project</h2>
