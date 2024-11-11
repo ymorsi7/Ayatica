@@ -129,7 +129,33 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderTreemap();
             }
 
+            function searchVerses() {
+                const keyword = document.getElementById("search-bar").value.toLowerCase();
+                
+                const searchData = root.leaves().filter(d => 
+                    d.data.ayah_en && d.data.ayah_en.toLowerCase().includes(keyword)
+                );
+
+                svg.selectAll("*").remove();
+
+                svg.selectAll("rect")
+                    .data(searchData)
+                    .enter()
+                    .append("rect")
+                    .attr("x", d => d.x0)
+                    .attr("y", d => d.y0)
+                    .attr("width", d => d.x1 - d.x0)
+                    .attr("height", d => d.y1 - d.y0)
+                    .style("fill", d => {
+                        const notableVerse = notableVerses.find(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah);
+                        return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
+                    })
+                    .style("stroke", "#333")
+                    .on("click", function(event, d) { displayDetails(d); });
+            }
+
             document.getElementById("filter-button").onclick = toggleScientificMiracles;
+            document.getElementById("search-bar").addEventListener("input", searchVerses);
 
             renderTreemap();
         })

@@ -112,20 +112,13 @@
       border: 1px solid #555;
     }
     #verse-details {
-      width: 400px;
-      background-color: #3b3b3b;
+    width: 400px;
+      background-color: #2b2b2b;
       padding: 20px;
       border-radius: 5px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
-    #verse-details h3 {
-      margin: 0;
-      font-size: 1.5em;
-    }
-    #verse-details p {
-      font-size: 1em;
-      margin-top: 10px;
-    }
+
     #explanation {
       width: 400px;
       color: #03ac00;
@@ -177,7 +170,7 @@
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #2b2b2b;
     max-width: 600px;
     margin-top: 20px;
     font-family: Arial, sans-serif;
@@ -185,13 +178,13 @@
 
 #verse-details h3 {
     font-size: 18px;
-    color: #333;
+    color:  #04d600;
     margin-top: 0;
 }
 
 #verse-details p {
     font-size: 16px;
-    color: #555;
+    color: white;
     line-height: 1.6;
 }
 
@@ -208,7 +201,7 @@
 
 #explanation p {
     font-size: 15px;
-    color: #555;
+    color: white;
     line-height: 1.4;
     margin: 5px 0 0;
 }
@@ -244,6 +237,367 @@
     </div>
     <div id="explanation"></div>
   </div>
+    <style>
+     body {
+      font-family: Arial, sans-serif;
+      background-color: #2b2b2b;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    .miracle-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 80%;
+      max-width: 1200px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .verse-content {
+      flex: 1;
+      padding: 20px;
+    }
+    .verse-content h2 {
+      color: #03ac00;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+    .verse-content p {
+      font-size: 1em;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .verse-content .arabic {
+      font-size: 1.5em;
+      text-align: right;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+    .animation-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #creation-burst-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        padding: 20px;
+        height: 400px;
+        width: 400px;
+        color: white;
+        position: relative;
+    }
+    .creation-tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font-size: 14px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 4px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        visibility: hidden;
+        z-index: 1000;
+    }
+      </style>
+<section class="miracle-section">
+    <div class="verse-content">
+      <h2>Expansion of the Universe</h2>
+      <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
+      <p><strong>Translation:</strong> "And the heaven We constructed with strength, and indeed, We are [its] expander." (Surah Adh-Dhariyat, 51:47)</p>
+      <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by observations of distant galaxies moving away from us.</p>
+    </div>
+    <div class="animation-container">
+      <div id="creation-burst-container">
+        <div id="creation-burst"></div>
+      </div>
+    </div>
+    <script>
+      const width = 400, height = 400;
+      const layers = [
+          { name: "Earth", description: "The foundation of life" },
+          { name: "Sky 1", description: "The first heaven" },
+          { name: "Sky 2", description: "The second heaven" },
+          { name: "Sky 3", description: "The third heaven" },
+          { name: "Sky 4", description: "The fourth heaven" },
+          { name: "Sky 5", description: "The fifth heaven" },
+          { name: "Sky 6", description: "The sixth heaven" },
+          { name: "Sky 7", description: "The seventh heaven" },
+      ];
+    
+      const tooltip = d3.select("#creation-burst-container")
+          .append("div")
+          .attr("class", "creation-tooltip");
+    
+      const svg = d3.select("#creation-burst")
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2}, ${height / 2})`);
+    
+      const color = d3.scaleSequential(d3.interpolateCool).domain([0, layers.length]);
+      const maxRadius = 180;
+    
+      function animateLayers() {
+          layers.forEach((layer, i) => {
+              svg.append("circle")
+                  .attr("r", 0)
+                  .attr("fill", color(i))
+                  .attr("opacity", 0.6)
+                  .attr("stroke", "#fff")
+                  .attr("stroke-width", 1.5)
+                  .on("mouseover", function (event) {
+                      tooltip.style("opacity", 1)
+                          .style("visibility", "visible")
+                          .html(`<strong>${layer.name}</strong><br>${layer.description}`);
+                  })
+                  .on("mousemove", function (event) {
+                      tooltip.style("top", `${event.pageY - 20}px`)
+                          .style("left", `${event.pageX + 10}px`);
+                  })
+                  .on("mouseout", function () {
+                      tooltip.style("opacity", 0)
+                          .style("visibility", "hidden");
+                  })
+                  .transition()
+                  .delay(i * 800) // Delay for each layer to expand in sequence
+                  .duration(4000) // Slower expansion
+                  .ease(d3.easeElasticOut)
+                  .attr("r", maxRadius * (i + 1) / layers.length)
+                  .attr("opacity", 0.3); // Keep circle visible for hover
+          });
+      }
+    
+      setInterval(() => {
+          svg.selectAll("circle").remove();
+          animateLayers();
+      }, 6000);
+    
+      animateLayers();
+    </script>
+  </section>
+
+<section class="miracle-section" style="display: flex; align-items: center; justify-content: space-between;">
+    <!-- Visualization (Animation) on the left -->
+    <div class="animation-container" style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;">
+      <div id="orbit-container" style="width: 400px; height: 400px;"></div>
+    </div>
+  
+    <!-- Text on the right -->
+    <div class="verse-content" style="flex: 1; padding: 20px; text-align: left;">
+      <h2>Orbits of Celestial Bodies</h2>
+      <p class="arabic">وَهُوَ الَّذِي خَلَقَ اللَّيْلَ وَالنَّهَارَ وَالشَّمْسَ وَالْقَمَرَ ۖ كُلٌّ فِي فَلَكٍ يَسْبَحُونَ</p>
+      <p><strong>Translation:</strong> "And it is He who created the night and the day and the sun and the moon; all [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
+      <p>This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const container = document.getElementById("orbit-container");
+    const sceneWidth = container.offsetWidth;
+    const sceneHeight = container.offsetHeight;
+  
+    // Scene and Camera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, sceneWidth / sceneHeight, 0.1, 1000);
+    camera.position.z = 10;
+  
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(sceneWidth, sceneHeight);
+    container.appendChild(renderer.domElement);
+  
+    // Central Sun
+    const sunGeometry = new THREE.SphereGeometry(0.6, 32, 32);
+    const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
+    const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+    scene.add(sun);
+  
+    // Planets with orbits
+    const planets = [];
+    const orbitRadii = [1.5, 2.5, 3.5, 4.5, 5.5, 6.5];
+    const colors = [0x03ac00, 0x4a90e2, 0xe94e77, 0xFF5733, 0x9b59b6, 0x3498db];
+  
+    orbitRadii.forEach((radius, index) => {
+      const planetGeometry = new THREE.SphereGeometry(0.2, 16, 16);
+      const planetMaterial = new THREE.MeshBasicMaterial({ color: colors[index] });
+      const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+      planet.orbitRadius = radius;
+      planet.angle = Math.random() * Math.PI * 2;
+      scene.add(planet);
+      planets.push(planet);
+    });
+  
+    // Tooltip for hovering on planets
+    const orbitTooltip = d3.select("body").append("div")
+      .attr("class", "creation-tooltip")
+      .style("opacity", 0);
+  
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+  
+      // Update planets' positions
+      planets.forEach((planet, index) => {
+        planet.angle += 0.01 * (index + 1); // Different speed per planet
+        planet.position.x = Math.cos(planet.angle) * planet.orbitRadius;
+        planet.position.y = Math.sin(planet.angle) * planet.orbitRadius;
+      });
+    }
+  
+    // Orbit controls with D3 for tooltip display on hover
+    container.addEventListener("mousemove", (event) => {
+      planets.forEach((planet, index) => {
+        const screenPos = planet.position.clone().project(camera);
+        const x = (screenPos.x * 0.5 + 0.5) * sceneWidth;
+        const y = (-screenPos.y * 0.5 + 0.5) * sceneHeight;
+  
+        const distance = Math.hypot(event.clientX - x, event.clientY - y);
+        if (distance < 20) {
+          orbitTooltip.style("opacity", 1)
+            .style("left", `${event.pageX + 10}px`)
+            .style("top", `${event.pageY - 10}px`)
+            .html(`Planet ${index + 1} orbiting around`);
+        } else {
+          orbitTooltip.style("opacity", 0);
+        }
+      });
+    });
+  
+    animate();
+  </script>
+</section>
+  
+
+<section class="miracle-section">
+    <div class="verse-content">
+      <h2>Stages of Embryonic Development</h2>
+      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ مِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَارٍ مَّكِينٍ ثُمَّ خَلَقْنَا النُّطْفَةَ عَلَقَةً فَخَلَقْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
+      <p><strong>Translation:</strong> "And certainly did We create man from an extract of clay. Then We placed him as a sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
+      <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
+    </div>
+    <div class="animation-container">
+      <div id="embryonic-development-container">
+        <div id="embryonic-development"></div>
+        <div id="stage-label" style="text-align: center; color: white; margin-top: 10px; font-size: 1.2em;"></div>
+      </div>
+    </div>
+    <script>
+      // const embryoTooltip = d3.select("#embryonic-development-container")
+    // .append("div")
+    // .attr("class", "stage-tooltip");
+
+const embryoSvg = d3.select("#embryonic-development")
+    .append("svg")
+    .attr("width", 500)
+    .attr("height", 500)
+    .append("g")
+    .attr("transform", "translate(200, 150)");
+
+    const stages = [
+            { 
+                name: "Nutfah (Drop)", 
+                description: "The first cell, marking the beginning of life.",
+                path: "M 50 50 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0 M 60 45 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 70 55 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0 M 55 52 a 3 3 0 1 0 6 0 a 3 3 0 1 0 -6 0 M 65 58 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0", 
+                color: "#a1c4fd" 
+            },
+            { 
+                name: "Alaqah (Clinging Substance)", 
+                description: "A stage resembling a leech or clinging substance.",
+                path: "M 60 40 C 70 35, 90 35, 100 45 C 110 55, 110 65, 100 75 C 90 85, 70 85, 60 80 C 50 75, 45 65, 50 55 C 55 45, 60 40, 60 40 M 75 50 C 85 45, 95 45, 100 55 C 105 65, 100 75, 90 80 C 80 85, 70 80, 65 70 C 60 60, 65 55, 75 50 M 80 60 C 85 58, 90 58, 92 62 C 94 66, 92 70, 88 72 C 84 74, 80 72, 78 68 C 76 64, 77 62, 80 60",
+                color: "#9b59b6" 
+            },
+            { 
+                name: "Mudghah (Chewed Substance)", 
+                description: "Shape appears like a chewed lump, with notches.",
+                path: "M 70 50 C 80 45, 100 45, 110 55 C 120 65, 120 85, 110 95 C 100 105, 80 105, 70 95 C 60 85, 60 65, 70 50 M 75 60 L 105 60 M 75 70 L 105 70 M 75 80 L 105 80 M 75 90 L 105 90 M 85 55 L 85 95 M 95 55 L 95 95",
+                color: "#d35400" 
+            },
+            { 
+                name: "Bone Formation", 
+                description: "Early bone structure forming a human shape.",
+                path: "M 80 40 C 100 35, 120 40, 130 50 C 140 60, 140 80, 130 90 C 120 100, 100 105, 80 100 C 60 95, 50 80, 50 70 C 50 60, 60 45, 80 40 M 90 60 L 90 90 M 70 70 L 110 70 M 70 80 L 110 80 M 70 90 L 110 90 M 60 75 L 75 85 M 120 75 L 105 85",
+                color: "#7f8c8d" 
+            },
+            { 
+                name: "Clothing with Flesh", 
+                description: "The body is fleshed out, showing limb buds.",
+                path: "M 80 30 C 100 25, 120 30, 130 40 C 140 50, 140 70, 130 85 C 120 100, 100 110, 80 105 C 60 100, 50 85, 50 70 C 50 55, 60 35, 80 30 M 85 55 C 95 50, 105 50, 115 60 M 85 70 C 95 65, 105 65, 115 75 M 85 85 C 95 80, 105 80, 115 90 M 60 65 C 65 60, 70 60, 75 65 M 125 65 C 120 60, 115 60, 110 65",
+                color: "#f39c12" 
+            },
+            { 
+                name: "Another Creation", 
+                description: "Resembles a basic human form with head, torso, and limbs.",
+                path: "M 90 30 C 105 25, 120 28, 130 40 C 135 45, 138 55, 135 65 L 130 70 C 140 75, 145 85, 142 95 C 138 105, 130 110, 120 112 C 110 115, 100 114, 90 110 C 80 106, 72 100, 68 90 C 65 83, 64 75, 65 68 C 67 62, 70 58, 75 55 C 65 50, 60 40, 62 32 C 65 28, 75 25, 90 30 M 95 45 C 100 43, 105 43, 110 45 C 115 47, 118 50, 118 54 C 118 58, 115 61, 110 62 C 105 63, 100 62, 97 60 C 94 58, 93 55, 93 52 C 93 49, 94 46, 95 45 M 100 48 A 2 2 0 1 0 104 48 A 2 2 0 1 0 100 48 M 110 48 A 2 2 0 1 0 114 48 A 2 2 0 1 0 110 48 M 104 55 C 106 56, 108 56, 110 55 M 75 70 C 85 68, 95 70, 105 75 C 115 80, 122 87, 125 95 M 70 85 C 75 83, 80 84, 85 86 C 90 88, 93 92, 95 98 M 130 75 C 125 80, 122 85, 120 92 M 80 100 C 85 105, 90 108, 95 110 M 115 100 C 110 105, 105 108, 100 110",
+                color: "#27ae60" 
+            }
+        ];
+let currentStageIndex = 0;
+
+function animateStages() {
+    const stage = stages[currentStageIndex];
+    d3.select("#stage-label").text(stage.name);
+
+    embryoSvg.selectAll("path").remove();
+
+    embryoSvg.append("path")
+        .attr("d", stage.path)
+        .attr("fill", stage.color)
+        .attr("stroke", "#fff")
+        .attr("stroke-width", 2)
+        .attr("transform", "scale(0.6)")  // Initial smaller size for animation
+        .on("mouseover", function () {
+            embryoTooltip.style("opacity", 1)
+                .style("visibility", "visible")
+                .html(`<strong>${stage.name}</strong><br>${stage.description}`);
+        })
+        .on("mousemove", function (event) {
+            embryoTooltip.style("top", `${event.pageY - 20}px`)
+                .style("left", `${event.pageX + 10}px`);
+        })
+        .on("mouseout", function () {
+            embryoTooltip.style("opacity", 0)
+                .style("visibility", "hidden");
+        })
+        .transition()
+        .duration(1000)  // Faster animation for realism
+        .ease(d3.easeElasticOut)
+        .attr("transform", "scale(1)");  // Scale up to full size
+
+    currentStageIndex = (currentStageIndex + 1) % stages.length;
+}
+
+setInterval(() => {
+    embryoSvg.selectAll("path").remove();
+    animateStages();
+}, 3000);  // Faster interval to loop through stages
+
+animateStages();
+
+    </script>
+</section>
+
+
+
+
+
+
+  
+
+
 
   <section id="writeup">
     <h2 style="color: #03ac00;">About the Project</h2>
