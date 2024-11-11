@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quranic Visualization</title>
+  <link rel="icon" href="quran.png" type="image/x-icon">
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2b2b2b;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      font-size: 2em;
+      margin-top: 1em;
+      text-align: center;
+    }
+    #bismillah {
+      margin-top: 20px;
+      text-align: center;
+    }
+    #bismillah img {
+      width: 200px;
+    }
+    #logo {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    #logo img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    #logo img:hover + .tooltip,
+    #logo .tooltip:hover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+    .tooltip {
+      margin-left: 50px;
+      padding: 5px 10px;
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 14px;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      transform: translateX(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    }
+    #search-container {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      background-color: #444;
+      border-radius: 8px;
+      padding: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      width: 50%;
+    }
+    #search-bar {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      color: #f0f0f0;
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+    #search-bar::placeholder {
+      color: #bbb;
+      font-style: italic;
+    }
+    #search-button {
+      background-color: #03ac00;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-left: -50px;
+    }
+    #search-button:hover {
+      background-color: #04d600;
+    }
+    #container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px;
+      gap: 20px;
+    }
+    #treemap {
+      width: 800px;
+      height: 600px;
+      border: 1px solid #555;
+    }
+    #verse-details {
+      width: 400px;
+      background-color: #3b3b3b;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    #verse-details h3 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    #verse-details p {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+    #explanation {
+      width: 400px;
+      color: #03ac00;
+      margin-top: 10px;
+    }
+    .footer {
+      margin-top: 30px;
+      color: #999;
+      font-size: 0.8em;
+    }
+    #writeup {
+      width: 70%;
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 40px auto;
+      color: #f0f0f0;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+    #writeup h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    a {
+      color: #039900;
+    }
+    
+
+#filter-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #03ac00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 20px 0;
+    transition: background-color 0.3s;
+}
+
+#filter-button:hover {
+    background-color: #04d600;
+}
+
+#verse-details {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+#verse-details h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 0;
+}
+
+#verse-details p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+#explanation {
+    margin-top: 15px;
+}
+
+#explanation h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #03ac00;
+    margin: 0;
+}
+
+#explanation p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.4;
+    margin: 5px 0 0;
+}
+
+  </style>
+</head>
+<body>
+  <div id="logo" onclick="window.location.href='https://ymorsi.com';">
+    <img src="smiling.png" alt="YM Home">
+    <div class="tooltip">YM - Home</div>
+  </div>
+
+  <div id="bismillah">
+    <img src="bismillah.png" alt="Bismillah">
+  </div>
+
+  <h1 style="color: rgb(3, 174, 0);">Quranic Ayat Interactive Exploration</h1>
+  <p>Learn about different ayat and insights in the Holy Quran. Search by verse / keyword!</p>
+  <p><b>Notable Verses highlighted in gold!</b></p>
+  
+  <div id="search-container">
+    <input id="search-bar" type="text" placeholder="Search for a Quranic keyword (i.e., 'loves')" />
+    <button id="search-button">🔍</button>
+  </div>
+
+  <button id="filter-button" onclick="toggleScientificMiracles()">Show Scientific Miracles Only</button>
+
+  <div id="container">
+    <div id="treemap"></div>
+    <div id="verse-details">
+      <h3>Verse Details</h3>
+      <p>Pick a verse to view its details!</p>
+    </div>
+    <div id="explanation"></div>
+  </div>
+
+  <section id="writeup">
+    <h2 style="color: #03ac00;">About the Project</h2>
+    <h3>Rationale for Design Decisions</h3>
+    <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size). Each Surah has a unique color to distinguish them, especially if adjacent in the treemap. Notable verses are highlighted in gold, allowing users to easily identify and click on them. A zooming/pan functionality was added to aid navigation in smaller Surahs. Additionally, a search bar enables filtering by keywords, for example, only showing verses containing 'love.' When a user clicks on a verse, details are shown in a side-panel.</p>
+
+    <h3>Development Process Overview</h3>
+    <p>As the sole developer, I completed the entire project independently. Initially, I spent time searching for a usable dataset on Kaggle. The first dataset I found had data separated by '|' instead of commas and formatting issues, so I switched to a more workable dataset, which was also on Kaggle. I implemented the D3.js treemap in about an hour. Extracting and translating the necessary data took some troubleshooting but was successful. Styling the website took about 30 minutes, followed by implementing the search functionality, which was straightforward with internet resources. After creating the initial model, I refined the user experience, adjusting border thickness, adding zoom/pan functionality, and converting CSV to JSON to improve load times. The final touch-ups, including styling and minor adjustments, took an additional hour or two.</p>
+  </section>
+
+  <div class="footer">
+    Created for DSC 209R | Interactive Visualization: The Holy Quran
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
