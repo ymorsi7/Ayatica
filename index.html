@@ -259,6 +259,66 @@
       visibility: hidden;
       z-index: 1000;
     }
+    .hadith-main-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .hadith-treemap-section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 20px;
+    }
+    .hadith-treemap-container {
+      width: 55%;
+    }
+    .hadith-details-container {
+      width: 40%;
+      padding: 15px;
+      background-color: #40444b;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+    }
+    .hadith-title {
+      color: #33cccc;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .hadith-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #2c2f33;
+      text-align: center;
+    }
+    .hadith-section h1 {
+      color: #33cccc;
+      margin-bottom: 30px;
+    }
+    .hadith-section .treemap-section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 20px;
+    }
+    .hadith-section .treemap-container {
+      width: 55%;
+    }
+    .hadith-section .details-container {
+      width: 40%;
+      padding: 15px;
+      background-color: #40444b;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
@@ -452,7 +512,7 @@
   <section class="miracle-section">
     <div class="verse-content">
       <h2>Stages of Embryonic Development</h2>
-      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ مِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَارٍ مَّكِينٍ ثُمَّ خَلَقْنَا النُّطْفَةَ عَلَقَةً فَخَلَقْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
+      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ مِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَار مَّكِينٍ ثُمَّ خَلَقْنَا ��نُّطْفَ عَلَقَةً فَخَلَقْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
       <p><strong>Translation:</strong> "And certainly did We create man from an extract of clay. Then We placed him as a sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
       <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
     </div>
@@ -522,6 +582,103 @@
     </script>
   </section>
 
+  <div class="hadith-section">
+    <h1>Interactive Hadith Treemaps</h1>
+    <div class="main-container">
+        <div class="treemap-section">
+            <div class="treemap-container" id="bukhariTreemap"></div>
+            <div class="details-container" id="detailsBukhari">
+                <h2>Bukhari Hadith Details</h2>
+                <div class="details-content" id="hadithDetailsBukhari">Click on a hadith to view its details here.</div>
+            </div>
+        </div>
+
+        <div class="treemap-section">
+            <div class="treemap-container" id="muslimTreemap"></div>
+            <div class="details-container" id="detailsMuslim">
+                <h2>Muslim Hadith Details</h2>
+                <div class="details-content" id="hadithDetailsMuslim">Click on a hadith to view its details here.</div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
+
+    d3.json(url).then(data => {
+      const bukhariData = {
+        name: "Sahih Bukhari",
+        children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
+          .map(([chapter, hadiths]) => ({
+            name: chapter,
+            children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+          }))
+      };
+
+      const muslimData = {
+        name: "Sahih Muslim",
+        children: d3.groups(data.filter(d => d.source === "Sahih Muslim"), d => d.chapter)
+          .map(([chapter, hadiths]) => ({
+            name: chapter,
+            children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+          }))
+      };
+
+      createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
+      createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+    });
+
+    function createTreemap(data, container, detailsId, width, height) {
+      const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
+      d3.treemap().size([width, height]).padding(1)(root);
+
+      const svg = d3.select(container)
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g");
+
+      const tooltip = d3.select("#tooltip");
+      const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
+
+      svg.selectAll("rect")
+        .data(root.leaves())
+        .enter()
+        .append("rect")
+        .attr("x", d => d.x0)
+        .attr("y", d => d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .style("fill", d => color(d.parent.data.name))
+        .style("stroke", "#333")
+        .on("mouseover", (event, d) => {
+          tooltip.style("visibility", "visible")
+            .text(`Chapter: ${d.parent.data.name}`);
+        })
+        .on("mousemove", (event) => {
+          tooltip.style("top", `${event.pageY + 10}px`).style("left", `${event.pageX + 10}px`);
+        })
+        .on("mouseout", () => {
+          tooltip.style("visibility", "hidden");
+        })
+        .on("click", (event, d) => {
+          displayDetails(d, detailsId);
+        });
+    }
+
+    function displayDetails(d, detailsId) {
+      const detailsContainer = document.getElementById(detailsId);
+      detailsContainer.innerHTML = `
+        <strong>Chapter:</strong> ${d.parent.data.name || "N/A"}<br><br>
+        <strong>Text (English):</strong> ${d.data.text_en || "N/A"}<br><br>
+        <strong>Text (Arabic):</strong> ${d.data.text_ar || "N/A"}
+      `;
+    }
+  </script>
+
   <section id="writeup">
     <h2 style="color: #03ac00;">About the Project</h2>
     <h3>Rationale for Design Decisions</h3>
@@ -537,5 +694,18 @@
   <br>
 
   <script src="script.js"></script>
+  <div id="hadith-container"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Your existing Quran visualization code stays here
+        
+        // Initialize the Hadith visualization
+        new HadithVisualization('hadith-container');
+    });
+  </script>
+  <div id="hadith-visualization-container"></div>
+  <script>
+    new HadithVisualization('hadith-visualization-container');
+  </script>
 </body>
 </html>

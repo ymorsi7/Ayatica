@@ -56,3 +56,37 @@ h1 {
 .text-label {
     display: none; /* Hide any unwanted labels */
 }
+
+.hadith-section {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #2c2f33;
+    text-align: center;
+}
+
+.hadith-section h1 {
+    color: #33cccc;
+    margin-bottom: 30px;
+}
+
+.hadith-section .treemap-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.hadith-section .treemap-container {
+    width: 55%;
+}
+
+.hadith-section .details-container {
+    width: 40%;
+    padding: 15px;
+    background-color: #40444b;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
