@@ -160,4 +160,59 @@ document.addEventListener("DOMContentLoaded", () => {
             renderTreemap();
         })
         .catch(error => console.error("Error loading JSON:", error));
+
+    function initHadithViz() {
+        const width = 800;
+        const height = 600;
+
+        const svg = d3.select("#hadith-treemap")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        d3.json("data/hadith.json").then(data => {
+            const root = d3.hierarchy(data)
+                .sum(d => d.value)
+                .sort((a, b) => b.value - a.value);
+
+            const treemapLayout = d3.treemap()
+                .size([width, height])
+                .padding(1);
+
+            treemapLayout(root);
+
+            const nodes = svg.selectAll('g')
+                .data(root.leaves())
+                .enter()
+                .append('g')
+                .attr('transform', d => `translate(${d.x0},${d.y0})`);
+
+            nodes.append('rect')
+                .attr('width', d => d.x1 - d.x0)
+                .attr('height', d => d.y1 - d.y0)
+                .style('fill', '#33cccc')
+                .style('opacity', 0.7)
+                .on('mouseover', function(event, d) {
+                    d3.select(this).style('opacity', 1);
+                    const details = document.querySelector('.hadith-section .details-content');
+                    details.innerHTML = `
+                        <h3>${d.data.collection}</h3>
+                        <p>${d.data.text}</p>
+                        <p><em>Book: ${d.data.book}</em></p>
+                    `;
+                })
+                .on('mouseout', function() {
+                    d3.select(this).style('opacity', 0.7);
+                });
+
+            nodes.append('text')
+                .attr('x', 5)
+                .attr('y', 20)
+                .text(d => d.data.collection)
+                .style('font-size', '12px')
+                .style('fill', 'white');
+        });
+    }
+
+    initHadithViz();
 });
