@@ -291,17 +291,17 @@
       margin-bottom: 30px;
     }
     .hadith-section {
-      width: 100%;
+      width: 80%;
       max-width: 1200px;
       margin: 40px auto;
       padding: 20px;
       background-color: #1a1a1a;
-      text-align: center;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
     .hadith-section h1 {
       color: #03ac00;
+      font-size: 1.8em;
       margin-bottom: 30px;
     }
     .hadith-section .treemap-section {
@@ -315,11 +315,48 @@
     }
     .hadith-section .details-container {
       width: 40%;
-      padding: 15px;
-      background-color: #40444b;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       color: #ffffff;
+    }
+    .hadith-section .details-container h2 {
+      color: #03ac00;
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 600px;
+      background-color: #1a1a1a;
+      border-radius: 10px;
+    }
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #03ac00;
+      border-top: 5px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .loading-text {
+      color: #03ac00;
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .hadith-content {
+      display: none;
+    }
+    .hadith-content.loaded {
+      display: block;
     }
   </style>
 </head>
@@ -335,7 +372,7 @@
 
   <h1 style="color: rgb(3, 174, 0);">Quranic Ayat Interactive Exploration</h1>
   <p>Learn about different ayat and insights in the Holy Quran. Search by verse / keyword!</p>
-  <p><b>Notable Verses highlighted in gold!</b></p>
+  <p><b>Some Verses Depicting Miracles Highlighted in Gold!</b></p>
   
   <div id="search-container">
     <input id="search-bar" type="text" placeholder="Search for a Quranic keyword (i.e., 'loves')" />
@@ -586,20 +623,28 @@
 
   <div class="hadith-section">
     <h1>Interactive Hadith Treemaps</h1>
-    <div class="main-container">
-        <div class="treemap-section">
-            <div class="treemap-container" id="bukhariTreemap"></div>
-            <div class="details-container" id="detailsBukhari">
-                <h2>Bukhari Hadith Details</h2>
-                <div class="details-content" id="hadithDetailsBukhari">Click on a hadith to view its details here.</div>
-            </div>
-        </div>
+    
+    <div class="loading-container" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Hadith Data...</div>
+    </div>
 
-        <div class="treemap-section">
-            <div class="treemap-container" id="muslimTreemap"></div>
-            <div class="details-container" id="detailsMuslim">
-                <h2>Muslim Hadith Details</h2>
-                <div class="details-content" id="hadithDetailsMuslim">Click on a hadith to view its details here.</div>
+    <div class="hadith-content" id="hadithContent">
+        <div class="main-container">
+            <div class="treemap-section">
+                <div class="treemap-container" id="bukhariTreemap"></div>
+                <div class="details-container" id="detailsBukhari">
+                    <h2>Bukhari Hadith Details</h2>
+                    <div class="details-content" id="hadithDetailsBukhari">Click on a hadith to view its details here.</div>
+                </div>
+            </div>
+
+            <div class="treemap-section">
+                <div class="treemap-container" id="muslimTreemap"></div>
+                <div class="details-container" id="detailsMuslim">
+                    <h2>Muslim Hadith Details</h2>
+                    <div class="details-content" id="hadithDetailsMuslim">Click on a hadith to view its details here.</div>
+                </div>
             </div>
         </div>
     </div>
@@ -629,8 +674,18 @@
           }))
       };
 
-      createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
-      createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+      // Create both treemaps
+      Promise.all([
+        createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600),
+        createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600)
+      ]).then(() => {
+        // Hide loading screen and show content
+        document.getElementById('loadingScreen').style.display = 'none';
+        document.getElementById('hadithContent').classList.add('loaded');
+      });
+    }).catch(error => {
+      console.error('Error loading hadith data:', error);
+      document.querySelector('.loading-text').textContent = 'Error loading data. Please try again later.';
     });
 
     function createTreemap(data, container, detailsId, width, height) {
@@ -641,15 +696,16 @@
         .append("svg")
         .attr("width", width)
         .attr("height", height);
-        
-      // Add zoom behavior
+      
       const g = svg.append("g");
       
-      svg.call(d3.zoom()
+      const zoom = d3.zoom()
         .scaleExtent([1, 8])
         .on("zoom", (event) => {
           g.attr("transform", event.transform);
-        }));
+        });
+
+      svg.call(zoom);
 
       const tooltip = d3.select("#tooltip");
       const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
@@ -669,8 +725,7 @@
             .text(`Chapter: ${d.parent.data.name}`);
         })
         .on("mousemove", (event) => {
-          tooltip.style("top", `${event.pageY + 10}px`)
-            .style("left", `${event.pageX + 10}px`);
+          tooltip.style("top", `${event.pageY + 10}px`).style("left", `${event.pageX + 10}px`);
         })
         .on("mouseout", () => {
           tooltip.style("visibility", "hidden");
@@ -708,9 +763,8 @@
   <div id="hadith-container"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // Your existing Quran visualization code stays here
-        
-        // Initialize the Hadith visualization
+
+      
         new HadithVisualization('hadith-container');
     });
   </script>
