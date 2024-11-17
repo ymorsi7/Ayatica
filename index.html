@@ -17,6 +17,27 @@
 </head>
 
 <body>
+  <div class="nav-buttons">
+    <div class="dropdown">
+      <button class="dropbtn">Quran</button>
+      <div class="dropdown-content">
+        <a href="#treemap">Treemap Search</a>
+        <a href="#to-name-a-few">Miracle Examples</a>
+        <a href="#word-cloud">Word Cloud</a>
+        <a href="#numerical-patterns">Numerical Pattern Examples</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Hadith</button>
+      <div class="dropdown-content">
+        <a href="#hadith-treemap">Treemap Search</a>
+        <a href="#">Miracle Examples</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn" onclick="location.href='#writeup'">About</button>
+    </div>
+  </div>
   <div id="loading-screen" class="loading-overlay">
     <img src="images/mosque.gif" alt="Loading..." class="loading-icon">
     <div class="loading-text">Loading Visualizations...</div>
@@ -52,7 +73,7 @@
       some miracles, linguistic patterns, and numerical patterns of <b style="color: #03ac00;">the Quran</b>.</p>
   </div>
 
-  <div class="section-transition" style="margin-top: 10px;margin-bottom: 10px;">
+  <div class="section-transition" style="margin-top: 10px;margin-bottom: 10px;" id = "treemap">
     <h2>Search for Miracles in the Quran</h2>
     <p>The Quran contains numerous verses that describe scientific phenomena with remarkable accuracy, centuries before
       their modern discovery. Use the interactive treemap below to explore these verses and more. You can search for
@@ -80,7 +101,7 @@
   </div>
 
 
-  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;">
+  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id = "to-name-a-few">
     <h2>To Name a Few...</h2>
     <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
       our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
@@ -347,7 +368,7 @@
       <div class="verse-content" style="flex: 1;">
         <h2>The Romans' Victory</h2>
         <p class="arabic">الٓمٓ ١ غُلِبَتِ ٱلرُّومُ ٢ فِىٓ أَدْنَى ٱلْأَرْضِ وَهُم مِّنۢ بَعْدِ غَلَبِهِمْ سَيَغْلِبُونَ
-          ٣ فِى بِضْعِ سِنِينَ ۗ لِلَّهِ ٱلْأَمْرُ مِن قَبْلُ وَمِنۢ بَعْدُ ۚ وَيَوْمَئِذٍۢ يَفْرَحُ ٱلْمُؤْمِنُونَ ٤
+          ٣ فِى بِضْعِ سِنِينَ ۗ لِلَّهِ ٱلْأَمْرُ مِن قَبْلُ وَمِنۢ بَعْدُ ۚ وَيَوْمَئِذٍۢ يَفَْحُ ٱلْمُؤْمِنُونَ ٤
           بِنَصْرِ ٱللَّهِ ۚ يَنصُرُ مَن يَشَآءُ ۖ وَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ ٥</p>
         <p><strong style="color:#03ac00;">Translation:</strong> "Alif-Lãm-Mĩm. The Romans have been defeated in a nearby
           land. Yet following their defeat, they will triumph within three to nine years. The ˹whole˺ matter rests with
@@ -406,7 +427,7 @@
   </div>
 
 
-  <section class="miracle-section">
+  <section class="miracle-section" id = "word-cloud">
     <div class="verse-content">
       <h2>Word Frequency Cloud</h2>
       <p>Explore the most common words in the Quran's English translation</p>
@@ -430,7 +451,7 @@
     </div>
   </section>
 
-  <div class="section-transition" style="margin-bottom: 10px;">
+  <div class="section-transition" style="margin-bottom: 10px;" id = "numerical-patterns">
     <h2>Numerical Patterns</h2>
     <p>The word cloud activity has given us a good idea of the linguistic patterns of the Quran, and even slowly
       introduced us to some of the numerical patterns as well.
@@ -519,7 +540,7 @@
     </p>
   </div>
 
-  <div class="hadith-section">
+  <div class="hadith-section" id = "hadith-treemap">
     <!-- <h1 >Interactive Hadith Treemaps</h1> -->
 
     <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
