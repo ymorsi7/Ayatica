@@ -686,8 +686,43 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
   </style>
+
+  <style>
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2b2b2b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out;
+  z-index: 9999;
+}
+
+.loading-icon {
+  width: 150px;
+  height: 150px;
+}
+
+.loading-text {
+  color: #03ac00;
+  font-family: 'Arial', sans-serif;
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+
+  </style>
 </head>
 <body>
+  <div id="loading-screen" class="loading-overlay">
+    <img src="mosque.gif" alt="Loading..." class="loading-icon">
+    <div class="loading-text">Loading Visualizations...</div>
+  </div>
   <div id="logo" onclick="window.location.href='https://ymorsi.com';">
     <img src="smiling.png" alt="YM Home">
     <div class="tooltip">YM - Home</div>
@@ -697,8 +732,9 @@
     <div id="bismillah">
       <img src="bismillah.png" alt="Bismillah">
     </div>
-    <h1>Exploring Sacred Texts Through Data Visualization</h1>
-    <p class="hook">What hidden patterns lie within centuries-old Islamic texts? Through interactive visualization, we can uncover fascinating connections between science and scripture that were written over 1400 years ago.</p>
+    <h1 style="color: #03ac00;">Exploring Sacred Texts Through Data Visualization</h1>
+    <h2 style="color: #f0f0f0; font-size: 1.4em; margin: 15px 0; text-align: center;">What hidden patterns lie within centuries-old Islamic texts?</h2>
+    <p class="hook">Through interactive visualization, we can uncover fascinating connections between science and scripture that were written over 1400 years ago.</p>
 
   </div>
 
@@ -1315,6 +1351,63 @@
       <p>By leveraging interactive data visualization, we can explore these texts in novel ways, revealing fascinating patterns and connections.</p>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const loadingScreen = document.getElementById('loading-screen');
+  
+  const imagePromises = Array.from(document.images).map(img => {
+    if (img.complete) {
+      return Promise.resolve();
+    } else {
+      return new Promise(resolve => {
+        img.addEventListener('load', resolve);
+        img.addEventListener('error', resolve); 
+      });
+    }
+  });
+
+  const scriptPromises = Array.from(document.scripts).map(script => {
+    if (script.loaded) {
+      return Promise.resolve();
+    } else {
+      return new Promise(resolve => {
+        script.addEventListener('load', resolve);
+        script.addEventListener('error', resolve);
+      });
+    }
+  });
+
+  const visualizationPromise = new Promise(resolve => {
+  const checkVisualizations = setInterval(() => {
+    if (document.querySelector('#container')) {
+      clearInterval(checkVisualizations);
+      resolve();
+    }
+  }, 100);
+  
+  setTimeout(() => {
+    clearInterval(checkVisualizations);
+    resolve();
+  }, 5000);
+});
+
+Promise.all([...imagePromises, ...scriptPromises, visualizationPromise])
+  .then(() => {
+    setTimeout(() => {
+      loadingScreen.style.opacity = '0';
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+      }, 500);
+    }, 1000);
+  })
+  .catch(() => {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+    }, 500);
+  });
+  </script>
 </body>
 </html>
 
