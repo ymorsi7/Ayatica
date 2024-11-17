@@ -772,3 +772,61 @@ input[type="range"]::-webkit-slider-thumb {
   margin: 15px 0;
   text-align: center;
 }
+
+#hadith-search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #444;
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 50%;
+}
+
+#hadith-search-bar {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: #f0f0f0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+#hadith-search-bar::placeholder {
+  color: #bbb;
+  font-style: italic;
+}
+
+#hadith-search-button {
+  background-color: #03ac00;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: -50px;
+}
+
+#hadith-search-button:hover {
+  background-color: #04d600;
+}
+
+#hadith-filter-button {
+  padding: 8px 20px;
+  background-color: #1a1a1a;
+  color: #03ac00;
+  border: 2px solid #03ac00;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+#hadith-filter-button:hover {
+  background-color: #03ac00;
+  color: #1a1a1a;
+}
