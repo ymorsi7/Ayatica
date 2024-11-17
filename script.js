@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { surah: 'The Cave', ayah: 11, highlightColor: 'gold', explanation: "Discusses sleep as a protection mechanism." },
         { surah: 'The Criterion', ayah: 25, highlightColor: 'gold', explanation: "Touches on the concept of time and relativity." }
     ];
-    
+
 
     let scientificOnly = false;
 
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function renderTreemap() {
                 svg.selectAll("*").remove();
 
-                const filteredData = scientificOnly 
+                const filteredData = scientificOnly
                     ? root.leaves().filter(d => notableVerses.some(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah))
                     : root.leaves();
 
@@ -92,12 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
                     })
                     .style("stroke", "#333")
-                    .on("click", function(event, d) { displayDetails(d); });
+                    .on("click", function (event, d) { displayDetails(d); });
             }
 
             function displayDetails(d) {
                 const details = d3.select("#verse-details");
-                details.html(""); 
+                details.html("");
 
                 if (d && d.data) {
                     const surahName = d.data.surah_name_en || "Unknown Surah";
@@ -131,8 +131,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function searchVerses() {
                 const keyword = document.getElementById("search-bar").value.toLowerCase();
-                
-                const searchData = root.leaves().filter(d => 
+
+                const searchData = root.leaves().filter(d =>
                     d.data.ayah_en && d.data.ayah_en.toLowerCase().includes(keyword)
                 );
 
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
                     })
                     .style("stroke", "#333")
-                    .on("click", function(event, d) { displayDetails(d); });
+                    .on("click", function (event, d) { displayDetails(d); });
             }
 
             document.getElementById("filter-button").onclick = toggleScientificMiracles;
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 .attr('height', d => d.y1 - d.y0)
                 .style('fill', '#33cccc')
                 .style('opacity', 0.7)
-                .on('mouseover', function(event, d) {
+                .on('mouseover', function (event, d) {
                     d3.select(this).style('opacity', 1);
                     const details = document.querySelector('.hadith-section .details-content');
                     details.innerHTML = `
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p><em>Book: ${d.data.book}</em></p>
                     `;
                 })
-                .on('mouseout', function() {
+                .on('mouseout', function () {
                     d3.select(this).style('opacity', 0.7);
                 });
 

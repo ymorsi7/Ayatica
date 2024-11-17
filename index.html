@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,18 +19,22 @@
       margin: 0;
       padding: 0;
     }
+
     h1 {
       font-size: 2em;
       margin-top: 1em;
       text-align: center;
     }
+
     #bismillah {
       margin-top: 20px;
       text-align: center;
     }
+
     #bismillah img {
       width: 200px;
     }
+
     #logo {
       position: absolute;
       top: 10px;
@@ -38,17 +43,20 @@
       display: flex;
       align-items: center;
     }
+
     #logo img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
     }
-    #logo img:hover + .tooltip,
+
+    #logo img:hover+.tooltip,
     #logo .tooltip:hover {
       opacity: 1;
       visibility: visible;
       transform: translateX(0);
     }
+
     .tooltip {
       margin-left: 50px;
       padding: 5px 10px;
@@ -63,6 +71,7 @@
       transform: translateX(-10px);
       transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
     }
+
     #search-container {
       display: flex;
       align-items: center;
@@ -73,6 +82,7 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       width: 50%;
     }
+
     #search-bar {
       width: 100%;
       padding: 10px;
@@ -82,10 +92,12 @@
       border: none;
       outline: none;
     }
+
     #search-bar::placeholder {
       color: #bbb;
       font-style: italic;
     }
+
     #search-button {
       background-color: #03ac00;
       color: #fff;
@@ -97,9 +109,11 @@
       transition: background-color 0.3s;
       margin-left: -50px;
     }
+
     #search-button:hover {
       background-color: #04d600;
     }
+
     #container {
       display: flex;
       flex-wrap: wrap;
@@ -107,11 +121,13 @@
       margin: 20px;
       gap: 20px;
     }
+
     #treemap {
       width: 800px;
       height: 600px;
       /* border: 1px solid #555; */
     }
+
     #verse-details {
       width: 400px;
       background-color: #2b2b2b;
@@ -119,16 +135,19 @@
       border-radius: 5px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     }
+
     #explanation {
       width: 400px;
       color: #03ac00;
       margin-top: 10px;
     }
+
     .footer {
       margin-top: 30px;
       color: #999;
       font-size: 0.8em;
     }
+
     #writeup {
       width: 70%;
       background-color: #333;
@@ -139,14 +158,17 @@
       font-size: 1em;
       line-height: 1.6;
     }
+
     #writeup h2 {
       text-align: center;
       margin-bottom: 20px;
       color: #fff;
     }
+
     a {
       color: #039900;
     }
+
     #filter-button {
       display: inline-block;
       padding: 10px 20px;
@@ -159,9 +181,11 @@
       margin: 20px 0;
       transition: background-color 0.3s;
     }
+
     #filter-button:hover {
       background-color: #04d600;
     }
+
     #verse-details {
       padding: 15px;
       border: 1px solid #ddd;
@@ -171,31 +195,37 @@
       margin-top: 20px;
       font-family: Arial, sans-serif;
     }
+
     #verse-details h3 {
       font-size: 18px;
       color: #04d600;
       margin-top: 0;
     }
+
     #verse-details p {
       font-size: 16px;
       color: white;
       line-height: 1.6;
     }
+
     #explanation {
       margin-top: 15px;
     }
+
     #explanation h4 {
       font-size: 16px;
       font-weight: bold;
       color: #03ac00;
       margin: 0;
     }
+
     #explanation p {
       font-size: 15px;
       color: white;
       line-height: 1.4;
       margin: 5px 0 0;
     }
+
     .miracle-section {
       display: flex;
       justify-content: space-between;
@@ -208,32 +238,38 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
+
     .verse-content {
       flex: 1;
       padding: 20px;
     }
+
     .verse-content h2 {
       color: #03ac00;
       font-size: 1.8em;
       margin-bottom: 10px;
     }
+
     .verse-content p {
       font-size: 1em;
       line-height: 1.6;
       margin-bottom: 15px;
     }
+
     .verse-content .arabic {
       font-size: 1.5em;
       text-align: right;
       color: #ccc;
       margin-bottom: 15px;
     }
+
     .animation-container {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     #creation-burst-container {
       display: flex;
       justify-content: center;
@@ -246,6 +282,7 @@
       color: white;
       position: relative;
     }
+
     .creation-tooltip {
       position: absolute;
       text-align: center;
@@ -260,6 +297,7 @@
       visibility: hidden;
       z-index: 1000;
     }
+
     .hadith-main-container {
       width: 90%;
       max-width: 1400px;
@@ -272,15 +310,18 @@
       flex-direction: column;
       align-items: center;
     }
+
     .hadith-treemap-section {
       display: flex;
       justify-content: space-between;
       margin-top: 30px;
       gap: 20px;
     }
+
     .hadith-treemap-container {
       width: 55%;
     }
+
     .hadith-details-container {
       width: 40%;
       padding: 15px;
@@ -289,11 +330,13 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
       color: #ffffff;
     }
+
     .hadith-title {
       color: #33cccc;
       text-align: center;
       margin-bottom: 30px;
     }
+
     .hadith-section {
       width: 80%;
       max-width: 1200px;
@@ -303,20 +346,24 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
+
     .hadith-section h1 {
       color: #03ac00;
       font-size: 1.8em;
       margin-bottom: 30px;
     }
+
     .hadith-section .treemap-section {
       display: flex;
       justify-content: space-between;
       margin-top: 30px;
       gap: 20px;
     }
+
     .hadith-section .treemap-container {
       width: 55%;
     }
+
     .hadith-section .details-container {
       width: 40%;
       padding: 20px;
@@ -325,11 +372,13 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       color: #ffffff;
     }
+
     .hadith-section .details-container h2 {
       color: #03ac00;
       font-size: 1.4em;
       margin-bottom: 10px;
     }
+
     .loading-container {
       display: flex;
       flex-direction: column;
@@ -339,6 +388,7 @@
       background-color: #1a1a1a;
       border-radius: 10px;
     }
+
     .loading-spinner {
       width: 50px;
       height: 50px;
@@ -347,21 +397,31 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
+
     .loading-text {
       color: #03ac00;
       margin-top: 20px;
       font-size: 1.2em;
     }
+
     @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
+
     .hadith-content {
       display: none;
     }
+
     .hadith-content.loaded {
       display: block;
     }
+
     #wordcloud-section {
       width: 100%;
       max-width: 1200px;
@@ -577,51 +637,52 @@
     }
 
     .section-transition #container {
-  width: 90%;
-  max-width: 1450px;
-  margin: 15px auto;
-  padding: 20px;
-  background: rgba(26, 26, 26, 0.95);
-  border-radius: 16px;
-}
+      width: 90%;
+      max-width: 1450px;
+      margin: 15px auto;
+      padding: 20px;
+      background: rgba(26, 26, 26, 0.95);
+      border-radius: 16px;
+    }
 
-.section-transition #treemap {
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+    .section-transition #treemap {
+      background-color: #1a1a1a;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
 
-.section-transition #verse-details,
-.section-transition #explanation {
-  background-color: transparent;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 0;
-  box-shadow: none;
-}
+    .section-transition #verse-details,
+    .section-transition #explanation {
+      background-color: transparent;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 0;
+      box-shadow: none;
+    }
 
-.section-transition #explanation {
-  color: #03ac00;
-  margin-top: 15px;
-  font-size: 0.95em;
-}
+    .section-transition #explanation {
+      color: #03ac00;
+      margin-top: 15px;
+      font-size: 0.95em;
+    }
 
-.section-transition #verse-details h3,
-.section-transition #explanation h3 {
-  color: #04d600;
-  text-align: center;
-  margin-bottom: 10px;
-}
+    .section-transition #verse-details h3,
+    .section-transition #explanation h3 {
+      color: #04d600;
+      text-align: center;
+      margin-bottom: 10px;
+    }
 
-.section-transition #verse-details p,
-.section-transition #explanation p {
-  color: #f0f0f0;
-  text-align: center;
-  line-height: 1.5;
-}
+    .section-transition #verse-details p,
+    .section-transition #explanation p {
+      color: #f0f0f0;
+      text-align: center;
+      line-height: 1.5;
+    }
 
 
-    .treemap-container, .details-container {
+    .treemap-container,
+    .details-container {
       background: rgba(26, 26, 26, 0.95);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -685,39 +746,36 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
-  </style>
 
-  <style>
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #2b2b2b;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.5s ease-out;
-  z-index: 9999;
-}
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #2b2b2b;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease-out;
+      z-index: 9999;
+    }
 
-.loading-icon {
-  width: 150px;
-  height: 150px;
-}
+    .loading-icon {
+      width: 150px;
+      height: 150px;
+    }
 
-.loading-text {
-  color: #03ac00;
-  font-family: 'Arial', sans-serif;
-  margin-top: 20px;
-  font-size: 1.2em;
-}
-
-
+    .loading-text {
+      color: #03ac00;
+      font-family: 'Arial', sans-serif;
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
   </style>
 </head>
+
 <body>
   <div id="loading-screen" class="loading-overlay">
     <img src="mosque.gif" alt="Loading..." class="loading-icon">
@@ -733,21 +791,25 @@
       <img src="bismillah.png" alt="Bismillah">
     </div>
     <h1 style="color: #03ac00;">Exploring Sacred Texts Through Data Visualization</h1>
-    <h2 style="color: #f0f0f0; font-size: 1.4em; margin: 15px 0; text-align: center;">What hidden patterns lie within centuries-old Islamic texts?</h2>
-    <p class="hook">Through interactive visualization, we can uncover fascinating connections between science and scripture that were written over 1400 years ago.</p>
+    <h2 style="color: #f0f0f0; font-size: 1.4em; margin: 15px 0; text-align: center;">What hidden patterns lie within
+      centuries-old Islamic texts?</h2>
+    <p class="hook">Through interactive visualization, we can uncover fascinating connections between science and
+      scripture that were written over 1400 years ago.</p>
 
   </div>
 
   <div class="section-transition">
     <h2>Search for Miracles in the Quran</h2>
-    <p>The Quran contains numerous verses that describe scientific phenomena with remarkable accuracy, centuries before their modern discovery. Use the interactive treemap below to explore these verses and more. You can search for specific terms or filter to view scientific miracles specifically.</p>
-    
+    <p>The Quran contains numerous verses that describe scientific phenomena with remarkable accuracy, centuries before
+      their modern discovery. Use the interactive treemap below to explore these verses and more. You can search for
+      specific terms or filter to view scientific miracles specifically.</p>
+
     <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
       <div id="search-container">
         <input id="search-bar" type="text" placeholder="Search for a Quranic keyword (i.e., 'loves')" />
         <button id="search-button">🔍</button>
       </div>
-      
+
       <button id="filter-button" onclick="toggleScientificMiracles()">Show Examples of Scientific Miracles Only</button>
     </div>
 
@@ -769,12 +831,12 @@
       <p>Explore the most common words in the Quran's English translation</p>
       <div class="word-cloud-controls">
         <label>
-          N-gram Size: 
+          N-gram Size:
           <input type="range" id="ngram-slider" min="1" max="7" value="1">
           <span id="ngram-value">1</span>
         </label>
         <label>
-          Minimum Frequency: 
+          Minimum Frequency:
           <input type="range" id="freq-slider" min="2" max="20" value="5">
           <span id="freq-value">5</span>
         </label>
@@ -795,8 +857,10 @@
     <div class="verse-content">
       <h2>Expansion of the Universe</h2>
       <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
-      <p><strong>Translation:</strong> "And the heaven We constructed with strength, and indeed, We are [its] expander." (Surah Adh-Dhariyat, 51:47)</p>
-      <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by observations of distant galaxies moving away from us.</p>
+      <p><strong>Translation:</strong> "And the heaven We constructed with strength, and indeed, We are [its] expander."
+        (Surah Adh-Dhariyat, 51:47)</p>
+      <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by
+        observations of distant galaxies moving away from us.</p>
     </div>
     <div class="animation-container">
       <div id="creation-burst-container">
@@ -817,52 +881,52 @@
       ];
 
       const tooltip = d3.select("#creation-burst-container")
-          .append("div")
-          .attr("class", "creation-tooltip");
+        .append("div")
+        .attr("class", "creation-tooltip");
 
       const svg = d3.select("#creation-burst")
-          .append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .append("g")
-          .attr("transform", `translate(${width / 2}, ${height / 2})`);
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
       const color = d3.scaleSequential(d3.interpolateCool).domain([0, layers.length]);
       const maxRadius = 180;
 
       function animateLayers() {
-          layers.forEach((layer, i) => {
-              svg.append("circle")
-                  .attr("r", 0)
-                  .attr("fill", color(i))
-                  .attr("opacity", 0.6)
-                  .attr("stroke", "#fff")
-                  .attr("stroke-width", 1.5)
-                  .on("mouseover", function (event) {
-                      tooltip.style("opacity", 1)
-                          .style("visibility", "visible")
-                          .html(`<strong>${layer.name}</strong><br>${layer.description}`);
-                  })
-                  .on("mousemove", function (event) {
-                      tooltip.style("top", `${event.pageY - 20}px`)
-                          .style("left", `${event.pageX + 10}px`);
-                  })
-                  .on("mouseout", function () {
-                      tooltip.style("opacity", 0)
-                          .style("visibility", "hidden");
-                  })
-                  .transition()
-                  .delay(i * 800) 
-                  .duration(4000) 
-                  .ease(d3.easeElasticOut)
-                  .attr("r", maxRadius * (i + 1) / layers.length)
-                  .attr("opacity", 0.3); 
-          });
+        layers.forEach((layer, i) => {
+          svg.append("circle")
+            .attr("r", 0)
+            .attr("fill", color(i))
+            .attr("opacity", 0.6)
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 1.5)
+            .on("mouseover", function (event) {
+              tooltip.style("opacity", 1)
+                .style("visibility", "visible")
+                .html(`<strong>${layer.name}</strong><br>${layer.description}`);
+            })
+            .on("mousemove", function (event) {
+              tooltip.style("top", `${event.pageY - 20}px`)
+                .style("left", `${event.pageX + 10}px`);
+            })
+            .on("mouseout", function () {
+              tooltip.style("opacity", 0)
+                .style("visibility", "hidden");
+            })
+            .transition()
+            .delay(i * 800)
+            .duration(4000)
+            .ease(d3.easeElasticOut)
+            .attr("r", maxRadius * (i + 1) / layers.length)
+            .attr("opacity", 0.3);
+        });
       }
 
       setInterval(() => {
-          svg.selectAll("circle").remove();
-          animateLayers();
+        svg.selectAll("circle").remove();
+        animateLayers();
       }, 6000);
 
       animateLayers();
@@ -870,13 +934,16 @@
   </section>
 
   <section class="miracle-section" style="display: flex; align-items: center; justify-content: space-between;">
-    <div class="animation-container" style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;">
+    <div class="animation-container"
+      style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;">
       <div id="orbit-container" style="width: 400px; height: 400px;"></div>
     </div>
     <div class="verse-content" style="flex: 1; padding: 20px; text-align: left;">
       <h2>Orbits of Celestial Bodies</h2>
-      <p class="arabic">وَهُوَ الَّذِي خَلَقَ اللَّيْلَ وَالنَّهَارَ وَالشَّمْسَ وَالْقَمَرَ ۖ كُلٌّ فِي فَلَكٍ يَسْبَحُونَ</p>
-      <p><strong>Translation:</strong> "And it is He who created the night and the day and the sun and the moon; all [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
+      <p class="arabic">وَهُوَ الَّذِي خَلَقَ اللَّيْلَ وَالنَّهَارَ وَالشَّمْسَ وَالْقَمَرَ ۖ كُلٌّ فِي فَلَكٍ
+        يَسْبَحُونَ</p>
+      <p><strong>Translation:</strong> "And it is He who created the night and the day and the sun and the moon; all
+        [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
       <p>This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -952,8 +1019,13 @@
   <section class="miracle-section">
     <div class="verse-content">
       <h2>Stages of Embryonic Development</h2>
-      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَار مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
-      <p><strong>Translation:</strong> "And certainly did We create man from an extract of clay. Then We placed him as a sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
+      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَار
+        مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا
+        فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
+      <p><strong>Translation:</strong> "And certainly did We create man from an extract of clay. Then We placed him as a
+        sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump
+        [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into
+        another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
       <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
     </div>
     <div class="animation-container">
@@ -1024,30 +1096,30 @@
 
   <div class="hadith-section">
     <h1>Interactive Hadith Treemaps</h1>
-    
+
     <div class="loading-container" id="loadingScreen">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading Hadith Data...</div>
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading Hadith Data...</div>
     </div>
 
     <div class="hadith-content" id="hadithContent">
-        <div class="main-container">
-            <div class="treemap-section">
-                <div class="treemap-container" id="bukhariTreemap"></div>
-                <div class="details-container" id="detailsBukhari">
-                    <h2>Bukhari Hadith Details</h2>
-                    <div class="details-content" id="hadithDetailsBukhari">Click on a hadith to view its details here.</div>
-                </div>
-            </div>
-
-            <div class="treemap-section">
-                <div class="treemap-container" id="muslimTreemap"></div>
-                <div class="details-container" id="detailsMuslim">
-                    <h2>Muslim Hadith Details</h2>
-                    <div class="details-content" id="hadithDetailsMuslim">Click on a hadith to view its details here.</div>
-                </div>
-            </div>
+      <div class="main-container">
+        <div class="treemap-section">
+          <div class="treemap-container" id="bukhariTreemap"></div>
+          <div class="details-container" id="detailsBukhari">
+            <h2>Bukhari Hadith Details</h2>
+            <div class="details-content" id="hadithDetailsBukhari">Click on a hadith to view its details here.</div>
+          </div>
         </div>
+
+        <div class="treemap-section">
+          <div class="treemap-container" id="muslimTreemap"></div>
+          <div class="details-container" id="detailsMuslim">
+            <h2>Muslim Hadith Details</h2>
+            <div class="details-content" id="hadithDetailsMuslim">Click on a hadith to view its details here.</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1095,9 +1167,9 @@
         .append("svg")
         .attr("width", width)
         .attr("height", height);
-      
+
       const g = svg.append("g");
-      
+
       const zoom = d3.zoom()
         .scaleExtent([1, 8])
         .on("zoom", (event) => {
@@ -1147,10 +1219,22 @@
   <section id="writeup">
     <h2 style="color: #03ac00;">About the Project</h2>
     <h3>Rationale for Design Decisions</h3>
-    <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size). Each Surah has a unique color to distinguish them, especially if adjacent in the treemap. Notable verses are highlighted in gold, allowing users to easily identify and click on them. A zooming/pan functionality was added to aid navigation in smaller Surahs. Additionally, a search bar enables filtering by keywords, for example, only showing verses containing 'love.' When a user clicks on a verse, details are shown in a side-panel.</p>
+    <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire
+      Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size).
+      Each Surah has a unique color to distinguish them, especially if adjacent in the treemap. Notable verses are
+      highlighted in gold, allowing users to easily identify and click on them. A zooming/pan functionality was added to
+      aid navigation in smaller Surahs. Additionally, a search bar enables filtering by keywords, for example, only
+      showing verses containing 'love.' When a user clicks on a verse, details are shown in a side-panel.</p>
 
     <h3>Development Process Overview</h3>
-    <p>As the sole developer, I completed the entire project independently. Initially, I spent time searching for a usable dataset on Kaggle. The first dataset I found had data separated by '|' instead of commas and formatting issues, so I switched to a more workable dataset, which was also on Kaggle. I implemented the D3.js treemap in about an hour. Extracting and translating the necessary data took some troubleshooting but was successful. Styling the website took about 30 minutes, followed by implementing the search functionality, which was straightforward with internet resources. After creating the initial model, I refined the user experience, adjusting border thickness, adding zoom/pan functionality, and converting CSV to JSON to improve load times. The final touch-ups, including styling and minor adjustments, took an additional hour or two.</p>
+    <p>As the sole developer, I completed the entire project independently. Initially, I spent time searching for a
+      usable dataset on Kaggle. The first dataset I found had data separated by '|' instead of commas and formatting
+      issues, so I switched to a more workable dataset, which was also on Kaggle. I implemented the D3.js treemap in
+      about an hour. Extracting and translating the necessary data took some troubleshooting but was successful. Styling
+      the website took about 30 minutes, followed by implementing the search functionality, which was straightforward
+      with internet resources. After creating the initial model, I refined the user experience, adjusting border
+      thickness, adding zoom/pan functionality, and converting CSV to JSON to improve load times. The final touch-ups,
+      including styling and minor adjustments, took an additional hour or two.</p>
   </section>
 
   <div class="footer">
@@ -1163,8 +1247,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
 
-      
-        new HadithVisualization('hadith-container');
+
+      new HadithVisualization('hadith-container');
     });
   </script>
   <div id="hadith-visualization-container"></div>
@@ -1173,15 +1257,15 @@
   </script>
 
   <script>
-    let versesPerWord = {}; 
+    let versesPerWord = {};
 
     const stopWords = new Set(['the', 'and', 'were', 'then', 'a', 'to', 'of', 'in', 'that', 'is', 'for', 'on', 'with', 'by', 'as', 'this', 'but', 'from', 'or', 'an', 'will', 'be', 'they', 'who', 'has', 'are', 'their', 'have', 'had', 'what', 'when', 'where', 'which', 'why', 'how']);
 
     function getNGrams(text, n) {
-      const words = text.split(/\W+/).filter(word => 
+      const words = text.split(/\W+/).filter(word =>
         word.length > 3 && !stopWords.has(word)
       );
-      
+
       const ngrams = [];
       for (let i = 0; i <= words.length - n; i++) {
         const ngramWords = words.slice(i, i + n);
@@ -1199,21 +1283,21 @@
     function updateWordCloud() {
       const ngramSize = +d3.select("#ngram-slider").property("value");
       const minFrequency = +d3.select("#freq-slider").property("value");
-      
+
       d3.select("#ngram-value").text(ngramSize);
       d3.select("#freq-value").text(minFrequency);
-      
+
       d3.json("https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json")
         .then(data => {
           const words = {};
           versesPerWord = {};
-          
+
           data.children.forEach(surah => {
             surah.children.forEach(verse => {
               if (verse.ayah_en) {
                 const text = verse.ayah_en.toLowerCase();
                 const ngrams = getNGrams(text, ngramSize);
-                
+
                 ngrams.forEach(ngram => {
                   words[ngram] = (words[ngram] || 0) + 1;
                   if (!versesPerWord[ngram]) {
@@ -1230,10 +1314,10 @@
           });
 
           const wordData = Object.entries(words)
-            .filter(([_, count]) => count > 4) 
+            .filter(([_, count]) => count > 4)
             .map(([text, size]) => ({
               text,
-              size: 10 + Math.log(size) * 10,  
+              size: 10 + Math.log(size) * 10,
               color: d3.interpolateViridis(Math.random())
             }));
 
@@ -1251,13 +1335,13 @@
 
           function draw(words) {
             d3.select("#wordcloud-container").select("svg").remove();
-            
+
             const svg = d3.select("#wordcloud-container")
               .append("svg")
               .attr("width", width)
               .attr("height", height)
               .append("g")
-              .attr("transform", `translate(${width/2},${height/2})`);
+              .attr("transform", `translate(${width / 2},${height / 2})`);
 
             svg.selectAll("text")
               .data(words)
@@ -1268,19 +1352,19 @@
               .attr("text-anchor", "middle")
               .attr("transform", d => `translate(${d.x},${d.y})`)
               .text(d => d.text)
-              .on("click", function(event, d) {
+              .on("click", function (event, d) {
                 showWordDetails(d.text, versesPerWord[d.text]);
               });
           }
         });
     }
 
-    d3.select("#ngram-slider").on("input", function() {
+    d3.select("#ngram-slider").on("input", function () {
       d3.select("#ngram-value").text(this.value);
       updateWordCloud();
     });
 
-    d3.select("#freq-slider").on("input", function() {
+    d3.select("#freq-slider").on("input", function () {
       d3.select("#freq-value").text(this.value);
       updateWordCloud();
     });
@@ -1290,13 +1374,13 @@
 
   <script>
     function showWordDetails(word, verses) {
-        const detailsContainer = document.getElementById('word-details');
-        if (!verses || verses.length === 0) {
-            detailsContainer.innerHTML = '<p>No verses found containing this word.</p>';
-            return;
-        }
+      const detailsContainer = document.getElementById('word-details');
+      if (!verses || verses.length === 0) {
+        detailsContainer.innerHTML = '<p>No verses found containing this word.</p>';
+        return;
+      }
 
-        let html = `
+      let html = `
             <div class="word-details-header">
                 <h3>Verses containing "${word}" (${verses.length} occurrences)</h3>
                 <button class="collapse-btn" onclick="toggleWordDetails(this)">−</button>
@@ -1304,14 +1388,14 @@
             <div class="verses-list">
         `;
 
-        verses.forEach(verse => {
-            const regex = new RegExp(`\\b${word}\\b`, 'gi');
-            const highlightedVerse = verse.verse.replace(
-                regex,
-                match => `<span class="highlighted-word">${match}</span>`
-            );
+      verses.forEach(verse => {
+        const regex = new RegExp(`\\b${word}\\b`, 'gi');
+        const highlightedVerse = verse.verse.replace(
+          regex,
+          match => `<span class="highlighted-word">${match}</span>`
+        );
 
-            html += `
+        html += `
                 <div class="verse-item">
                     <div class="verse-header">
                         <strong>${verse.surah}</strong>
@@ -1320,16 +1404,16 @@
                     <p class="verse-text">${highlightedVerse}</p>
                 </div>
             `;
-        });
-        html += '</div>';
-        detailsContainer.innerHTML = html;
+      });
+      html += '</div>';
+      detailsContainer.innerHTML = html;
     }
 
     function toggleWordDetails(button) {
-        const versesList = button.parentElement.nextElementSibling;
-        const isCollapsed = versesList.style.display === 'none';
-        versesList.style.display = isCollapsed ? 'block' : 'none';
-        button.textContent = isCollapsed ? '−' : '+';
+      const versesList = button.parentElement.nextElementSibling;
+      const isCollapsed = versesList.style.display === 'none';
+      versesList.style.display = isCollapsed ? 'block' : 'none';
+      button.textContent = isCollapsed ? '−' : '+';
     }
   </script>
 
@@ -1338,62 +1422,64 @@
       <h2>Understanding Sacred Texts</h2>
       <p>The Quran and Hadith contain thousands of verses and narrations, covering topics from spiritual guidance to scientific phenomena.</p>
       <!--  treemap vis -->
-    </div>
-    
-    <div class="but-section">
-      <h2>The Challenge</h2>
-      <p>However, traditional reading methods make it difficult to discover patterns, connections, and recurring themes across these vast collections.</p>
-      <!-- word cloud complexity explanation-->
-    </div>
-    
-    <div class="therefore-section">
-      <h2>A New Approach</h2>
-      <p>By leveraging interactive data visualization, we can explore these texts in novel ways, revealing fascinating patterns and connections.</p>
-    </div>
+  </div>
+
+  <div class="but-section">
+    <h2>The Challenge</h2>
+    <p>However, traditional reading methods make it difficult to discover patterns, connections, and recurring themes
+      across these vast collections.</p>
+    <!-- word cloud complexity explanation-->
+  </div>
+
+  <div class="therefore-section">
+    <h2>A New Approach</h2>
+    <p>By leveraging interactive data visualization, we can explore these texts in novel ways, revealing fascinating
+      patterns and connections.</p>
+  </div>
   </div> -->
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-  const loadingScreen = document.getElementById('loading-screen');
-  
-  
-  const MAX_LOADING_TIME = 3000; 
-  
-  const timeoutPromise = new Promise(resolve => {
-    setTimeout(resolve, MAX_LOADING_TIME);
-  });
+    document.addEventListener('DOMContentLoaded', function () {
+      const loadingScreen = document.getElementById('loading-screen');
 
-  const imagePromises = Array.from(document.images).map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(resolve => {
-      img.onload = resolve;
-      img.onerror = resolve;
+
+      const MAX_LOADING_TIME = 3000;
+
+      const timeoutPromise = new Promise(resolve => {
+        setTimeout(resolve, MAX_LOADING_TIME);
+      });
+
+      const imagePromises = Array.from(document.images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      });
+
+      const scriptPromises = Array.from(document.scripts).map(script => {
+        if (script.loaded) return Promise.resolve();
+        return new Promise(resolve => {
+          script.onload = resolve;
+          script.onerror = resolve;
+        });
+      });
+
+
+      Promise.race([
+        Promise.all([...imagePromises, ...scriptPromises]),
+        timeoutPromise
+      ])
+        .finally(() => {
+
+          loadingScreen.style.opacity = '0';
+
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 500);
+        });
     });
-  });
-
-  const scriptPromises = Array.from(document.scripts).map(script => {
-    if (script.loaded) return Promise.resolve();
-    return new Promise(resolve => {
-      script.onload = resolve;
-      script.onerror = resolve;
-    });
-  });
-
-
-  Promise.race([
-    Promise.all([...imagePromises, ...scriptPromises]),
-    timeoutPromise
-  ])
-  .finally(() => {
-
-    loadingScreen.style.opacity = '0';
-   
-    setTimeout(() => {
-      loadingScreen.style.display = 'none';
-    }, 500);
-  });
-});
-</script>
+  </script>
 </body>
-</html>
 
+</html>
