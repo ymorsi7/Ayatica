@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quranic Visualization</title>
+  <title>Islamic Text Visualization</title>
   <link rel="icon" href="quran.png" type="image/x-icon">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
@@ -386,6 +386,7 @@
       background-color: #2b2b2b;
       border-radius: 8px;
       color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .word-cloud-text {
@@ -451,6 +452,85 @@
       text-align: center;
       color: #03ac00;
       font-weight: bold;
+    }
+
+    .word-details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #444;
+    }
+
+    .collapse-btn {
+      background: none;
+      border: none;
+      color: #03ac00;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0 10px;
+      line-height: 1;
+    }
+
+    .collapse-btn:hover {
+      color: #04d600;
+    }
+
+    .verses-list {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .verse-item {
+      background-color: #333;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 6px;
+      border-left: 3px solid #03ac00;
+    }
+
+    .verse-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      color: #03ac00;
+    }
+
+    .verse-number {
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    .verse-text {
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .highlighted-word {
+      color: #03ac00;
+      font-weight: bold;
+      padding: 0 2px;
+    }
+
+    /* Scrollbar styling */
+    .verses-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .verses-list::-webkit-scrollbar-track {
+      background: #222;
+      border-radius: 4px;
+    }
+
+    .verses-list::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 4px;
+    }
+
+    .verses-list::-webkit-scrollbar-thumb:hover {
+      background: #555;
     }
   </style>
 </head>
@@ -672,7 +752,7 @@
   <section class="miracle-section">
     <div class="verse-content">
       <h2>Stages of Embryonic Development</h2>
-      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَار مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
+      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَار مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ ��َحْسَنُ الْخَالِقِينَ</p>
       <p><strong>Translation:</strong> "And certainly did We create man from an extract of clay. Then We placed him as a sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
       <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
     </div>
@@ -952,10 +1032,10 @@
           });
 
           const wordData = Object.entries(words)
-            .filter(([_, count]) => count > 4) 
+            .filter(([_, count]) => count > 4)  
             .map(([text, size]) => ({
               text,
-              size: 10 + Math.log(size) * 10,  
+              size: 10 + Math.log(size) * 10, 
               color: d3.interpolateViridis(Math.random())
             }));
 
@@ -997,7 +1077,6 @@
         });
     }
 
-    // Add event listeners for the sliders
     d3.select("#ngram-slider").on("input", function() {
       d3.select("#ngram-value").text(this.value);
       updateWordCloud();
@@ -1008,7 +1087,6 @@
       updateWordCloud();
     });
 
-    // Initial word cloud creation
     updateWordCloud();
 
     function showWordDetails(word, verses) {
@@ -1018,17 +1096,43 @@
             return;
         }
 
-        let html = `<h3>Verses containing "${word}":</h3><ul>`;
+        let html = `
+            <div class="word-details-header">
+                <h3>Verses containing "${word}"</h3>
+                <button class="collapse-btn" onclick="toggleWordDetails(this)">−</button>
+            </div>
+            <div class="verses-list">
+        `;
+
         verses.forEach(verse => {
+            const regex = new RegExp(`\\b${word}\\b`, 'gi');
+            const highlightedVerse = verse.verse.replace(
+                regex,
+                match => `<span class="highlighted-word">${match}</span>`
+            );
+
             html += `
-                <li>
-                    <strong>${verse.surah}</strong> (Verse ${verse.ayah_no})<br>
-                    ${verse.verse}
-                </li>
+                <div class="verse-item">
+                    <div class="verse-header">
+                        <strong>${verse.surah}</strong>
+                        <span class="verse-number">Verse ${verse.ayah_no}</span>
+                    </div>
+                    <p class="verse-text">${highlightedVerse}</p>
+                </div>
             `;
         });
-        html += '</ul>';
+        html += '</div>';
         detailsContainer.innerHTML = html;
+    }
+
+    function toggleWordDetails(button) {
+        const versesList = button.parentElement.nextElementSibling;
+        const isCollapsed = versesList.style.display === 'none';
+        
+        versesList.style.display = isCollapsed ? 'block' : 'none';
+        button.textContent = isCollapsed ? '−' : '+';
+      
+        versesList.style.transition = 'all 0.3s ease-in-out';
     }
   </script>
 </body>
