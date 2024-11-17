@@ -600,16 +600,26 @@
   box-shadow: none;
 }
 
+.section-transition #explanation {
+  color: #03ac00;
+  margin-top: 15px;
+  font-size: 0.95em;
+}
 
-    .section-transition #verse-details h3 {
-      color: #04d600;
-      text-align: center;
-    }
+.section-transition #verse-details h3,
+.section-transition #explanation h3 {
+  color: #04d600;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-    .section-transition #verse-details p {
-      color: #f0f0f0;
-      text-align: center;
-    }
+.section-transition #verse-details p,
+.section-transition #explanation p {
+  color: #f0f0f0;
+  text-align: center;
+  line-height: 1.5;
+}
+
 
     .treemap-container, .details-container {
       background: rgba(26, 26, 26, 0.95);
@@ -669,7 +679,7 @@
 
     .section-transition #verse-details,
     .section-transition #explanation {
-      background-color: #1a1a1a;
+      /* background-color: #1a1a1a; */
       border-radius: 12px;
       padding: 20px;
       margin-bottom: 20px;
@@ -706,8 +716,8 @@
     </div>
 
     <div id="container">
-      <div id="treemap" style="width: 65%;"></div>
-      <div style="width: 30%;">
+      <div id="treemap" style="width: 63%;"></div>
+      <div style="width: 28%;">
         <div id="verse-details">
           <h3>Verse Details</h3>
           <p>Pick a verse to view its details!</p>
@@ -1291,13 +1301,13 @@
     <div class="and-section">
       <h2>Understanding Sacred Texts</h2>
       <p>The Quran and Hadith contain thousands of verses and narrations, covering topics from spiritual guidance to scientific phenomena.</p>
-      <!-- Reference to treemap visualization -->
+      <!--  treemap vis -->
     </div>
     
     <div class="but-section">
       <h2>The Challenge</h2>
       <p>However, traditional reading methods make it difficult to discover patterns, connections, and recurring themes across these vast collections.</p>
-      <!-- Reference to word cloud showing complexity -->
+      <!-- word cloud complexity explanation-->
     </div>
     
     <div class="therefore-section">

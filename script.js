@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function displayDetails(d) {
                 const details = d3.select("#verse-details");
-                details.html("");  // Clear previous content
+                details.html(""); 
 
                 if (d && d.data) {
                     const surahName = d.data.surah_name_en || "Unknown Surah";
