@@ -1333,7 +1333,7 @@
     }
   </script>
 
-  <div class="narrative-section">
+  <!-- <div class="narrative-section">
     <div class="and-section">
       <h2>Understanding Sacred Texts</h2>
       <p>The Quran and Hadith contain thousands of verses and narrations, covering topics from spiritual guidance to scientific phenomena.</p>
@@ -1350,64 +1350,50 @@
       <h2>A New Approach</h2>
       <p>By leveraging interactive data visualization, we can explore these texts in novel ways, revealing fascinating patterns and connections.</p>
     </div>
-  </div>
+  </div> -->
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
   const loadingScreen = document.getElementById('loading-screen');
   
+  
+  const MAX_LOADING_TIME = 5000; 
+  
+  const timeoutPromise = new Promise(resolve => {
+    setTimeout(resolve, MAX_LOADING_TIME);
+  });
+
   const imagePromises = Array.from(document.images).map(img => {
-    if (img.complete) {
-      return Promise.resolve();
-    } else {
-      return new Promise(resolve => {
-        img.addEventListener('load', resolve);
-        img.addEventListener('error', resolve); 
-      });
-    }
+    if (img.complete) return Promise.resolve();
+    return new Promise(resolve => {
+      img.onload = resolve;
+      img.onerror = resolve;
+    });
   });
 
   const scriptPromises = Array.from(document.scripts).map(script => {
-    if (script.loaded) {
-      return Promise.resolve();
-    } else {
-      return new Promise(resolve => {
-        script.addEventListener('load', resolve);
-        script.addEventListener('error', resolve);
-      });
-    }
+    if (script.loaded) return Promise.resolve();
+    return new Promise(resolve => {
+      script.onload = resolve;
+      script.onerror = resolve;
+    });
   });
 
-  const visualizationPromise = new Promise(resolve => {
-  const checkVisualizations = setInterval(() => {
-    if (document.querySelector('#container')) {
-      clearInterval(checkVisualizations);
-      resolve();
-    }
-  }, 100);
-  
-  setTimeout(() => {
-    clearInterval(checkVisualizations);
-    resolve();
-  }, 5000);
-});
 
-Promise.all([...imagePromises, ...scriptPromises, visualizationPromise])
-  .then(() => {
-    setTimeout(() => {
-      loadingScreen.style.opacity = '0';
-      setTimeout(() => {
-        loadingScreen.style.display = 'none';
-      }, 500);
-    }, 1000);
-  })
-  .catch(() => {
+  Promise.race([
+    Promise.all([...imagePromises, ...scriptPromises]),
+    timeoutPromise
+  ])
+  .finally(() => {
+
     loadingScreen.style.opacity = '0';
+   
     setTimeout(() => {
       loadingScreen.style.display = 'none';
     }, 500);
   });
-  </script>
+});
+</script>
 </body>
 </html>
 
