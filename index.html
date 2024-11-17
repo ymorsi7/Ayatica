@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Islamic Text Visualization</title>
+  <title>Quranic Visualization</title>
   <link rel="icon" href="quran.png" type="image/x-icon">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
@@ -514,7 +514,6 @@
       padding: 0 2px;
     }
 
-    /* Scrollbar styling */
     .verses-list::-webkit-scrollbar {
       width: 8px;
     }
@@ -752,7 +751,7 @@
   <section class="miracle-section">
     <div class="verse-content">
       <h2>Stages of Embryonic Development</h2>
-      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَار مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ ��َحْسَنُ الْخَالِقِينَ</p>
+      <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَرَار مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
       <p><strong>Translation:</strong> "And certainly did We create man from an extract of clay. Then We placed him as a sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
       <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
     </div>
@@ -875,12 +874,10 @@
           }))
       };
 
-      // Create both treemaps
       Promise.all([
         createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600),
         createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600)
       ]).then(() => {
-        // Hide loading screen and show content
         document.getElementById('loadingScreen').style.display = 'none';
         document.getElementById('hadithContent').classList.add('loaded');
       });
@@ -1032,10 +1029,10 @@
           });
 
           const wordData = Object.entries(words)
-            .filter(([_, count]) => count > 4)  
+            .filter(([_, count]) => count > 4) 
             .map(([text, size]) => ({
               text,
-              size: 10 + Math.log(size) * 10, 
+              size: 10 + Math.log(size) * 10,  
               color: d3.interpolateViridis(Math.random())
             }));
 
@@ -1088,7 +1085,9 @@
     });
 
     updateWordCloud();
+  </script>
 
+  <script>
     function showWordDetails(word, verses) {
         const detailsContainer = document.getElementById('word-details');
         if (!verses || verses.length === 0) {
@@ -1098,7 +1097,7 @@
 
         let html = `
             <div class="word-details-header">
-                <h3>Verses containing "${word}"</h3>
+                <h3>Verses containing "${word}" (${verses.length} occurrences)</h3>
                 <button class="collapse-btn" onclick="toggleWordDetails(this)">−</button>
             </div>
             <div class="verses-list">
@@ -1128,11 +1127,8 @@
     function toggleWordDetails(button) {
         const versesList = button.parentElement.nextElementSibling;
         const isCollapsed = versesList.style.display === 'none';
-        
         versesList.style.display = isCollapsed ? 'block' : 'none';
         button.textContent = isCollapsed ? '−' : '+';
-      
-        versesList.style.transition = 'all 0.3s ease-in-out';
     }
   </script>
 </body>
