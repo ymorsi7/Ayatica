@@ -762,3 +762,13 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: 20px;
   font-size: 1.2em;
 }
+
+.intro-section h1 {
+  font-family: "Pacifico", serif;
+  font-weight: 100;
+  font-style: normal;
+  color: #f0f0f0;
+  font-size: 1.6em;
+  margin: 15px 0;
+  text-align: center;
+}

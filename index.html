@@ -9,6 +9,9 @@
   <link rel = "stylesheet" href = "style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Pacifico&display=swap" rel="stylesheet">
 
 </head>
 
@@ -26,11 +29,12 @@
     <div id="bismillah">
       <img src="bismillah.png" alt="Bismillah">
     </div>
-    <h1 style="color: #03ac00;">Exploring Sacred Texts Through Data Visualization</h1>
-    <h2 style="color: #f0f0f0; font-size: 1.4em; margin: 15px 0; text-align: center;">What hidden patterns lie within
-      centuries-old Islamic texts?</h2>
-    <p class="hook">Through interactive visualization, we can uncover fascinating connections between science and
-      scripture that were written over 1400 years ago.</p>
+    <!-- <h1 style="color: #ffffff;">Exploring Sacred Texts Through Data Visualization</h1> -->
+    <h1 style="color: #03ac00;; font-size: 1.6em; margin: 15px 0; text-align: center;">What Patterns and Miracles Lie Within
+      Centuries-Old Islamic Texts?</h1>
+      <center>
+    <p class="hook" style = "padding-left: 100px; padding-right: 100px;">The Quran and Hadith are considered some of the most authentic, influential, and meticulously preseved texts in human history, functioning as foundational sources of guidance for almost <b>2 billion Muslims</b>. Through interactive visualization, we can uncover a multitutude of connections between science and history,
+      and truth in scripture written over 1000 years ago.</p></center>
 
   </div>
 
@@ -61,32 +65,11 @@
     </div>
   </div>
 
-  <section class="miracle-section">
-    <div class="verse-content">
-      <h2>Word Frequency Cloud</h2>
-      <p>Explore the most common words in the Quran's English translation</p>
-      <div class="word-cloud-controls">
-        <label>
-          N-gram Size:
-          <input type="range" id="ngram-slider" min="1" max="7" value="1">
-          <span id="ngram-value">1</span>
-        </label>
-        <label>
-          Minimum Frequency:
-          <input type="range" id="freq-slider" min="2" max="20" value="5">
-          <span id="freq-value">5</span>
-        </label>
-      </div>
-      <div id="wordcloud-container"></div>
-      <div id="word-details">
-        <h3>Word Details</h3>
-        <p>Click on a word to see verses containing it!</p>
-      </div>
-    </div>
-  </section>
 
   <div class="section-transition">
-    <p>Now that we've seen the linguistic patterns, let's explore some fascinating scientific descriptions...</p>
+    <h2>To Name a Few...</h2>
+    <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the treemap to find more! <br><br><b style = "color:#03ac00;">Although the above activity provides plenty of insight into some of the miracles of the Quran, let's take a closer look at some of the miracles in more detail...</b> </new></p>
+
   </div>
 
   <section class="miracle-section">
@@ -328,6 +311,31 @@
 
       animateStages();
     </script>
+  </section>
+
+
+  <section class="miracle-section">
+    <div class="verse-content">
+      <h2>Word Frequency Cloud</h2>
+      <p>Explore the most common words in the Quran's English translation</p>
+      <div class="word-cloud-controls">
+        <label>
+          N-gram Size:
+          <input type="range" id="ngram-slider" min="1" max="7" value="1">
+          <span id="ngram-value">1</span>
+        </label>
+        <label>
+          Minimum Frequency:
+          <input type="range" id="freq-slider" min="2" max="20" value="5">
+          <span id="freq-value">5</span>
+        </label>
+      </div>
+      <div id="wordcloud-container"></div>
+      <div id="word-details">
+        <h3>Word Details</h3>
+        <p>Click on a word to see verses containing it!</p>
+      </div>
+    </div>
   </section>
 
   <div class="hadith-section">
