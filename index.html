@@ -737,6 +737,7 @@
       return ngrams;
     }
 
+
     function updateWordCloud() {
       const ngramSize = +d3.select("#ngram-slider").property("value");
       const minFrequency = +d3.select("#freq-slider").property("value");
@@ -802,6 +803,11 @@
 
             svg.selectAll("text")
               .data(words)
+              .enter()
+              .append("text")
+              .style("font-size", d => `${d.size}px`)
+              .style("fill", d => d.color)
+              .attr("text-anchor", "middle")
               .attr("transform", d => `translate(${d.x},${d.y})`)
               .text(d => d.text)
               .on("click", function (event, d) {
