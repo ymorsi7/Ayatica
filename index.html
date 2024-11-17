@@ -952,10 +952,10 @@
           });
 
           const wordData = Object.entries(words)
-            .filter(([_, count]) => count > 4)  // Show words that appear more than 5 times
+            .filter(([_, count]) => count > 4) 
             .map(([text, size]) => ({
               text,
-              size: 10 + Math.log(size) * 10,  // Logarithmic scaling
+              size: 10 + Math.log(size) * 10,  
               color: d3.interpolateViridis(Math.random())
             }));
 
@@ -1010,6 +1010,26 @@
 
     // Initial word cloud creation
     updateWordCloud();
+
+    function showWordDetails(word, verses) {
+        const detailsContainer = document.getElementById('word-details');
+        if (!verses || verses.length === 0) {
+            detailsContainer.innerHTML = '<p>No verses found containing this word.</p>';
+            return;
+        }
+
+        let html = `<h3>Verses containing "${word}":</h3><ul>`;
+        verses.forEach(verse => {
+            html += `
+                <li>
+                    <strong>${verse.surah}</strong> (Verse ${verse.ayah_no})<br>
+                    ${verse.verse}
+                </li>
+            `;
+        });
+        html += '</ul>';
+        detailsContainer.innerHTML = html;
+    }
   </script>
 </body>
 </html>
