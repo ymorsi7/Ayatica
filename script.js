@@ -33,7 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
         { surah: 'The Thunder', ayah: 12, highlightColor: 'gold', explanation: "Describes thunder’s formation." },
         { surah: 'The Cave', ayah: 11, highlightColor: 'gold', explanation: "Discusses sleep as a protection mechanism." },
         { surah: 'The Criterion', ayah: 25, highlightColor: 'gold', explanation: "Touches on the concept of time and relativity." },
-        { surah: 'Ta-Ha', ayah: 53, highlightColor: 'gold', explanation: "Here is the translation of the translation of zauj (plural azwaj) whose original meaning is: ‘that which, in the company of another, forms a pair’; the word is used just as readily for a married couple as for a pair of shoes. This is describing how plants come in pairs, implying sexual plant reproduction, which was not something that was known at the time of the Quran." }
+        { surah: 'Ta-Ha', ayah: 53, highlightColor: 'gold', explanation: "Here is the translation of the translation of zauj (plural azwaj) whose original meaning is: ‘that which, in the company of another, forms a pair’; the word is used just as readily for a married couple as for a pair of shoes. This is describing how plants come in pairs, implying sexual plant reproduction, which was not something that was known at the time of the Quran." },
+        { surah: 'The Romans', ayah: 1, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
+        { surah: 'The Romans', ayah: 2, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
+        { surah: 'The Romans', ayah: 3, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
+        { surah: 'The Romans', ayah: 4, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
+        { surah: 'The Romans', ayah: 5, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
     ];
 
 
