@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Exploring the Quran and Hadith</title>
   <link rel="icon" href="quran.png" type="image/x-icon">
-  <link rel = "stylesheet" href = "style.css">
+  <link rel="stylesheet" href="style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Pacifico&display=swap"
+    rel="stylesheet">
 
 </head>
 
@@ -30,27 +31,38 @@
       <img src="bismillah.png" alt="Bismillah">
     </div>
     <!-- <h1 style="color: #ffffff;">Exploring Sacred Texts Through Data Visualization</h1> -->
-    <h1 style="color: #03ac00;; font-size: 1.6em; margin: 15px 0; text-align: center;">What Patterns and Miracles Lie Within
+    <h1 style="color: #03ac00;; font-size: 1.6em; margin: 15px 0; text-align: center;">What Patterns and Miracles Lie
+      Within
       Centuries-Old Islamic Texts?</h1>
-      <center>
-    <p class="hook" style = "padding-left: 100px; padding-right: 100px;">The Quran and Hadith are considered some of the most authentic, influential, and meticulously preseved texts in human history, functioning as foundational sources of guidance for almost <b>2 billion Muslims</b>. Through interactive visualization, we can uncover a multitutude of connections between science and history,
-      and truth in scripture written over 1000 years ago.</p></center>
+    <center>
+      <p class="hook" style="padding-left: 100px; padding-right: 100px;">The Quran and Hadith are considered some of the
+        most authentic, influential, and meticulously preseved texts in human history, functioning as foundational
+        sources of guidance for almost <b>2 billion Muslims</b>. Through interactive visualization, we can uncover a
+        multitutude of connections between science and history,
+        and truth in scripture written over 1000 years ago.</p>
+    </center>
 
   </div>
 
-  <div class="section-transition">
+  <div class="section-transition" style="margin-bottom: 10px;">
+    <h2>Step-By-Step</h2>
+    <p>We could spend thousands upon thousands of hours just exploring one of the individual texts were are looking at.
+      Let's go <b style="color: #03ac00;">step-by-step</b>
+      before looking at the miracles of the Sahih Bukhari and Sahih Muslim hadith, and start off by analyzing the
+      linguistic patterns, and some of the miracles of <b style="color: #03ac00;">the Quran</b>.</p>
+  </div>
+  <div class="section-transition" style="margin-top: 10px;margin-bottom: 10px;">
     <h2>Search for Miracles in the Quran</h2>
     <p>The Quran contains numerous verses that describe scientific phenomena with remarkable accuracy, centuries before
       their modern discovery. Use the interactive treemap below to explore these verses and more. You can search for
       specific terms or filter to view scientific miracles specifically.</p>
-
     <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
       <div id="search-container">
         <input id="search-bar" type="text" placeholder="Search for a Quranic keyword (i.e., 'loves')" />
         <button id="search-button">🔍</button>
       </div>
-
       <button id="filter-button" onclick="toggleScientificMiracles()">Show Examples of Scientific Miracles Only</button>
+
     </div>
 
     <div id="container">
@@ -64,11 +76,17 @@
       </div>
     </div>
   </div>
+  </div>
 
 
-  <div class="section-transition">
+  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;">
     <h2>To Name a Few...</h2>
-    <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the treemap to find more! <br><br><b style = "color:#03ac00;">Although the above activity provides plenty of insight into some of the miracles of the Quran, let's take a closer look at some of the miracles in more detail...</b> </new></p>
+    <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
+      our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
+      treemap to find more! <br><br><b style="color:#03ac00;">Although the above activity provides plenty of insight
+        into some of the miracles of the Quran, let's take a closer look at some of the miracles in more detail...</b>
+      </new>
+    </p>
 
   </div>
 
@@ -101,7 +119,9 @@
 
       const tooltip = d3.select("#creation-burst-container")
         .append("div")
-        .attr("class", "creation-tooltip");
+        .attr("class", "creation-tooltip")
+        .style("position", "absolute")
+        .style("pointer-events", "none");
 
       const svg = d3.select("#creation-burst")
         .append("svg")
@@ -124,11 +144,13 @@
             .on("mouseover", function (event) {
               tooltip.style("opacity", 1)
                 .style("visibility", "visible")
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px")
                 .html(`<strong>${layer.name}</strong><br>${layer.description}`);
             })
             .on("mousemove", function (event) {
-              tooltip.style("top", `${event.pageY - 20}px`)
-                .style("left", `${event.pageX + 10}px`);
+              tooltip.style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
             })
             .on("mouseout", function () {
               tooltip.style("opacity", 0)
