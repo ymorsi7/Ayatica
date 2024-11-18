@@ -13,7 +13,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Pacifico&display=swap"
     rel="stylesheet">
-
+    <div class="nav-buttons">
+      <div class="dropdown">
+        <button class="dropbtn">Quran</button>
+        <div class="dropdown-content">
+          <a href="#treemap">Treemap Search</a>
+          <a href="#to-name-a-few">Miracle Examples</a>
+          <a href="#word-cloud">Word Cloud</a>
+          <a href="#numerical-patterns">Numerical Pattern Examples</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Hadith</button>
+        <div class="dropdown-content">
+          <a href="#hadith-treemap">Treemap Search</a>
+          <a href="#hadith-examples">Miracle Examples</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn" onclick="location.href='#about-the-project'">About</button>
+      </div>
+    </div>
 </head>
 
 <body>
@@ -429,7 +449,7 @@
 
   <section class="miracle-section" id = "word-cloud">
     <div class="verse-content">
-      <h2>Word Frequency Cloud</h2>
+      <h2>Quranic Word Cloud</h2>
       <p>Explore the most common words in the Quran's English translation</p>
       <div class="word-cloud-controls">
         <label>
@@ -532,7 +552,7 @@
     </div>
   </section>
 
-  <div class="section-transition" style="margin-bottom: 10px;">
+  <div class="section-transition" style="margin-bottom: 10px;" id = "hadith-section">
     <h2>Time to Explore the Hadith!</h2>
     <p>Now that we've done some exploration of the Quran, let's take a look through the <b style="color: #03ac00;">hadith</b>,
       more specifically the <b style="color: #03ac00;">Sahih Bukhari</b> and <b style="color: #03ac00;">Sahih Muslim</b>. 
@@ -575,6 +595,17 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id = "hadith-examples">
+    <h2>To Name a Few...</h2>
+    <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
+      our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
+      treemap to find more! <br><br><b style="color:#03ac00;">Although the above activity provides plenty of insight
+        into some of the miracles of the Quran, let's take a closer look at some of the miracles in more detail...</b>
+      </new>
+    </p>
+
   </div>
 
   <div class="tooltip" id="tooltip"></div>
@@ -703,7 +734,7 @@
   </script>
 
   <section id="writeup">
-    <h2 style="color: #03ac00;">About the Project</h2>
+    <h2 style="color: #03ac00;" id = "about-project">About the Project</h2>
     <h3>Rationale for Design Decisions</h3>
     <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire
       Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size).
