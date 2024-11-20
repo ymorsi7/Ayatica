@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { surah: 'The Romans', ayah: 5, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
     ];
 
+    const notableBukhariHadiths = [101, 102, 103]; 
+    const notableMuslimHadiths = [201, 202, 203]; 
 
     let scientificOnly = false;
 
@@ -167,58 +169,135 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("Error loading JSON:", error));
 
-    function initHadithViz() {
-        const width = 800;
-        const height = 600;
+    const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
+    let bukhariUpdate, muslimUpdate;
 
-        const svg = d3.select("#hadith-treemap")
+    d3.json(url).then(data => {
+        const bukhariData = {
+            name: "Sahih Bukhari",
+            children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
+                .map(([chapter, hadiths]) => ({
+                    name: chapter,
+                    children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+                }))
+        };
+
+        const muslimData = {
+            name: "Sahih Muslim",
+            children: d3.groups(data.filter(d => d.source === "Sahih Muslim"), d => d.chapter)
+                .map(([chapter, hadiths]) => ({
+                    name: chapter,
+                    children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+                }))
+        };
+
+        bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
+        muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+    });
+
+    let showNotableOnly = false;
+    function toggleNotableHadiths() {
+        console.log("Toggle button clicked");
+        console.log("Current showNotableOnly:", showNotableOnly);
+        showNotableOnly = !showNotableOnly;
+        console.log("New showNotableOnly:", showNotableOnly);
+        
+        document.getElementById("hadith-filter-button").textContent = showNotableOnly
+            ? "Show All Hadiths"
+            : "Show Examples of Prophetic Wisdom";
+
+        if (bukhariUpdate) {
+            console.log("Calling bukhariUpdate with:", showNotableOnly);
+            bukhariUpdate(showNotableOnly);
+        }
+        if (muslimUpdate) {
+            console.log("Calling muslimUpdate with:", showNotableOnly);
+            muslimUpdate(showNotableOnly);
+        }
+    }
+
+    document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+
+    function createTreemap(data, container, detailsId, width, height) {
+        const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
+        d3.treemap().size([width, height]).padding(1)(root);
+
+        const svg = d3.select(container)
             .append("svg")
             .attr("width", width)
             .attr("height", height);
 
-        d3.json("data/hadith.json").then(data => {
-            const root = d3.hierarchy(data)
-                .sum(d => d.value)
-                .sort((a, b) => b.value - a.value);
+        const g = svg.append("g");
 
-            const treemapLayout = d3.treemap()
-                .size([width, height])
-                .padding(1);
+        const zoom = d3.zoom()
+            .scaleExtent([1, 8])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
 
-            treemapLayout(root);
+        svg.call(zoom);
 
-            const nodes = svg.selectAll('g')
-                .data(root.leaves())
+        const tooltip = d3.select("#tooltip");
+        const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
+
+        const notableHadiths = data.name === "Sahih Bukhari" ? notableBukhariHadiths : notableMuslimHadiths;
+
+        function updateVisualization(filterParam) {
+            console.log("updateVisualization called with:", filterParam);
+            console.log("Data name:", data.name);
+            console.log("Notable hadiths:", notableHadiths);
+            
+            g.selectAll("*").remove();
+
+            let leaves = root.leaves();
+            
+            if (typeof filterParam === 'boolean') {
+                console.log("Boolean filter detected");
+                if (filterParam) {
+                    console.log("Filtering for notable hadiths");
+                    leaves = leaves.filter(d => {
+                        const isNotable = notableHadiths.includes(parseInt(d.data.id));
+                        console.log("Checking hadith:", d.data.id, "isNotable:", isNotable);
+                        return isNotable;
+                    });
+                }
+            } else if (typeof filterParam === 'string' && filterParam) {
+                leaves = leaves.filter(d => 
+                    d.data.text_en.toLowerCase().includes(filterParam.toLowerCase()) ||
+                    d.parent.data.name.toLowerCase().includes(filterParam.toLowerCase())
+                );
+            }
+
+            g.selectAll("rect")
+                .data(leaves)
                 .enter()
-                .append('g')
-                .attr('transform', d => `translate(${d.x0},${d.y0})`);
-
-            nodes.append('rect')
-                .attr('width', d => d.x1 - d.x0)
-                .attr('height', d => d.y1 - d.y0)
-                .style('fill', '#33cccc')
-                .style('opacity', 0.7)
-                .on('mouseover', function (event, d) {
-                    d3.select(this).style('opacity', 1);
-                    const details = document.querySelector('.hadith-section .details-content');
-                    details.innerHTML = `
-                        <h3>${d.data.collection}</h3>
-                        <p>${d.data.text}</p>
-                        <p><em>Book: ${d.data.book}</em></p>
-                    `;
+                .append("rect")
+                .attr("x", d => d.x0)
+                .attr("y", d => d.y0)
+                .attr("width", d => d.x1 - d.x0)
+                .attr("height", d => d.y1 - d.y0)
+                .style("fill", d => {
+                    const isNotable = notableHadiths.includes(parseInt(d.data.id));
+                    return isNotable ? 'gold' : color(d.parent.data.name);
                 })
-                .on('mouseout', function () {
-                    d3.select(this).style('opacity', 0.7);
+                .style("stroke", "#333")
+                .on("mouseover", (event, d) => {
+                    tooltip.style("visibility", "visible")
+                        .text(`Chapter: ${d.parent.data.name}`);
+                })
+                .on("mousemove", (event) => {
+                    tooltip.style("top", `${event.pageY + 10}px`)
+                        .style("left", `${event.pageX + 10}px`);
+                })
+                .on("mouseout", () => {
+                    tooltip.style("visibility", "hidden");
+                })
+                .on("click", (event, d) => {
+                    displayDetails(d, detailsId);
                 });
+        }
 
-            nodes.append('text')
-                .attr('x', 5)
-                .attr('y', 20)
-                .text(d => d.data.collection)
-                .style('font-size', '12px')
-                .style('fill', 'white');
-        });
+        updateVisualization();
+        return updateVisualization;
     }
-
-    initHadithViz();
 });

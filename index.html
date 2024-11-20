@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Pacifico&display=swap"
@@ -497,7 +498,7 @@
         appear exactly 145 times in the Quran, reflecting the universal truth that every life has its corresponding
         death.</p>
       <p>This equal frequency emphasizes the Quranic theme of life and death being two sides of the same coin.</p>
-    </div>
+    </div> 
     <div class="animation-container">
       <img src="images/death.png" alt="Life Death Balance">
     </div>
@@ -510,7 +511,7 @@
     <div class="verse-content">
       <h2>Gender Equality in Words</h2>
       <p class="arabic">رَجُل - اِمْرَأَة</p>
-      <p><strong style="color:#03ac00;">Divine Balance:</strong> The word for "man" (رَجُل) and "woman" (اِمْرَأَة) each
+      <p><strong style="color:#03ac00;">Divine Balance:</strong> The word for "man" (رَجل) and "woman" (اِمْرَأَة) each
         appear exactly 24 times in the Quran, indicating equality in their spiritual status and religious obligations.
       </p>
       <p>This equal representation emphasizes the Quranic principle of spiritual equality between genders.</p>
@@ -590,126 +591,138 @@
   <div class="tooltip" id="tooltip"></div>
 
   <script>
-    const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
-    let bukhariUpdate, muslimUpdate;
-
-    d3.json(url).then(data => {
-      const bukhariData = {
-        name: "Sahih Bukhari",
-        children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
-          .map(([chapter, hadiths]) => ({
-            name: chapter,
-            children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
-          }))
-      };
-
-      const muslimData = {
-        name: "Sahih Muslim",
-        children: d3.groups(data.filter(d => d.source === "Sahih Muslim"), d => d.chapter)
-          .map(([chapter, hadiths]) => ({
-            name: chapter,
-            children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
-          }))
-      };
-
-      const [updateBukhari, updateMuslim] = [
-        createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600),
-        createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600)
-      ];
-
-      bukhariUpdate = updateBukhari;
-      muslimUpdate = updateMuslim;
-
-      document.getElementById('loadingScreen').style.display = 'none';
-      document.getElementById('hadithContent').classList.add('loaded');
-
-      const hadithSearchBar = document.getElementById("hadith-search-bar");
-      const hadithSearchButton = document.getElementById("hadith-search-button");
-
-      function handleHadithSearch() {
-        const searchTerm = hadithSearchBar.value;
-        if (bukhariUpdate) bukhariUpdate(searchTerm);
-        if (muslimUpdate) muslimUpdate(searchTerm);
-      }
-
-      hadithSearchBar.addEventListener("input", handleHadithSearch);
-      hadithSearchButton.addEventListener("click", handleHadithSearch);
-    }).catch(error => {
-      console.error('Error loading hadith data:', error);
-      document.querySelector('.loading-text').textContent = 'Error loading data. Please try again later.';
-    });
-
-    function createTreemap(data, container, detailsId, width, height) {
-      const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
-      d3.treemap().size([width, height]).padding(1)(root);
-
-      const svg = d3.select(container)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-      const g = svg.append("g");
-
-      const zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .on("zoom", (event) => {
-          g.attr("transform", event.transform);
-        });
-
-      svg.call(zoom);
-
-      const tooltip = d3.select("#tooltip");
-      const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
-
-      function updateVisualization(searchTerm = "") {
-        g.selectAll("rect").remove();
-
-        let leaves = root.leaves();
-        if (searchTerm) {
-          leaves = leaves.filter(d =>
-            d.data.text_en.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            d.parent.data.name.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+    document.addEventListener("DOMContentLoaded", () => {
+        const notableBukhariHadiths = [101, 102, 103];
+        const notableMuslimHadiths = [201, 202, 203];
+        
+        let showNotableOnly = false;
+        
+        function toggleNotableHadiths() {
+            showNotableOnly = !showNotableOnly;
+            document.getElementById("hadith-filter-button").textContent = 
+                showNotableOnly ? "Show All Hadiths" : "Show Examples of Prophetic Wisdom";
+            
+            if (bukhariUpdate) bukhariUpdate(showNotableOnly);
+            if (muslimUpdate) muslimUpdate(showNotableOnly);
         }
 
-        g.selectAll("rect")
-          .data(leaves)
-          .enter()
-          .append("rect")
-          .attr("x", d => d.x0)
-          .attr("y", d => d.y0)
-          .attr("width", d => d.x1 - d.x0)
-          .attr("height", d => d.y1 - d.y0)
-          .style("fill", d => color(d.parent.data.name))
-          .style("stroke", "#333")
-          .on("mouseover", (event, d) => {
-            tooltip.style("visibility", "visible")
-              .text(`Chapter: ${d.parent.data.name}`);
-          })
-          .on("mousemove", (event) => {
-            tooltip.style("top", `${event.pageY + 10}px`)
-              .style("left", `${event.pageX + 10}px`);
-          })
-          .on("mouseout", () => {
-            tooltip.style("visibility", "hidden");
-          })
-          .on("click", (event, d) => {
-            displayDetails(d, detailsId);
-          });
-      }
+        document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+        function createTreemap(data, container, detailsId, width, height) {
+            const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
+            d3.treemap().size([width, height]).padding(1)(root);
+            
+            const svg = d3.select(container)
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
 
-      updateVisualization();
-      return updateVisualization;
-    }
+            const g = svg.append("g");
 
-    function displayDetails(d, detailsId) {
-      const detailsContainer = document.getElementById(detailsId);
-      detailsContainer.innerHTML = `
-        <strong>Chapter:</strong> ${d.parent.data.name || "N/A"}<br><br>
-        <strong>Text (English):</strong> ${d.data.text_en || "N/A"}<br><br>
-        <strong>Text (Arabic):</strong> ${d.data.text_ar || "N/A"}
-      `;
-    }
+            const zoom = d3.zoom()
+                .scaleExtent([1, 8])
+                .on("zoom", (event) => {
+                    g.attr("transform", event.transform);
+                });
+
+            svg.call(zoom);
+
+            const tooltip = d3.select("#tooltip");
+            const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
+
+            
+            const notableHadiths = data.name === "Sahih Bukhari" ? notableBukhariHadiths : notableMuslimHadiths;
+
+            function updateVisualization(filterParam) {
+                console.log("updateVisualization called with:", filterParam);
+                console.log("Data name:", data.name);
+                console.log("Notable hadiths:", notableHadiths);
+                
+                g.selectAll("*").remove();
+                let leaves = root.leaves();
+                
+                if (typeof filterParam === 'boolean') {
+                    console.log("Boolean filter detected");
+                    if (filterParam) {
+                        console.log("Filtering for notable hadiths");
+                        leaves = leaves.filter(d => {
+                            const isNotable = notableHadiths.includes(parseInt(d.data.id));
+                            console.log("Checking hadith:", d.data.id, "isNotable:", isNotable);
+                            return isNotable;
+                        });
+                    }
+                } else if (typeof filterParam === 'string' && filterParam) {
+                    leaves = leaves.filter(d => 
+                        d.data.text.toLowerCase().includes(filterParam.toLowerCase()) ||
+                        d.parent.data.name.toLowerCase().includes(filterParam.toLowerCase())
+                    );
+                }
+
+                g.selectAll("rect")
+                    .data(leaves)
+                    .enter()
+                    .append("rect")
+                    .attr("x", d => d.x0)
+                    .attr("y", d => d.y0)
+                    .attr("width", d => d.x1 - d.x0)
+                    .attr("height", d => d.y1 - d.y0)
+                    .style("fill", d => {
+                        const isNotable = notableHadiths.includes(parseInt(d.data.id));
+                        return isNotable ? 'gold' : color(d.parent.data.name);
+                    })
+                    .style("stroke", "#333")
+                    .on("mouseover", (event, d) => {
+                        tooltip.style("visibility", "visible")
+                            .text(`Chapter: ${d.parent.data.name}`);
+                    })
+                    .on("mousemove", (event) => {
+                        tooltip.style("top", `${event.pageY + 10}px`)
+                            .style("left", `${event.pageX + 10}px`);
+                    })
+                    .on("mouseout", () => {
+                        tooltip.style("visibility", "hidden");
+                    })
+                    .on("click", (event, d) => {
+                        displayDetails(d, detailsId);
+                    });
+            }
+
+            updateVisualization();
+            return updateVisualization;
+        }
+
+        const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
+        let bukhariUpdate, muslimUpdate;
+
+        d3.json(url).then(data => {
+            const bukhariData = {
+                name: "Sahih Bukhari",
+                children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
+                    .map(([chapter, hadiths]) => ({
+                        name: chapter,
+                        children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+                    }))
+            };
+
+            const muslimData = {
+                name: "Sahih Muslim",
+                children: d3.groups(data.filter(d => d.source === "Sahih Muslim"), d => d.chapter)
+                    .map(([chapter, hadiths]) => ({
+                        name: chapter,
+                        children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+                    }))
+            };
+
+
+            document.getElementById("loadingScreen").style.display = "none";
+            document.getElementById("hadithContent").style.display = "block";
+
+            bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
+            muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+        }).catch(error => {
+            console.error("Error loading hadith data:", error);
+            document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";
+        });
+    });
   </script>
 
   <section id="writeup">
@@ -738,7 +751,6 @@
   </div>
   <br>
 
-  <script src="script.js"></script>
   <div id="hadith-container"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
