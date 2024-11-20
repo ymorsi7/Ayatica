@@ -285,7 +285,7 @@
     <div class="verse-content">
       <h2>Stages of Embryonic Development</h2>
       <p class="arabic">وَلَقَدْ خَلَقْنَا الإِنسَانَ ِن سُلَالَةٍ مِّن طِينٍ ثُمَّ جَعَلْنَاهُ نُطْفَةً فِي قَار
-        مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً فَخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا
+        مَّكِينٍ ثُمَّ خَلَقْنَا لنُّطْفَ عَلَقَةً َخَلْنَا الْعَلَقَةَ مُضْغَةً فَخَلَقْنَا الْمُضْغَةَ عِظَامًا
         فَكَسَوْنَا الْعِظَامَ لَحْمًا ثُمَّ أَنشَأْنَاهُ خَلْقًا آخَرَ فَتَبَارَكَ اللَّهُ أَحْسَنُ الْخَالِقِينَ</p>
       <p><strong style="color:#03ac00;">Translation:</strong> "And certainly did We create man from an extract of clay.
         Then We placed him as a
@@ -511,7 +511,7 @@
     <div class="verse-content">
       <h2>Gender Equality in Words</h2>
       <p class="arabic">رَجُل - اِمْرَأَة</p>
-      <p><strong style="color:#03ac00;">Divine Balance:</strong> The word for "man" (رَجل) and "woman" (اِمْرَأَة) each
+      <p><strong style="color:#03ac00;">Divine Balance:</strong> The word for "man" (رَجُل) and "woman" (اِمْرَأَة) each
         appear exactly 24 times in the Quran, indicating equality in their spiritual status and religious obligations.
       </p>
       <p>This equal representation emphasizes the Quranic principle of spiritual equality between genders.</p>
@@ -592,21 +592,11 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const notableBukhariHadiths = [101, 102, 103];
-        const notableMuslimHadiths = [201, 202, 203];
-        
-        let showNotableOnly = false;
-        
-        function toggleNotableHadiths() {
-            showNotableOnly = !showNotableOnly;
-            document.getElementById("hadith-filter-button").textContent = 
-                showNotableOnly ? "Show All Hadiths" : "Show Examples of Prophetic Wisdom";
-            
-            if (bukhariUpdate) bukhariUpdate(showNotableOnly);
-            if (muslimUpdate) muslimUpdate(showNotableOnly);
-        }
+        const notableBukhariHadiths = [1, 2, 3];
+        const notableMuslimHadiths = [1, 2, 3];
+        let bukhariUpdate, muslimUpdate;
 
-        document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+        // Add createTreemap function definition here
         function createTreemap(data, container, detailsId, width, height) {
             const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
             d3.treemap().size([width, height]).padding(1)(root);
@@ -629,69 +619,84 @@
             const tooltip = d3.select("#tooltip");
             const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
 
-            
             const notableHadiths = data.name === "Sahih Bukhari" ? notableBukhariHadiths : notableMuslimHadiths;
 
-            function updateVisualization(filterParam) {
-                console.log("updateVisualization called with:", filterParam);
-                console.log("Data name:", data.name);
-                console.log("Notable hadiths:", notableHadiths);
-                
-                g.selectAll("*").remove();
-                let leaves = root.leaves();
-                
-                if (typeof filterParam === 'boolean') {
-                    console.log("Boolean filter detected");
-                    if (filterParam) {
-                        console.log("Filtering for notable hadiths");
-                        leaves = leaves.filter(d => {
-                            const isNotable = notableHadiths.includes(parseInt(d.data.id));
-                            console.log("Checking hadith:", d.data.id, "isNotable:", isNotable);
-                            return isNotable;
-                        });
-                    }
-                } else if (typeof filterParam === 'string' && filterParam) {
-                    leaves = leaves.filter(d => 
-                        d.data.text.toLowerCase().includes(filterParam.toLowerCase()) ||
-                        d.parent.data.name.toLowerCase().includes(filterParam.toLowerCase())
-                    );
+            function displayDetails(d, detailsId) {
+                const detailsContainer = document.getElementById(detailsId);
+                if (d && d.data) {
+                    const chapterName = d.parent.data.name;
+                    const hadithText = d.data.text;
+                    const hadithId = d.data.id;
+                    const source = d.data.source;
+                    
+                    detailsContainer.innerHTML = `
+                        <h3>${source} - Chapter: ${chapterName}</h3>
+                        <p><strong>Hadith ID:</strong> ${hadithId}</p>
+                        <p><strong>Text:</strong> ${hadithText}</p>
+                    `;
+                } else {
+                    detailsContainer.innerHTML = "No data available for this hadith.";
                 }
-
-                g.selectAll("rect")
-                    .data(leaves)
-                    .enter()
-                    .append("rect")
-                    .attr("x", d => d.x0)
-                    .attr("y", d => d.y0)
-                    .attr("width", d => d.x1 - d.x0)
-                    .attr("height", d => d.y1 - d.y0)
-                    .style("fill", d => {
-                        const isNotable = notableHadiths.includes(parseInt(d.data.id));
-                        return isNotable ? 'gold' : color(d.parent.data.name);
-                    })
-                    .style("stroke", "#333")
-                    .on("mouseover", (event, d) => {
-                        tooltip.style("visibility", "visible")
-                            .text(`Chapter: ${d.parent.data.name}`);
-                    })
-                    .on("mousemove", (event) => {
-                        tooltip.style("top", `${event.pageY + 10}px`)
-                            .style("left", `${event.pageX + 10}px`);
-                    })
-                    .on("mouseout", () => {
-                        tooltip.style("visibility", "hidden");
-                    })
-                    .on("click", (event, d) => {
-                        displayDetails(d, detailsId);
-                    });
             }
 
-            updateVisualization();
+            function updateVisualization(filterParam) {
+    console.log("updateVisualization called with:", filterParam);
+    console.log("Data name:", data.name);
+    console.log("Notable hadiths:", notableHadiths);
+    
+    g.selectAll("*").remove();
+    let leaves = root.leaves();
+    
+    if (typeof filterParam === 'boolean') {
+        console.log("Boolean filter detected");
+        if (filterParam) {
+            leaves = leaves.filter(d => {
+                const isNotable = notableHadiths.includes(parseInt(d.data.id));
+                console.log("Checking hadith:", d.data.id, "isNotable:", isNotable);
+                return isNotable;
+            });
+        }
+    } else if (typeof filterParam === 'string' && filterParam) {
+        leaves = leaves.filter(d => 
+            d.data.text.toLowerCase().includes(filterParam.toLowerCase()) ||
+            d.parent.data.name.toLowerCase().includes(filterParam.toLowerCase())
+        );
+    }
+
+    g.selectAll("rect")
+        .data(leaves)
+        .enter()
+        .append("rect")
+        .attr("x", d => d.x0)
+        .attr("y", d => d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .style("fill", d => {
+            const isNotable = notableHadiths.includes(parseInt(d.data.id));
+            return isNotable ? 'gold' : color(d.parent.data.name);
+        })
+        .style("stroke", "#333")
+        .on("mouseover", (event, d) => {
+            tooltip.style("visibility", "visible")
+                .text(`Chapter: ${d.parent.data.name}`);
+        })
+        .on("mousemove", (event) => {
+            tooltip.style("top", `${event.pageY + 10}px`)
+                .style("left", `${event.pageX + 10}px`);
+        })
+        .on("mouseout", () => {
+            tooltip.style("visibility", "hidden");
+        })
+        .on("click", (event, d) => {
+            displayDetails(d, detailsId);
+        });
+}
+
+            updateVisualization(false);
             return updateVisualization;
         }
 
         const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
-        let bukhariUpdate, muslimUpdate;
 
         d3.json(url).then(data => {
             const bukhariData = {
@@ -712,12 +717,49 @@
                     }))
             };
 
-
             document.getElementById("loadingScreen").style.display = "none";
             document.getElementById("hadithContent").style.display = "block";
 
             bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
             muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+            let showNotableOnly = false;
+function toggleNotableHadiths() {
+    console.log("Toggle button clicked");
+    console.log("Current showNotableOnly:", showNotableOnly);
+    showNotableOnly = !showNotableOnly;
+    console.log("New showNotableOnly:", showNotableOnly);
+    
+    document.getElementById("hadith-filter-button").textContent = showNotableOnly
+        ? "Show All Hadiths"
+        : "Show Examples of Prophetic Wisdom";
+
+    if (bukhariUpdate) {
+        console.log("Calling bukhariUpdate with:", showNotableOnly);
+        bukhariUpdate(showNotableOnly);
+    }
+    if (muslimUpdate) {
+        console.log("Calling muslimUpdate with:", showNotableOnly);
+        muslimUpdate(showNotableOnly);
+    }
+}
+
+
+document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+            document.getElementById("hadith-search-button").addEventListener("click", () => {
+                const searchTerm = document.getElementById("hadith-search-bar").value;
+                if (bukhariUpdate) bukhariUpdate(searchTerm);
+                if (muslimUpdate) muslimUpdate(searchTerm);
+            });
+
+            document.getElementById("hadith-search-bar").addEventListener("keypress", (event) => {
+                if (event.key === "Enter") {
+                    const searchTerm = event.target.value;
+                    if (bukhariUpdate) bukhariUpdate(searchTerm);
+                    if (muslimUpdate) muslimUpdate(searchTerm);
+                }
+            });
+
+            document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
         }).catch(error => {
             console.error("Error loading hadith data:", error);
             document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";

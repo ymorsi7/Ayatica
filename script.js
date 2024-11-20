@@ -193,31 +193,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
         bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
         muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+        let showNotableOnly = false;
+function toggleNotableHadiths() {
+    console.log("Toggle button clicked");
+    console.log("Current showNotableOnly:", showNotableOnly);
+    showNotableOnly = !showNotableOnly;
+    console.log("New showNotableOnly:", showNotableOnly);
+    
+    document.getElementById("hadith-filter-button").textContent = showNotableOnly
+        ? "Show All Hadiths"
+        : "Show Examples of Prophetic Wisdom";
+
+    if (bukhariUpdate) {
+        console.log("Calling bukhariUpdate with:", showNotableOnly);
+        bukhariUpdate(showNotableOnly);
+    }
+    if (muslimUpdate) {
+        console.log("Calling muslimUpdate with:", showNotableOnly);
+        muslimUpdate(showNotableOnly);
+    }
+}
+
+document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+
+        
+        
     });
 
-    let showNotableOnly = false;
-    function toggleNotableHadiths() {
-        console.log("Toggle button clicked");
-        console.log("Current showNotableOnly:", showNotableOnly);
-        showNotableOnly = !showNotableOnly;
-        console.log("New showNotableOnly:", showNotableOnly);
-        
-        document.getElementById("hadith-filter-button").textContent = showNotableOnly
-            ? "Show All Hadiths"
-            : "Show Examples of Prophetic Wisdom";
+    
+    
 
-        if (bukhariUpdate) {
-            console.log("Calling bukhariUpdate with:", showNotableOnly);
-            bukhariUpdate(showNotableOnly);
-        }
-        if (muslimUpdate) {
-            console.log("Calling muslimUpdate with:", showNotableOnly);
-            muslimUpdate(showNotableOnly);
-        }
-    }
 
-    document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
 
+    
     function createTreemap(data, container, detailsId, width, height) {
         const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
         d3.treemap().size([width, height]).padding(1)(root);
