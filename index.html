@@ -14,27 +14,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Pacifico&display=swap"
     rel="stylesheet">
-    <div class="nav-buttons">
-      <div class="dropdown">
-        <button class="dropbtn">Quran</button>
-        <div class="dropdown-content">
-          <a href="#treemap">Treemap Search</a>
-          <a href="#to-name-a-few">Miracle Examples</a>
-          <a href="#word-cloud">Word Cloud</a>
-          <a href="#numerical-patterns">Numerical Pattern Examples</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropbtn">Hadith</button>
-        <div class="dropdown-content">
-          <a href="#hadith-treemap-the">Treemap Search</a>
-          <a href="#hadith-examples">Miracle Examples</a>
-        </div>
-      </div>
-      <div class="dropdown">
-        <button class="dropbtn" onclick="location.href='#about-the-project'">About</button>
+  <div class="nav-buttons">
+    <div class="dropdown">
+      <button class="dropbtn">Quran</button>
+      <div class="dropdown-content">
+        <a href="#treemap">Treemap Search</a>
+        <a href="#to-name-a-few">Miracle Examples</a>
+        <a href="#word-cloud">Word Cloud</a>
+        <a href="#numerical-patterns">Numerical Pattern Examples</a>
       </div>
     </div>
+    <div class="dropdown">
+      <button class="dropbtn">Hadith</button>
+      <div class="dropdown-content">
+        <a href="#hadith-treemap-the">Treemap Search</a>
+        <a href="#hadith-examples">Miracle Examples</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn" onclick="location.href='#about-the-project'">About</button>
+    </div>
+  </div>
 </head>
 
 <body>
@@ -101,7 +101,7 @@
   </div>
 
 
-  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id = "to-name-a-few">
+  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id="to-name-a-few">
     <h2>To Name a Few...</h2>
     <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
       our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
@@ -427,7 +427,7 @@
   </div>
 
 
-  <section class="miracle-section" id = "word-cloud">
+  <section class="miracle-section" id="word-cloud">
     <div class="verse-content">
       <h2>Quranic Word Cloud</h2>
       <p>Explore the most common words in the Quran's English translation</p>
@@ -451,7 +451,7 @@
     </div>
   </section>
 
-  <div class="section-transition" style="margin-bottom: 10px;" id = "numerical-patterns">
+  <div class="section-transition" style="margin-bottom: 10px;" id="numerical-patterns">
     <h2>Numerical Patterns</h2>
     <p>The word cloud activity has given us a good idea of the linguistic patterns of the Quran, and even slowly
       introduced us to some of the numerical patterns as well.
@@ -498,7 +498,7 @@
         appear exactly 145 times in the Quran, reflecting the universal truth that every life has its corresponding
         death.</p>
       <p>This equal frequency emphasizes the Quranic theme of life and death being two sides of the same coin.</p>
-    </div> 
+    </div>
     <div class="animation-container">
       <img src="images/death.png" alt="Life Death Balance">
     </div>
@@ -532,11 +532,13 @@
     </div>
   </section>
 
-  <div class="section-transition" style="margin-bottom: 10px;" id = "hadith-treemap-the">
+  <div class="section-transition" style="margin-bottom: 10px;" id="hadith-treemap-the">
     <h2>Time to Explore the Hadith!</h2>
-    <p>Now that we've done some exploration of the Quran, let's take a look through the <b style="color: #03ac00;">hadith</b>,
-      more specifically the <b style="color: #03ac00;">Sahih Bukhari</b> and <b style="color: #03ac00;">Sahih Muslim</b>. 
-      A few examples of miracles in the hadith are boxes highlighted in gold. 
+    <p>Now that we've done some exploration of the Quran, let's take a look through the <b
+        style="color: #03ac00;">hadith</b>,
+      more specifically the <b style="color: #03ac00;">Sahih Bukhari</b> and <b style="color: #03ac00;">Sahih
+        Muslim</b>.
+      A few examples of miracles in the hadith are boxes highlighted in gold.
     </p>
   </div>
 
@@ -577,7 +579,7 @@
     </div>
   </div>
 
-  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id = "hadith-examples">
+  <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id="hadith-examples">
     <h2>To Name a Few...</h2>
     <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
       our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
@@ -592,183 +594,183 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const notableBukhariHadiths = [1, 2, 3];
-        const notableMuslimHadiths = [1, 2, 3];
-        let bukhariUpdate, muslimUpdate;
+      const notableBukhariHadiths = [1, 2, 3];
+      const notableMuslimHadiths = [1, 2, 3];
+      let bukhariUpdate, muslimUpdate;
 
-        // Add createTreemap function definition here
-        function createTreemap(data, container, detailsId, width, height) {
-            const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
-            d3.treemap().size([width, height]).padding(1)(root);
-            
-            const svg = d3.select(container)
-                .append("svg")
-                .attr("width", width)
-                .attr("height", height);
+      // Add createTreemap function definition here
+      function createTreemap(data, container, detailsId, width, height) {
+        const root = d3.hierarchy(data).sum(d => d.value).sort((a, b) => b.value - a.value);
+        d3.treemap().size([width, height]).padding(1)(root);
 
-            const g = svg.append("g");
+        const svg = d3.select(container)
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height);
 
-            const zoom = d3.zoom()
-                .scaleExtent([1, 8])
-                .on("zoom", (event) => {
-                    g.attr("transform", event.transform);
-                });
+        const g = svg.append("g");
 
-            svg.call(zoom);
+        const zoom = d3.zoom()
+          .scaleExtent([1, 8])
+          .on("zoom", (event) => {
+            g.attr("transform", event.transform);
+          });
 
-            const tooltip = d3.select("#tooltip");
-            const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
+        svg.call(zoom);
 
-            const notableHadiths = data.name === "Sahih Bukhari" ? notableBukhariHadiths : notableMuslimHadiths;
+        const tooltip = d3.select("#tooltip");
+        const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
 
-            function displayDetails(d, detailsId) {
-                const detailsContainer = document.getElementById(detailsId);
-                if (d && d.data) {
-                    const chapterName = d.parent.data.name;
-                    const hadithText = d.data.text_en;
-                    const hadithId = d.data.id;
-                    const source = d.data.source;
-                    
-                    detailsContainer.innerHTML = `
+        const notableHadiths = data.name === "Sahih Bukhari" ? notableBukhariHadiths : notableMuslimHadiths;
+
+        function displayDetails(d, detailsId) {
+          const detailsContainer = document.getElementById(detailsId);
+          if (d && d.data) {
+            const chapterName = d.parent.data.name;
+            const hadithText = d.data.text_en;
+            const hadithId = d.data.id;
+            const source = d.data.source;
+
+            detailsContainer.innerHTML = `
                         <h3>${source} - Chapter: ${chapterName}</h3>
                         <p><strong>Hadith ID:</strong> ${hadithId}</p>
                         <p><strong>Text:</strong> ${hadithText}</p>
                     `;
-                } else {
-                    detailsContainer.innerHTML = "No data available for this hadith.";
-                }
-            }
+          } else {
+            detailsContainer.innerHTML = "No data available for this hadith.";
+          }
+        }
 
-            function updateVisualization(filterParam) {
-    console.log("updateVisualization called with:", filterParam);
-    console.log("Data name:", data.name);
-    console.log("Notable hadiths:", notableHadiths);
-    
-    g.selectAll("*").remove();
-    let leaves = root.leaves();
-    
-    if (typeof filterParam === 'boolean') {
-        console.log("Boolean filter detected");
-        if (filterParam) {
-            leaves = leaves.filter(d => {
+        function updateVisualization(filterParam) {
+          console.log("updateVisualization called with:", filterParam);
+          console.log("Data name:", data.name);
+          console.log("Notable hadiths:", notableHadiths);
+
+          g.selectAll("*").remove();
+          let leaves = root.leaves();
+
+          if (typeof filterParam === 'boolean') {
+            console.log("Boolean filter detected");
+            if (filterParam) {
+              leaves = leaves.filter(d => {
                 const isNotable = notableHadiths.includes(parseInt(d.data.id));
                 console.log("Checking hadith:", d.data.id, "isNotable:", isNotable);
                 return isNotable;
-            });
-        }
-    } else if (typeof filterParam === 'string' && filterParam) {
-        leaves = leaves.filter(d => 
-            d.data.text.toLowerCase().includes(filterParam.toLowerCase()) ||
-            d.parent.data.name.toLowerCase().includes(filterParam.toLowerCase())
-        );
-    }
+              });
+            }
+          } else if (typeof filterParam === 'string' && filterParam) {
+            leaves = leaves.filter(d =>
+              d.data.text_en.toLowerCase().includes(filterParam.toLowerCase()) ||
+              d.parent.data.name.toLowerCase().includes(filterParam.toLowerCase())
+            );
+          }
 
-    g.selectAll("rect")
-        .data(leaves)
-        .enter()
-        .append("rect")
-        .attr("x", d => d.x0)
-        .attr("y", d => d.y0)
-        .attr("width", d => d.x1 - d.x0)
-        .attr("height", d => d.y1 - d.y0)
-        .style("fill", d => {
-            const isNotable = notableHadiths.includes(parseInt(d.data.id));
-            return isNotable ? 'gold' : color(d.parent.data.name);
-        })
-        .style("stroke", "#333")
-        .on("mouseover", (event, d) => {
-            tooltip.style("visibility", "visible")
+          g.selectAll("rect")
+            .data(leaves)
+            .enter()
+            .append("rect")
+            .attr("x", d => d.x0)
+            .attr("y", d => d.y0)
+            .attr("width", d => d.x1 - d.x0)
+            .attr("height", d => d.y1 - d.y0)
+            .style("fill", d => {
+              const isNotable = notableHadiths.includes(parseInt(d.data.id));
+              return isNotable ? 'gold' : color(d.parent.data.name);
+            })
+            .style("stroke", "#333")
+            .on("mouseover", (event, d) => {
+              tooltip.style("visibility", "visible")
                 .text(`Chapter: ${d.parent.data.name}`);
-        })
-        .on("mousemove", (event) => {
-            tooltip.style("top", `${event.pageY + 10}px`)
+            })
+            .on("mousemove", (event) => {
+              tooltip.style("top", `${event.pageY + 10}px`)
                 .style("left", `${event.pageX + 10}px`);
-        })
-        .on("mouseout", () => {
-            tooltip.style("visibility", "hidden");
-        })
-        .on("click", (event, d) => {
-            displayDetails(d, detailsId);
-        });
-}
-
-            updateVisualization(false);
-            return updateVisualization;
+            })
+            .on("mouseout", () => {
+              tooltip.style("visibility", "hidden");
+            })
+            .on("click", (event, d) => {
+              displayDetails(d, detailsId);
+            });
         }
 
-        const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
+        updateVisualization(false);
+        return updateVisualization;
+      }
 
-        d3.json(url).then(data => {
-            const bukhariData = {
-                name: "Sahih Bukhari",
-                children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
-                    .map(([chapter, hadiths]) => ({
-                        name: chapter,
-                        children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
-                    }))
-            };
+      const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
 
-            const muslimData = {
-                name: "Sahih Muslim",
-                children: d3.groups(data.filter(d => d.source === "Sahih Muslim"), d => d.chapter)
-                    .map(([chapter, hadiths]) => ({
-                        name: chapter,
-                        children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
-                    }))
-            };
+      d3.json(url).then(data => {
+        const bukhariData = {
+          name: "Sahih Bukhari",
+          children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
+            .map(([chapter, hadiths]) => ({
+              name: chapter,
+              children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+            }))
+        };
 
-            document.getElementById("loadingScreen").style.display = "none";
-            document.getElementById("hadithContent").style.display = "block";
+        const muslimData = {
+          name: "Sahih Muslim",
+          children: d3.groups(data.filter(d => d.source === "Sahih Muslim"), d => d.chapter)
+            .map(([chapter, hadiths]) => ({
+              name: chapter,
+              children: hadiths.map(hadith => ({ ...hadith, value: 1 }))
+            }))
+        };
 
-            bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
-            muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
-            let showNotableOnly = false;
-function toggleNotableHadiths() {
-    console.log("Toggle button clicked");
-    console.log("Current showNotableOnly:", showNotableOnly);
-    showNotableOnly = !showNotableOnly;
-    console.log("New showNotableOnly:", showNotableOnly);
-    
-    document.getElementById("hadith-filter-button").textContent = showNotableOnly
-        ? "Show All Hadiths"
-        : "Show Examples of Prophetic Wisdom";
+        document.getElementById("loadingScreen").style.display = "none";
+        document.getElementById("hadithContent").style.display = "block";
 
-    if (bukhariUpdate) {
-        console.log("Calling bukhariUpdate with:", showNotableOnly);
-        bukhariUpdate(showNotableOnly);
-    }
-    if (muslimUpdate) {
-        console.log("Calling muslimUpdate with:", showNotableOnly);
-        muslimUpdate(showNotableOnly);
-    }
-}
+        bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
+        muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+        let showNotableOnly = false;
+        function toggleNotableHadiths() {
+          console.log("Toggle button clicked");
+          console.log("Current showNotableOnly:", showNotableOnly);
+          showNotableOnly = !showNotableOnly;
+          console.log("New showNotableOnly:", showNotableOnly);
+
+          document.getElementById("hadith-filter-button").textContent = showNotableOnly
+            ? "Show All Hadiths"
+            : "Show Examples of Prophetic Wisdom";
+
+          if (bukhariUpdate) {
+            console.log("Calling bukhariUpdate with:", showNotableOnly);
+            bukhariUpdate(showNotableOnly);
+          }
+          if (muslimUpdate) {
+            console.log("Calling muslimUpdate with:", showNotableOnly);
+            muslimUpdate(showNotableOnly);
+          }
+        }
 
 
-document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
-            document.getElementById("hadith-search-button").addEventListener("click", () => {
-                const searchTerm = document.getElementById("hadith-search-bar").value;
-                if (bukhariUpdate) bukhariUpdate(searchTerm);
-                if (muslimUpdate) muslimUpdate(searchTerm);
-            });
-
-            document.getElementById("hadith-search-bar").addEventListener("keypress", (event) => {
-                if (event.key === "Enter") {
-                    const searchTerm = event.target.value;
-                    if (bukhariUpdate) bukhariUpdate(searchTerm);
-                    if (muslimUpdate) muslimUpdate(searchTerm);
-                }
-            });
-
-            document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
-        }).catch(error => {
-            console.error("Error loading hadith data:", error);
-            document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";
+        document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+        document.getElementById("hadith-search-button").addEventListener("click", () => {
+          const searchTerm = document.getElementById("hadith-search-bar").value;
+          if (bukhariUpdate) bukhariUpdate(searchTerm);
+          if (muslimUpdate) muslimUpdate(searchTerm);
         });
+
+        document.getElementById("hadith-search-bar").addEventListener("keypress", (event) => {
+          if (event.key === "Enter") {
+            const searchTerm = event.target.value;
+            if (bukhariUpdate) bukhariUpdate(searchTerm);
+            if (muslimUpdate) muslimUpdate(searchTerm);
+          }
+        });
+
+        document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+      }).catch(error => {
+        console.error("Error loading hadith data:", error);
+        document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";
+      });
     });
   </script>
 
   <section id="writeup">
-    <h2 style="color: #03ac00;" id = "about-project">About the Project</h2>
+    <h2 style="color: #03ac00;" id="about-project">About the Project</h2>
     <h3>Rationale for Design Decisions</h3>
     <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire
       Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size).
@@ -968,7 +970,7 @@ document.getElementById("hadith-filter-button").addEventListener("click", toggle
     }
   </script>
 
-   <!-- <div class="narrative-section">
+  <!-- <div class="narrative-section">
     <div class="and-section">
       <h2>Understanding Sacred Texts</h2>
       <p>The Quran and Hadith contain thousands of verses and narrations, covering topics from spiritual guidance to scientific phenomena.</p>
