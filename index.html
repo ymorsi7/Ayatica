@@ -667,8 +667,8 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const notableBukhariHadiths = [1, 2, 3];
-      const notableMuslimHadiths = [1, 2, 3];
+      const notableBukhariHadiths = [6030,3187, 6983, 5633, 5583, 3488, 4664, 4668, 4669, 6959, 6983, 1010, 1009];
+      const notableMuslimHadiths = [16791,15812,16798,17142,16791, 15826, 15817,15789,15291,15301];
       let bukhariUpdate, muslimUpdate;
 
       // Add createTreemap function definition here
@@ -701,7 +701,7 @@
           if (d && d.data) {
             const chapterName = d.parent.data.name;
             const hadithText = d.data.text_en;
-            const hadithId = d.data.id;
+            const hadithId = d.data.hadith_id;
             const source = d.data.source;
 
             detailsContainer.innerHTML = `
@@ -726,8 +726,8 @@
             console.log("Boolean filter detected");
             if (filterParam) {
               leaves = leaves.filter(d => {
-                const isNotable = notableHadiths.includes(parseInt(d.data.id));
-                console.log("Checking hadith:", d.data.id, "isNotable:", isNotable);
+                const isNotable = notableHadiths.includes(parseInt(d.data.hadith_id));
+                console.log("Checking hadith:", d.data.hadith_id, "isNotable:", isNotable);
                 return isNotable;
               });
             }
@@ -747,7 +747,7 @@
             .attr("width", d => d.x1 - d.x0)
             .attr("height", d => d.y1 - d.y0)
             .style("fill", d => {
-              const isNotable = notableHadiths.includes(parseInt(d.data.id));
+              const isNotable = notableHadiths.includes(parseInt(d.data.hadith_id));
               return isNotable ? 'gold' : color(d.parent.data.name);
             })
             .style("stroke", "#333")
