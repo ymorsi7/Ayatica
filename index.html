@@ -84,12 +84,13 @@
         <button id="search-button">🔍</button>
       </div>
       <button id="filter-button" onclick="toggleScientificMiracles()">Show Examples of Scientific Miracles Only</button>
+
     </div>
 
-    <div id="container" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin: 20px auto; max-width: 1200px;">
-      <div id="treemap" style="flex: 2; min-width: 0;"></div>
-      <div style="flex: 1; min-width: 300px;">
-        <div id="verse-details" style="margin-bottom: 20px;">
+    <div id="container">
+      <div id="treemap" style="width: 63%;"></div>
+      <div style="width: 28%;">
+        <div id="verse-details">
           <h3>Verse Details</h3>
           <p>Pick a verse to view its details!</p>
         </div>
@@ -114,16 +115,12 @@
   <section class="miracle-section">
     <div class="verse-content">
       <h2>Expansion of the Universe</h2>
-      <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
+      <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
       <p><strong style="color:#03ac00;">Translation:</strong> "And the heaven We constructed with strength, and indeed,
         We are [its] expander."
         (Surah Adh-Dhariyat, 51:47)</p>
       <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by
         observations of distant galaxies moving away from us.</p>
-      <audio controls style="margin-top: 10px; width: 100%;">
-        <source src="audio/expansion.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
     </div>
     <div class="animation-container">
       <div id="creation-burst-container">
@@ -213,10 +210,6 @@
         sun and the moon; all
         [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
       <p>This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
-      <audio controls style="margin-top: 10px; width: 100%;">
-        <source src="audio/orbit.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -300,10 +293,6 @@
         [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into
         another creation. So blessed is Allah , the best of creators." (Surah Al-Mu’minun, 23:12-14)</p>
       <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
-      <audio controls style="margin-top: 10px; width: 100%;">
-        <source src="audio/emb.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
     </div>
     <div class="animation-container">
       <div id="embryonic-development-container">
@@ -400,11 +389,6 @@
           place, and it actually took place approximately after nine years. In addition, the prophesied Roman victory
           over the Persians coincided with the Muslim victory over the polytheists. (Source: The Unchallengeable
           Miracles of the Quran, Yusuf Al-Hajj Ahmad)</p>
-
-          <audio controls style="margin-top: 10px; width: 100%;">
-            <source src="audio/rum.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-          </audio>
       </div>
     </div>
   </section>
@@ -421,11 +405,6 @@
         the company of another, forms a pair’; the word is used just as readily for a married couple as for a pair of
         shoes. This is describing how plants come in pairs, implying sexual plant reproduction, which was not something
         that was known at the time of the Quran.</p>
-
-        <audio controls style="margin-top: 10px; width: 100%;">
-          <source src="audio/plant.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
-        </audio>
     </div>
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center; margin: auto;">
       <img src="images/plants.gif" alt="Plant Growth Animation" style="height: 250px; margin: 0;">
@@ -601,7 +580,7 @@
   </div>
 
   <div class="section-transition" style="margin-top: 10px; margin-bottom: 10px;" id="hadith-examples">
-    <h2>To Name a Few (Hadith Edition)...</h2>
+    <h2>To Name a Few More...</h2>
     <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
       our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
       treemap to find more! <br><br><b style="color:#03ac00;">Although the above activity provides plenty of insight
@@ -846,27 +825,35 @@
       });
     });
   </script>
-<!-- 
+
   <section id="writeup">
     <h2 style="color: #03ac00;" id="about-project">About the Project</h2>
-    <h3>Rationale for Design Decisions</h3>
-    <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire
-      Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size).
-      Each Surah has a unique color to distinguish them, especially if adjacent in the treemap. Notable verses are
-      highlighted in gold, allowing users to easily identify and click on them. A zooming/pan functionality was added to
-      aid navigation in smaller Surahs. Additionally, a search bar enables filtering by keywords, for example, only
-      showing verses containing 'love.' When a user clicks on a verse, details are shown in a side-panel.</p>
+    <h3>Progress So Far</h3>
+    <p>So far, I have completed the majority of the project. I have 
+      successfully implemented 3 interactive treemaps that can be searched, 
+      zoomed in, clicked on, and more (using D3.js). I have also implemented 
+      an interactive wordcloud showing common terms in the data (features including
+      n-gram controls and frequency controls), in addition to some article-like blurbs within the site. I have also worked quite a 
+      to some article-like blurbs within the site. I have also worked quite a 
+      bit on the CSS to make the site look more professional. To top it off, I 
+      included a couple Three.js animations for some of the examples (the animations of 
+      the seven layers, the orbit, and the embryology cycle). </p>
 
-    <h3>Development Process Overview</h3>
-    <p>As the sole developer, I completed the entire project independently. Initially, I spent time searching for a
-      usable dataset on Kaggle. The first dataset I found had data separated by '|' instead of commas and formatting
-      issues, so I switched to a more workable dataset, which was also on Kaggle. I implemented the D3.js treemap in
-      about an hour. Extracting and translating the necessary data took some troubleshooting but was successful. Styling
-      the website took about 30 minutes, followed by implementing the search functionality, which was straightforward
-      with internet resources. After creating the initial model, I refined the user experience, adjusting border
-      thickness, adding zoom/pan functionality, and converting CSV to JSON to improve load times. The final touch-ups,
-      including styling and minor adjustments, took an additional hour or two.</p>
-  </section> -->
+    <h3>Most Challenging of Project to Design</h3>
+    <p>The most challenging part of this project was getting 
+      the treemaps to function properly based on the data. 
+      This was especially difficult because the datasets being 
+      used for Quran and Hadith were very different. Making good
+       SVG elements for the embryo animation was also quite hard 
+       to do. All in all, the data visualizations ended up being 
+       the things I spent more time on, additionally because of the 
+       need to make them both interactive and aesthetically appealing. 
+       Although I have completed the bulk of this project early, the most 
+       challenging thing that I am planning on implementing is making the 
+       UI/UX of the site much more user-friendly. This includes incorporation 
+       color blind considerations, and fixing the "Verse Details" box on the 
+       right of the Quran treemap.</p>
+  </section>
 
   <div class="footer">
     Created for DSC 209R | Interactive Visualization: The Holy Quran
