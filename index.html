@@ -828,23 +828,31 @@
 
   <section id="writeup">
     <h2 style="color: #03ac00;" id="about-project">About the Project</h2>
-    <h3>Rationale for Design Decisions</h3>
-    <p>I picked this visualization so that users can have a cool and aesthetically appealing way of seeing the entire
-      Quran in one image. A treemap was implemented to show the hierarchy of the data (i.e., Surahs/Chapters by size).
-      Each Surah has a unique color to distinguish them, especially if adjacent in the treemap. Notable verses are
-      highlighted in gold, allowing users to easily identify and click on them. A zooming/pan functionality was added to
-      aid navigation in smaller Surahs. Additionally, a search bar enables filtering by keywords, for example, only
-      showing verses containing 'love.' When a user clicks on a verse, details are shown in a side-panel.</p>
+    <h3>Progress So Far</h3>
+    <p>So far, I have completed the majority of the project. I have 
+      successfully implemented 3 interactive treemaps that can be searched, 
+      zoomed in, clicked on, and more (using D3.js). I have also implemented 
+      an interactive wordcloud showing common terms in the data (features including
+      n-gram controls and frequency controls), in addition to some article-like blurbs within the site. I have also worked quite a 
+      to some article-like blurbs within the site. I have also worked quite a 
+      bit on the CSS to make the site look more professional. To top it off, I 
+      included a couple Three.js animations for some of the examples (the animations of 
+      the seven layers, the orbit, and the embryology cycle). </p>
 
-    <h3>Development Process Overview</h3>
-    <p>As the sole developer, I completed the entire project independently. Initially, I spent time searching for a
-      usable dataset on Kaggle. The first dataset I found had data separated by '|' instead of commas and formatting
-      issues, so I switched to a more workable dataset, which was also on Kaggle. I implemented the D3.js treemap in
-      about an hour. Extracting and translating the necessary data took some troubleshooting but was successful. Styling
-      the website took about 30 minutes, followed by implementing the search functionality, which was straightforward
-      with internet resources. After creating the initial model, I refined the user experience, adjusting border
-      thickness, adding zoom/pan functionality, and converting CSV to JSON to improve load times. The final touch-ups,
-      including styling and minor adjustments, took an additional hour or two.</p>
+    <h3>Most Challenging of Project to Design</h3>
+    <p>The most challenging part of this project was getting 
+      the treemaps to function properly based on the data. 
+      This was especially difficult because the datasets being 
+      used for Quran and Hadith were very different. Making good
+       SVG elements for the embryo animation was also quite hard 
+       to do. All in all, the data visualizations ended up being 
+       the things I spent more time on, additionally because of the 
+       need to make them both interactive and aesthetically appealing. 
+       Although I have completed the bulk of this project early, the most 
+       challenging thing that I am planning on implementing is making the 
+       UI/UX of the site much more user-friendly. This includes incorporation 
+       color blind considerations, and fixing the "Verse Details" box on the 
+       right of the Quran treemap.</p>
   </section>
 
   <div class="footer">
