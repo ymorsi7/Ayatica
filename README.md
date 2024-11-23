@@ -37,20 +37,15 @@ An interactive web application that explores patterns, miracles, and linguistic 
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/ymorsi7/Ayatica/
 ```
 
-2. Open the project directory:
-```bash
-cd [project-directory]
-```
-
-3. Serve the files using a local server (e.g., using Python):
+2. Serve the files using a local server (e.g., using Python):
 ```bash
 python -m http.server 8000
 ```
 
-4. Open a web browser and navigate to:
+3. Open a web browser and navigate to:
 ```
 http://localhost:8000
 ```
