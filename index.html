@@ -197,88 +197,35 @@
     </script>
   </section>
 
-  <section class="miracle-section" style="display: flex; align-items: center; justify-content: space-between;">
-    <div class="animation-container"
-      style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;">
-      <div id="orbit-container" style="width: 400px; height: 400px;"></div>
+  <section class="miracle-section">
+    <div class="animation-container">
+      <img src="images/rome.png" alt="Roman Empire Animation">
     </div>
-    <div class="verse-content" style="flex: 1; padding: 20px; text-align: left;">
-      <h2>Orbits of Celestial Bodies</h2>
-      <p class="arabic">وَهُوَ الَّذِي خَلَقَ اللَّيْلَ وَالنَّهَارَ وَالشَّمْسَ وَالْقَمَرَ ۖ كُلٌّ فِي فَلَكٍ
-        يَسْبَحُونَ</p>
-      <p><strong style="color:#03ac00;">Translation:</strong> "And it is He who created the night and the day and the
-        sun and the moon; all
-        [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
-      <p>This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
+    <div class="verse-content">
+      <h2>The Romans' Victory</h2>
+      <p class="arabic">الٓمٓ ١ غُلِبَتِ ٱلرُّومُ ٢ فِىٓ أَدْنَى ٱلْأَرْضِ وَهُم مِّنۢ بَعْدِ غَلَبِهِمْ سَيَغْلِبُونَ
+        ٣ فِى بِضْعِ سِنِينَ ۗ لِلَّهِ ٱلْأَمْرُ مِن قَبْلُ وَمِنۢ بَعْدُ ۚ وَيَوْمَئِذٍۢ يَفْرَحُ ٱلْمُؤْمِنُونَ ٤
+        بِنَصْرِ ٱللَّهِ ۚ يَنصُرُ مَن يَشَآءُ ۖ وَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ ٥</p>
+      <p><strong style="color:#03ac00;">Translation:</strong> "Alif-Lãm-Mĩm. The Romans have been defeated in a nearby
+        land. Yet following their defeat, they will triumph within three to nine years. The ˹whole˺ matter rests with
+        Allah before and after ˹victory˺. And on that day the believers will rejoice at the victory willed by Allah.
+        He gives victory to whoever He wills. For He is the Almighty, Most Merciful." (Surah Ar-Rum (Romans), 30:1-5)
+      </p>
+      <p>There was a war between the Persians and Romans, and the Persians defeated the Romans (it was not even
+        close). They occupied their lands and besieged them at Constantinople. Persians at this time would worship the
+        sun and fire, and the Romans were people of the scripture, so naturally the Muslims were more inclined to
+        support them, while the polytheists of Makkah would support the Persians. When the news of the Persians' siege
+        of the Romans came to the Arabian Peninsula, the people of Mecca would gloat to the Muslims , which would
+        distress them. However, these Verses (Verses 1-5 of The Romans) were revealed depicting that the Romans will
+        rejoice at victory against the Persians. After just a few years the Romans defeated the Persians, manifesting
+        another miracle of the Quran.</p>
+      <p>The verses mention the place, "in the nearer land", which means the place where the battle took place. The
+        battle had actually taken place on the lowest point of the surface of the Earth. Additionally, concerning the
+        time, Allah's statement, "within three to nine years" clearly defined the time that the victory would take
+        place, and it actually took place approximately after nine years. In addition, the prophesied Roman victory
+        over the Persians coincided with the Muslim victory over the polytheists. (Source: The Unchallengeable
+        Miracles of the Quran, Yusuf Al-Hajj Ahmad)</p>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-      const container = document.getElementById("orbit-container");
-      const sceneWidth = container.offsetWidth;
-      const sceneHeight = container.offsetHeight;
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, sceneWidth / sceneHeight, 0.1, 1000);
-      camera.position.z = 10;
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(sceneWidth, sceneHeight);
-      container.appendChild(renderer.domElement);
-
-      const sunGeometry = new THREE.SphereGeometry(0.6, 32, 32);
-      const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
-      const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-      scene.add(sun);
-
-      const planets = [];
-      const orbitRadii = [1.5, 2.5, 3.5, 4.5, 5.5, 6.5];
-      const colors = [0x03ac00, 0x4a90e2, 0xe94e77, 0xFF5733, 0x9b59b6, 0x3498db];
-
-      orbitRadii.forEach((radius, index) => {
-        const planetGeometry = new THREE.SphereGeometry(0.2, 16, 16);
-        const planetMaterial = new THREE.MeshBasicMaterial({ color: colors[index] });
-        const planet = new THREE.Mesh(planetGeometry, planetMaterial);
-        planet.orbitRadius = radius;
-        planet.angle = Math.random() * Math.PI * 2;
-        scene.add(planet);
-        planets.push(planet);
-      });
-
-      const orbitTooltip = d3.select("body").append("div")
-        .attr("class", "creation-tooltip")
-        .style("opacity", 0);
-
-      function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-
-        planets.forEach((planet, index) => {
-          planet.angle += 0.01 * (index + 1);
-          planet.position.x = Math.cos(planet.angle) * planet.orbitRadius;
-          planet.position.y = Math.sin(planet.angle) * planet.orbitRadius;
-        });
-      }
-
-      container.addEventListener("mousemove", (event) => {
-        planets.forEach((planet, index) => {
-          const screenPos = planet.position.clone().project(camera);
-          const x = (screenPos.x * 0.5 + 0.5) * sceneWidth;
-          const y = (-screenPos.y * 0.5 + 0.5) * sceneHeight;
-
-          const distance = Math.hypot(event.clientX - x, event.clientY - y);
-          if (distance < 20) {
-            orbitTooltip.style("opacity", 1)
-              .style("left", `${event.pageX + 10}px`)
-              .style("top", `${event.pageY - 10}px`)
-              .html(`Planet ${index + 1} orbiting around`);
-          } else {
-            orbitTooltip.style("opacity", 0);
-          }
-        });
-      });
-
-      animate();
-    </script>
   </section>
 
   <section class="miracle-section">
@@ -358,39 +305,6 @@
 
       animateStages();
     </script>
-  </section>
-
-  <section class="miracle-section">
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <div class="animation-container" style="flex: 1;">
-        <img src="images/rome.png" alt="Roman Empire Animation" style="width: 100%; max-width: 400px;">
-      </div>
-      <div class="verse-content" style="flex: 1;">
-        <h2>The Romans' Victory</h2>
-        <p class="arabic">الٓمٓ ١ غُلِبَتِ ٱلرُّومُ ٢ فِىٓ أَدْنَى ٱلْأَرْضِ وَهُم مِّنۢ بَعْدِ غَلَبِهِمْ سَيَغْلِبُونَ
-          ٣ فِى بِضْعِ سِنِينَ ۗ لِلَّهِ ٱلْأَمْرُ مِن قَبْلُ وَمِنۢ بَعْدُ ۚ وَيَوْمَئِذٍۢ يَفْرَحُ ٱلْمُؤْمِنُونَ ٤
-          بِنَصْرِ ٱللَّهِ ۚ يَنصُرُ مَن يَشَآءُ ۖ وَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ ٥</p>
-        <p><strong style="color:#03ac00;">Translation:</strong> "Alif-Lãm-Mĩm. The Romans have been defeated in a nearby
-          land. Yet following their defeat, they will triumph within three to nine years. The ˹whole˺ matter rests with
-          Allah before and after ˹victory˺. And on that day the believers will rejoice at the victory willed by Allah.
-          He gives victory to whoever He wills. For He is the Almighty, Most Merciful." (Surah Ar-Rum (Romans), 30:1-5)
-        </p>
-        <p>There was a war between the Persians and Romans, and the Persians defeated the Romans (it was not even
-          close). They occupied their lands and besieged them at Constantinople. Persians at this time would worship the
-          sun and fire, and the Romans were people of the scripture, so naturally the Muslims were more inclined to
-          support them, while the polytheists of Makkah would support the Persians. When the news of the Persians' siege
-          of the Romans came to the Arabian Peninsula, the people of Mecca would gloat to the Muslims , which would
-          distress them. However, these Verses (Verses 1-5 of The Romans) were revealed depicting that the Romans will
-          rejoice at victory against the Persians. After just a few years the Romans defeated the Persians, manifesting
-          another miracle of the Quran.</p>
-        <p>The verses mention the place, "in the nearer land", which means the place where the battle took place. The
-          battle had actually taken place on the lowest point of the surface of the Earth. Additionally, concerning the
-          time, Allah's statement, "within three to nine years" clearly defined the time that the victory would take
-          place, and it actually took place approximately after nine years. In addition, the prophesied Roman victory
-          over the Persians coincided with the Muslim victory over the polytheists. (Source: The Unchallengeable
-          Miracles of the Quran, Yusuf Al-Hajj Ahmad)</p>
-      </div>
-    </div>
   </section>
 
   <section class="miracle-section">
