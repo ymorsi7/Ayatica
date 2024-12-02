@@ -67,14 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
             d3.treemap().size([width, height]).padding(1)(root);
 
             const svg = d3.select("#treemap").append("svg")
-            .attr("width", width)
-            .attr("height", height)
-            .call(d3.zoom()
-                .scaleExtent([1, 8]) // [min zoom, max zoom] where 1 is the default view
-                .on("zoom", (event) => {
-                    svg.attr("transform", event.transform);
-                }))
-            .append("g");
+                .attr("width", width)
+                .attr("height", height)
+                .call(d3.zoom()
+                    .scaleExtent([1, 8]) // [min zoom, max zoom] where 1 is the default view
+                    .on("zoom", (event) => {
+                        svg.attr("transform", event.transform);
+                    }))
+                .append("g");
 
             const color = d3.scaleOrdinal()
                 .domain(root.children.map(d => d.data.name))
