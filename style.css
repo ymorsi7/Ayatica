@@ -355,7 +355,7 @@ a {
     flex-direction: column;
     padding: 30px;
   }
-  
+
   .animation-container {
     order: -1;
   }
@@ -730,6 +730,7 @@ a {
   margin-bottom: 20px;
   text-align: center;
 }
+
 .final-journey-and-takeaways,
 .section-transition #container {
   width: 90%;
@@ -739,6 +740,7 @@ a {
   background: rgba(26, 26, 26, 0.95);
   border-radius: 16px;
 }
+
 .final-journey-and-takeaways,
 .section-transition #treemap {
   /* background-color: #1a1a1a; */
@@ -1313,7 +1315,7 @@ input[type="range"]::-webkit-slider-thumb {
   .journey-step {
     padding: 25px;
   }
-  
+
   .journey-step h3 {
     font-size: 1.5em;
   }
@@ -1470,15 +1472,14 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 audio {
-    width: 100%;
-    background: #f4f4f4;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  background: #f4f4f4;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 
-/* Scrollbar styling for all elements */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -1500,7 +1501,6 @@ audio {
   background: linear-gradient(145deg, rgba(3, 172, 0, 0.3), rgba(4, 214, 0, 0.3));
 }
 
-/* For Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: #03ac00 rgba(3, 172, 0, 0.05);
