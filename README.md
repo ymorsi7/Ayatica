@@ -1,5 +1,3 @@
-I'll help add appropriate emojis to enhance the project documentation while maintaining its professional tone. I'll add relevant emojis to the headings and key sections.
-
 # Ayatica: Islamic Texts Interactive Visualization 🕌📊
 An interactive web application that explores patterns, miracles, and linguistic features in Islamic sacred texts through data visualization. The project focuses on both the Quran and authentic Hadith collections (Sahih Bukhari and Sahih Muslim).
 
