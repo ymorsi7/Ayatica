@@ -458,11 +458,15 @@
         </label>
         <label>
           Minimum Frequency:
-          <input type="range" id="freq-slider" min="2" max="1000" value="5">
+          <input type="range" id="freq-slider" min="2" max="50" value="5">
           <span id="freq-value">5</span>
         </label>
       </div>
       <div id="wordcloud-container"></div>
+      <div id="wordcloud-loader" class="wordcloud-loader" style="display: none;">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Updating Word Cloud...</div>
+      </div>
       <div id="word-details">
         <h3 style="color:#03ac00;">Word Details</h3>
         <p>Click on a word to see verses containing it!</p>
@@ -1009,7 +1013,7 @@
   <script>
     let versesPerWord = {};
 
-    const stopWords = new Set(['the', 'your', 'and', 'were', 'then', 'a', 'to', 'of', 'in', 'that', 'is', 'for', 'on', 'with', 'by', 'as', 'this', 'but', 'from', 'or', 'an', 'will', 'be', 'they', 'who', 'has', 'are', 'their', 'have', 'had', 'what', 'when', 'where', 'which', 'why', 'how']);
+    const stopWords = new Set(['the', 'your', 'than', 'and', 'were', 'then', 'a', 'to', 'of', 'in', 'that', 'is', 'for', 'on', 'with', 'by', 'as', 'this', 'but', 'from', 'or', 'an', 'will', 'be', 'they', 'who', 'has', 'are', 'their', 'have', 'had', 'what', 'when', 'where', 'which', 'why', 'how']);
 
     function getNGrams(text, n) {
       const words = text.split(/\W+/).filter(word =>
