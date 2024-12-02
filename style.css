@@ -109,6 +109,7 @@ h1 {
   justify-content: center;
   margin: 20px;
   gap: 20px;
+  background-color: transparent;
 }
 
 #treemap {
@@ -716,7 +717,7 @@ input[type="range"]::-webkit-slider-thumb {
 .section-transition #container {
   width: 100%;
   padding: 20px;
-  background: rgba(26, 26, 26, 0.95);
+  /* background: rgba(26, 26, 26, 0.95); */
   border-radius: 16px;
   margin-top: 30px;
 }
@@ -733,7 +734,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
 }
 
 .loading-overlay {
