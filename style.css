@@ -218,8 +218,7 @@ a {
 .miracle-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  min-height: 450px;
+  align-items: flex-start;
   width: 80%;
   max-width: 1200px;
   padding: 20px;
@@ -227,35 +226,11 @@ a {
   background-color: #1a1a1a;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  position: relative;
 }
 
 .verse-content {
   flex: 1;
   padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.animation-container {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 45%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.animation-container img {
-  max-width: 100%;
-  max-height: 300px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
 }
 
 .verse-content h2 {
@@ -277,6 +252,12 @@ a {
   margin-bottom: 15px;
 }
 
+.animation-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 #creation-burst-container {
   display: flex;
