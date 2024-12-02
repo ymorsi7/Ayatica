@@ -1008,180 +1008,179 @@ input[type="range"]::-webkit-slider-thumb {
   color: #f0f0f0;
 }
 
-.section-title {
-  font-family: 'Pacifico', cursive;
-  font-size: 2.5em;
-  text-align: center;
-  margin-bottom: 40px;
-  background: linear-gradient(45deg, #03ac00, #04d600);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.journey-step {
-  margin-bottom: 30px;
-  padding: 25px;
-  background: rgba(3, 172, 0, 0.05);
+.section-header {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.2em;
+  line-height: 1.8;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 40px;
+  background: linear-gradient(145deg, rgba(3, 172, 0, 0.05), rgba(4, 214, 0, 0.05));
   border-radius: 15px;
   border-left: 4px solid #03ac00;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.journey-step:hover {
+.section-header:hover {
   transform: translateX(10px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-.journey-step h3 {
-  font-family: 'Arial', sans-serif;
-  font-size: 1.8em;
+.section-header h2 {
   color: #03ac00;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+}
+
+.section-header p {
+  color: #f0f0f0;
   margin-bottom: 15px;
 }
 
-.journey-step p {
+.section-header b {
+  color: #03ac00;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.section-header b::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #03ac00;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.section-header:hover b::after {
+  transform: scaleX(1);
+}
+
+.section-header br {
+  margin-bottom: 15px;
+  content: "";
+  display: block;
+}
+
+.hook {
   font-family: 'Arial', sans-serif;
-  font-size: 1.1em;
+  font-size: 1.2em;
   line-height: 1.8;
-  color: #f0f0f0;
-}
-
-.discovery-list {
-  margin-top: 20px;
-  padding-left: 20px;
-}
-
-.discovery-list li {
-  margin-bottom: 12px;
-  font-size: 1.1em;
-  line-height: 1.6;
-  color: #f0f0f0;
-}
-
-.discovery-list li::before {
-  content: "•";
-  color: #03ac00;
-  font-weight: bold;
-  display: inline-block;
-  width: 1em;
-  margin-left: -1em;
-}
-
-.key-findings {
-  margin-top: 50px;
-}
-
-.key-findings h2 {
-  font-family: 'Pacifico', cursive;
-  font-size: 2.2em;
-  text-align: center;
-  color: #03ac00;
-  margin-bottom: 30px;
-}
-
-.takeaway-card {
-  padding: 30px;
-  background: rgba(3, 172, 0, 0.05);
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  background: linear-gradient(145deg, rgba(3, 172, 0, 0.05), rgba(4, 214, 0, 0.05));
   border-radius: 15px;
-  border: 1px solid rgba(3, 172, 0, 0.2);
+  border-left: 4px solid #03ac00;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.takeaway-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+.hook:hover {
+  transform: translateX(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-.takeaway-card h3 {
-  font-family: 'Arial', sans-serif;
-  font-size: 1.5em;
-  color: #03ac00;
-  margin-bottom: 15px;
+.hook span {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-.takeaway-card p {
-  font-family: 'Arial', sans-serif;
+.hook strong {
   font-size: 1.1em;
-  line-height: 1.7;
-  color: #f0f0f0;
+  color: #03ac00;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-right: 10px;
+  position: relative;
 }
 
-hr {
-  border: none;
+.hook strong::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #03ac00, transparent);
-  margin: 40px 0;
+  background: #03ac00;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
 }
 
-.final-reflection {
+.hook:hover strong::after {
+  transform: scaleX(1);
+}
+
+.hook br {
+  margin-bottom: 15px;
+  content: "";
+  display: block;
+}
+
+.step-section {
   background: linear-gradient(145deg, rgba(3, 172, 0, 0.05), rgba(4, 214, 0, 0.05));
   border-radius: 20px;
   padding: 40px;
-  margin-top: 40px;
+  margin: 40px auto;
   border: 1px solid rgba(3, 172, 0, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.final-reflection h3 {
+.step-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.step-section h2 {
   font-family: 'Pacifico', cursive;
-  font-size: 2em;
+  font-size: 2.2em;
   color: #03ac00;
   text-align: center;
   margin-bottom: 25px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.final-reflection p {
+.step-section p {
   font-size: 1.1em;
   line-height: 1.8;
   color: #f0f0f0;
-  text-align: justify;
-  margin-bottom: 30px;
-  padding: 0 20px;
-}
-
-.evidence-box {
-  background: rgba(3, 172, 0, 0.1);
-  border-radius: 15px;
-  padding: 30px;
-  margin-top: 25px;
-  border-left: 4px solid #03ac00;
-  transition: transform 0.3s ease;
-}
-
-.evidence-box:hover {
-  transform: translateX(10px);
-}
-
-.evidence-box h4 {
-  font-family: 'Arial', sans-serif;
-  font-size: 1.4em;
-  color: #03ac00;
-  margin-bottom: 20px;
   text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.evidence-box ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.evidence-box li {
-  position: relative;
-  padding-left: 25px;
-  margin-bottom: 15px;
-  color: #f0f0f0;
-  font-size: 1.1em;
-  line-height: 1.6;
-}
-
-.evidence-box li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
+.highlight-text {
   color: #03ac00;
   font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.highlight-text::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #03ac00;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.step-section:hover .highlight-text::after {
+  transform: scaleX(1);
 }
 
