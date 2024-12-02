@@ -1469,3 +1469,20 @@ input[type="range"]::-webkit-slider-thumb {
   margin-right: 4px;
 }
 
+.arabic-loading {
+  font-size: 1.8em;
+  color: #03ac00;
+  margin: 20px 0;
+  text-align: center;
+  font-family: 'Scheherazade New', serif;
+}
+
+.loading-translation {
+  color: #f0f0f0;
+  font-size: 1.1em;
+  line-height: 1.6;
+  text-align: center;
+  margin: 15px 0;
+  font-style: italic;
+}
+
