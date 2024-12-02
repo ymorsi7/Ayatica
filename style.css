@@ -241,45 +241,74 @@ a {
 }
 
 .miracle-section {
+  font-family: 'Arial', sans-serif;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 40px;
+  background: linear-gradient(145deg, rgba(3, 172, 0, 0.05), rgba(4, 214, 0, 0.05));
+  border-radius: 15px;
+  border-left: 4px solid #03ac00;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 80%;
-  max-width: 1200px;
-  padding: 20px;
-  margin-top: 20px;
-  background-color: #1a1a1a;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  align-items: center;
+  gap: 40px;
 }
 
 .miracle-section:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  transform: translateX(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .verse-content {
   flex: 1;
-  padding: 20px;
 }
 
-.verse-content h2 {
+.miracle-section h2 {
+  font-family: 'Pacifico', cursive;
+  font-size: 2em;
   color: #03ac00;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.miracle-section .arabic {
   font-size: 1.8em;
+  color: #04d600;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.miracle-section strong {
+  color: #03ac00;
+  font-size: 1.1em;
+  position: relative;
+  display: inline-block;
   margin-bottom: 10px;
 }
 
-.verse-content p {
-  font-size: 1em;
-  line-height: 1.6;
-  margin-bottom: 15px;
+.miracle-section strong::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #03ac00;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
 }
 
-.verse-content .arabic {
-  font-size: 1.5em;
-  text-align: right;
-  color: #ccc;
+.miracle-section:hover strong::after {
+  transform: scaleX(1);
+}
+
+.miracle-section p {
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: #f0f0f0;
   margin-bottom: 15px;
 }
 
@@ -288,6 +317,29 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+}
+
+.animation-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.animation-container img:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .miracle-section {
+    flex-direction: column;
+    padding: 30px;
+  }
+  
+  .animation-container {
+    order: -1;
+  }
 }
 
 #creation-burst-container {
