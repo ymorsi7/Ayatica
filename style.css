@@ -1469,27 +1469,39 @@ input[type="range"]::-webkit-slider-thumb {
   font-style: italic;
 }
 
-.arabic-loading {
-  font-size: 1.8em;
-  color: #03ac00;
-  margin: 20px 0;
-  text-align: center;
-  font-family: 'Scheherazade New', serif;
-}
-
-.loading-translation {
-  color: #f0f0f0;
-  font-size: 1.1em;
-  line-height: 1.6;
-  text-align: center;
-  margin: 15px 0;
-  font-style: italic;
-}
-
 audio {
     width: 100%;
     background: #f4f4f4;
     border-radius: 8px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Scrollbar styling for all elements */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(3, 172, 0, 0.05);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(145deg, rgba(3, 172, 0, 0.2), rgba(4, 214, 0, 0.2));
+  border-radius: 8px;
+  border: 2px solid #2b2b2b;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(145deg, rgba(3, 172, 0, 0.3), rgba(4, 214, 0, 0.3));
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #03ac00 rgba(3, 172, 0, 0.05);
 }
