@@ -7,6 +7,9 @@ body {
   align-items: center;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
 }
 
 h1 {
@@ -109,6 +112,7 @@ h1 {
   justify-content: center;
   margin: 20px;
   gap: 20px;
+  background-color: transparent;
 }
 
 #treemap {
@@ -119,7 +123,7 @@ h1 {
 
 #verse-details {
   width: 400px;
-  background-color: #2b2b2b;
+  /* background-color: #2b2b2b; */
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -179,7 +183,7 @@ a {
   padding: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #2b2b2b;
+  /* background-color: #2b2b2b; */
   max-width: 600px;
   margin-top: 20px;
   font-family: Arial, sans-serif;
@@ -635,7 +639,7 @@ a {
 }
 
 .section-transition #treemap {
-  background-color: #1a1a1a;
+  /* background-color: #1a1a1a; */
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -672,7 +676,7 @@ a {
 
 .treemap-container,
 .details-container {
-  background: rgba(26, 26, 26, 0.95);
+  /* background: rgba(26, 26, 26, 0.95); */
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
@@ -716,7 +720,7 @@ input[type="range"]::-webkit-slider-thumb {
 .section-transition #container {
   width: 100%;
   padding: 20px;
-  background: rgba(26, 26, 26, 0.95);
+  /* background: rgba(26, 26, 26, 0.95); */
   border-radius: 16px;
   margin-top: 30px;
 }
@@ -733,7 +737,7 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
 }
 
 .loading-overlay {
