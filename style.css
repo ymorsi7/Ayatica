@@ -991,24 +991,13 @@ input[type="range"]::-webkit-slider-thumb {
   display: none;
   position: absolute;
   right: 0;
-  top: 100%;
   min-width: 220px;
   background: rgba(26, 26, 26, 0.95);
   border: 1px solid rgba(3, 172, 0, 0.2);
   border-radius: 12px;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  padding-top: 10px;
-}
-
-/* Add invisible padding to maintain hover state */
-.dropdown::after {
-  content: '';
-  position: absolute;
-  height: 10px;
-  width: 100%;
-  bottom: -10px;
-  left: 0;
+  z-index: 1000;
 }
 
 .dropdown:hover .dropdown-content {
@@ -1480,3 +1469,19 @@ input[type="range"]::-webkit-slider-thumb {
   font-style: italic;
 }
 
+.arabic-loading {
+  font-size: 1.8em;
+  color: #03ac00;
+  margin: 20px 0;
+  text-align: center;
+  font-family: 'Scheherazade New', serif;
+}
+
+.loading-translation {
+  color: #f0f0f0;
+  font-size: 1.1em;
+  line-height: 1.6;
+  text-align: center;
+  margin: 15px 0;
+  font-style: italic;
+}
