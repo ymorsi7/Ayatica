@@ -359,7 +359,7 @@
               .style("visibility", "hidden");
           })
           .transition()
-          .duration(1000)
+          .duration(50)
           .ease(d3.easeElasticOut)
           .attr("transform", "scale(1)");
 
@@ -458,7 +458,7 @@
         </label>
         <label>
           Minimum Frequency:
-          <input type="range" id="freq-slider" min="2" max="20" value="5">
+          <input type="range" id="freq-slider" min="2" max="1000" value="5">
           <span id="freq-value">5</span>
         </label>
       </div>
@@ -745,8 +745,8 @@
         till the sun rises from the West. So when the sun will rise and the people will see it (rising from the West)
         they will all believe (embrace Islam) but that will be the time when: (As Allah said,) 'No good will it do to a
         soul to believe then, if it believed not before, nor earned good (by deeds of righteousness) through its Faith.'
-        (6.158) And the Hour will be established while two men spreading a garment in front of them but they will not be
-        able to sell it, nor fold it up; and the Hour will be established when a man has milked his she-camel and has
+        (6.158) And the Hour will be established while two men spreading a garment in front of them but they will not be able
+        to sell it, nor fold it up; and the Hour will be established when a man has milked his she-camel and has
         taken away the milk but he will not be able to drink it; and the Hour will be established before a man repairing
         a tank (for his livestock) is able to water (his animals) in it; and the Hour will be established when a person
         has raised a morsel (of food) to his mouth but will not be able to eat it."</p>
@@ -1009,7 +1009,7 @@
   <script>
     let versesPerWord = {};
 
-    const stopWords = new Set(['the', 'and', 'were', 'then', 'a', 'to', 'of', 'in', 'that', 'is', 'for', 'on', 'with', 'by', 'as', 'this', 'but', 'from', 'or', 'an', 'will', 'be', 'they', 'who', 'has', 'are', 'their', 'have', 'had', 'what', 'when', 'where', 'which', 'why', 'how']);
+    const stopWords = new Set(['the', 'your', 'and', 'were', 'then', 'a', 'to', 'of', 'in', 'that', 'is', 'for', 'on', 'with', 'by', 'as', 'this', 'but', 'from', 'or', 'an', 'will', 'be', 'they', 'who', 'has', 'are', 'their', 'have', 'had', 'what', 'when', 'where', 'which', 'why', 'how']);
 
     function getNGrams(text, n) {
       const words = text.split(/\W+/).filter(word =>
@@ -1065,11 +1065,11 @@
           });
 
           const wordData = Object.entries(words)
-            .filter(([_, count]) => count > 4)
+            .filter(([_, count]) => count >= minFrequency)
             .map(([text, size]) => ({
-              text,
-              size: 10 + Math.log(size) * 10,
-              color: d3.interpolateViridis(Math.random())
+                text,
+                size: 10 + Math.log2(size) * 15, 
+                color: d3.interpolateViridis(Math.random())
             }));
 
           const width = 800;
