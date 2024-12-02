@@ -150,8 +150,27 @@ h1 {
 
 .footer {
   margin-top: 30px;
+  padding: 20px;
   color: #999;
-  font-size: 0.8em;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.footer a {
+  color: #03ac00;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #04d600;
+  text-decoration: underline;
+}
+
+.footer-divider {
+  color: #666;
+  margin: 0 8px;
 }
 
 #writeup {
@@ -346,7 +365,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #1a1a1a;
+  background-color: transparent;
   border-radius: 10px;
   padding: 20px;
   height: 400px;
@@ -1442,5 +1461,11 @@ input[type="range"]::-webkit-slider-thumb {
   left: 0;
   color: #03ac00;
   font-weight: bold;
+}
+
+.footer a i {
+  font-size: 1.2em;
+  vertical-align: middle;
+  margin-right: 4px;
 }
 
