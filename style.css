@@ -1485,3 +1485,11 @@ input[type="range"]::-webkit-slider-thumb {
   margin: 15px 0;
   font-style: italic;
 }
+
+audio {
+    width: 100%;
+    background: #f4f4f4;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
