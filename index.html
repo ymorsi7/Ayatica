@@ -55,7 +55,8 @@
     <div id="bismillah">
       <img src="images/bismillah.png" alt="Bismillah">
     </div>
-    <h1 style="color: #03ac00; font-size: 2.2em; margin: 15px 0; text-align: center;">Are Ancient Islamic Texts Aligned With
+    <h1 style="color: #03ac00; font-size: 2.2em; margin: 15px 0; text-align: center;">Are Ancient Islamic Texts Aligned
+      With
       Modern Scientific Discoveries?</h1>
 
 
@@ -576,7 +577,7 @@
     <div class="verse-content">
       <h2>Life and Death Balance</h2>
       <p class="arabic">حَيَاة - مَوْت</p>
-      <p><strong style="color:#03ac00;">Perfect Symmetry:</strong> The words "life" (حَيَاة) and "death" (مَوْت) each
+      <p><strong style="color:#03ac00;">Perfect Symmetry:</strong> The words "life" (حَيَا��) and "death" (مَوْت) each
         appear exactly 145 times in the Quran, reflecting the universal truth that every life has its corresponding
         death.</p>
       <p>This equal frequency emphasizes the Quranic theme of life and death being two sides of the same coin.</p>
@@ -749,7 +750,8 @@
         till the sun rises from the West. So when the sun will rise and the people will see it (rising from the West)
         they will all believe (embrace Islam) but that will be the time when: (As Allah said,) 'No good will it do to a
         soul to believe then, if it believed not before, nor earned good (by deeds of righteousness) through its Faith.'
-        (6.158) And the Hour will be established while two men spreading a garment in front of them but they will not be able
+        (6.158) And the Hour will be established while two men spreading a garment in front of them but they will not be
+        able
         to sell it, nor fold it up; and the Hour will be established when a man has milked his she-camel and has
         taken away the milk but he will not be able to drink it; and the Hour will be established before a man repairing
         a tank (for his livestock) is able to water (his animals) in it; and the Hour will be established when a person
@@ -1071,9 +1073,9 @@
           const wordData = Object.entries(words)
             .filter(([_, count]) => count >= minFrequency)
             .map(([text, size]) => ({
-                text,
-                size: 10 + Math.log2(size) * 15, 
-                color: d3.interpolateViridis(Math.random())
+              text,
+              size: 10 + Math.log2(size) * 15,
+              color: d3.interpolateViridis(Math.random())
             }));
 
           const width = 800;
@@ -1244,47 +1246,64 @@
       <div class="narrative-journey">
         <div class="journey-step">
           <h3>The Challenge (AND)</h3>
-          <p>The Quran and Hadith, sacred texts preserved for over 1,400 years, contain thousands of verses that
-            billions of Muslims consider divine guidance. These texts make bold claims about scientific phenomena that
-            weren't discovered until centuries later.</p>
+          <p>Ancient religious texts have fascinated scholars for centuries, with the Quran and Hadith making specific
+            claims about the natural world that seem to transcend their historical context. These texts, preserved for
+            over 1,400 years, contain thousands of verses describing everything from celestial bodies to human
+            embryology.</p>
         </div>
         <div class="journey-step">
           <h3>The Skepticism (BUT)</h3>
-          <p>However, many skeptics argue that finding scientific accuracy in ancient religious texts is merely
-            coincidental pattern-matching or retroactive interpretation. The challenge lies in objectively analyzing
-            these claims using modern analytical methods.</p>
+          <p>Modern scientific analysis demands rigorous evidence and reproducible results. Many argue that finding
+            scientific accuracy in ancient texts is merely confirmation bias - seeing patterns where we want to see
+            them. Without systematic analysis methods, these claims remain controversial.</p>
         </div>
         <div class="journey-step">
           <h3>The Discovery (THEREFORE)</h3>
-          <p>Through interactive data visualization, we've transformed abstract texts into tangible patterns, revealing
-            surprising correlations between ancient descriptions and modern scientific discoveries. Our analysis
-            uncovered:</p>
+          <p>By applying data visualization and statistical analysis, we can systematically examine these claims,
+            revealing both confirmed correlations and potential coincidences in a transparent, reproducible way. Our
+            analysis revealed:</p>
           <ul class="discovery-list">
-            <li>47 distinct verses describing scientific phenomena with remarkable precision</li>
-            <li>Perfect numerical patterns (365 mentions of "day" matching Earth's solar year)</li>
-            <li>Precise ratios (land-to-sea mentions matching Earth's actual surface ratio)</li>
+            <li>Statistically significant patterns in scientific terminology usage</li>
+            <li>Verifiable numerical correlations with natural phenomena</li>
+            <li>Documented historical predictions that were later confirmed</li>
           </ul>
         </div>
       </div>
       <br>
       <hr>
       <div class="key-findings">
-        <h2>Key Discoveries That Challenge Coincidence</h2>
+        <h2>Key Findings and Methodological Considerations</h2>
         <div class="takeaways-grid">
           <div class="takeaway-card">
-            <h3>Statistical Improbability</h3>
-            <p>The probability of accurately describing 47 scientific phenomena centuries before their discovery is
-              approximately 1 in 10^23, suggesting these correlations aren't random.</p>
+            <h3>Pattern Analysis</h3>
+            <p>Using computational analysis, we identified recurring scientific themes across chapters. Our methodology
+              included:
+            <ul>
+              <li>Text mining and natural language processing</li>
+              <li>Statistical frequency analysis</li>
+              <li>Cross-reference verification</li>
+            </ul>
+            </p>
           </div>
           <div class="takeaway-card">
-            <h3>Linguistic Precision</h3>
-            <p>Our word cloud analysis revealed balanced frequencies of scientific terms, with pairs like "life" and
-              "death" appearing exactly 145 times each.</p>
+            <h3>Limitations and Bias Control</h3>
+            <p>We acknowledge several important considerations:
+            <ul>
+              <li>Translation variations may affect interpretation</li>
+              <li>Historical context must be considered</li>
+              <li>Need for control group comparisons</li>
+            </ul>
+            </p>
           </div>
           <div class="takeaway-card">
-            <h3>Interactive Insight</h3>
-            <p>Our treemap visualizations enabled users to discover patterns that traditional reading methods might
-              miss, revealing clusters of scientific terminology across different chapters.</p>
+            <h3>Future Research Directions</h3>
+            <p>Our findings suggest several areas for further study:
+            <ul>
+              <li>Comparative analysis with other historical texts</li>
+              <li>Development of more sophisticated pattern detection algorithms</li>
+              <li>Integration of archaeological and historical evidence</li>
+            </ul>
+            </p>
           </div>
         </div>
       </div>
@@ -1305,8 +1324,11 @@
         </div>
         <h3>Video Demo</h3>
         <center>
-        <iframe width="700" height="393.75" src="https://www.youtube.com/embed/ZkFaq_UCofs?si=a8ZZNo3RmkJR6N-a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </center>
+          <iframe width="700" height="393.75" src="https://www.youtube.com/embed/ZkFaq_UCofs?si=a8ZZNo3RmkJR6N-a"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </center>
       </div>
     </div>
   </div>
@@ -1320,6 +1342,7 @@
     </a>
   </div>
   <br>
+
 
 </body>
 

@@ -1505,3 +1505,70 @@ audio {
   scrollbar-width: thin;
   scrollbar-color: #03ac00 rgba(3, 172, 0, 0.05);
 }
+
+.methodology-journey {
+  background: linear-gradient(145deg, rgba(3, 172, 0, 0.05), rgba(4, 214, 0, 0.05));
+  border-radius: 15px;
+  padding: 35px;
+  border-left: 4px solid #03ac00;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin: 40px 0;
+}
+
+.methodology-journey:hover {
+  transform: translateX(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.methodology-journey h3 {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.8em;
+  color: #03ac00;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.methodology-journey h3::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, #03ac00, transparent);
+  margin-left: 15px;
+}
+
+.methodology-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.method-item {
+  padding: 20px;
+  background: rgba(3, 172, 0, 0.03);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.method-item h4 {
+  color: #03ac00;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .methodology-content {
+    grid-template-columns: 1fr;
+  }
+
+  .methodology-journey {
+    padding: 25px;
+  }
+
+  .methodology-journey h3 {
+    font-size: 1.5em;
+  }
+}
