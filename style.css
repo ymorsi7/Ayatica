@@ -1572,3 +1572,12 @@ audio {
     font-size: 1.5em;
   }
 }
+
+.highlight-discovery {
+    transition: all 0.3s ease;
+}
+
+.highlight-discovery:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
