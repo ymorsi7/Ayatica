@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { surah: 'The Romans', ayah: 3, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
         { surah: 'The Romans', ayah: 4, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
         { surah: 'The Romans', ayah: 5, highlightColor: 'gold', explanation: "This miracle is depicted in Verses 1-5 of Surah Ar-Rum (Romans). Predicted the Romans defeating the Persians (more details shown below)." },
+        { surah: 'The Heights', ayah: 57, highlightColor: 'gold', explanation: "This miracle is depicted in Verse 57 of Surah Al-Araf (The Heights). This verse mentions clouds being heavy, something that scientists did not know about until much later. Scroll below for more information." },
     ];
 
 
