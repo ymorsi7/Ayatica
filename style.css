@@ -725,10 +725,11 @@ div#tooltip {
   transform: scale(1.02);
 }
 
-.animation-container iframe {
+iframe.yt-frame {
   max-width: 100%;
-  border-radius: var(--radius-sm);
   border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #000;
 }
 
 #creation-burst-container {
