@@ -1377,6 +1377,121 @@
     </a>
   </div>
   <br>
+
+  <aside class="lantern-scroll" id="lantern-scroll" aria-hidden="true">
+    <div class="lantern-scroll__rail"></div>
+    <div class="lantern-scroll__rope" id="lantern-rope"></div>
+    <div class="lantern-scroll__lantern" id="lantern-thumb" title="Drag to scroll">
+      <svg viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="lanternFlame" cx="50%" cy="55%" r="50%">
+            <stop offset="0%" stop-color="#fff6c8"/>
+            <stop offset="45%" stop-color="#ffcc4d"/>
+            <stop offset="100%" stop-color="#c97816" stop-opacity="0.2"/>
+          </radialGradient>
+          <linearGradient id="lanternMetal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#e8d08a"/>
+            <stop offset="50%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#8a6a28"/>
+          </linearGradient>
+        </defs>
+        <!-- hook -->
+        <path d="M18 2 C18 2 14 4 14 7 C14 9 16 10 18 10 C20 10 22 9 22 7" fill="none" stroke="url(#lanternMetal)" stroke-width="1.4" stroke-linecap="round"/>
+        <!-- top cap -->
+        <path d="M11 11 L18 7 L25 11 Z" fill="url(#lanternMetal)"/>
+        <rect x="12" y="11" width="12" height="2.2" rx="0.6" fill="url(#lanternMetal)"/>
+        <!-- body -->
+        <path d="M10 13.5 C10 13.5 8 16 8 22 C8 29 12 33 18 35 C24 33 28 29 28 22 C28 16 26 13.5 26 13.5 Z" fill="#1a2a20" stroke="url(#lanternMetal)" stroke-width="1.3"/>
+        <!-- window panes -->
+        <path d="M12 16 L12 28 M18 15 L18 30 M24 16 L24 28" stroke="#c9a84c" stroke-width="0.7" opacity="0.55"/>
+        <path d="M10.5 20 H25.5 M10.5 25 H25.5" stroke="#c9a84c" stroke-width="0.55" opacity="0.4"/>
+        <!-- flame glow -->
+        <ellipse class="lantern-scroll__glow" cx="18" cy="22" rx="5.5" ry="7" fill="url(#lanternFlame)"/>
+        <path d="M18 17 C16.5 20 17 22 18 24 C19 22 19.5 20 18 17 Z" fill="#fff1a8" opacity="0.9"/>
+        <!-- bottom finial -->
+        <path d="M13 34.5 L18 37 L23 34.5 Z" fill="url(#lanternMetal)"/>
+        <circle cx="18" cy="39" r="1.3" fill="url(#lanternMetal)"/>
+        <!-- crescent accent -->
+        <path d="M27.5 18.5 A3 3 0 1 0 27.5 23.5 A2.2 2.2 0 1 1 27.5 18.5 Z" fill="#e8d08a" opacity="0.85"/>
+      </svg>
+    </div>
+  </aside>
+
+  <script>
+    (function () {
+      const rail = document.getElementById('lantern-scroll');
+      const rope = document.getElementById('lantern-rope');
+      const lantern = document.getElementById('lantern-thumb');
+      if (!rail || !rope || !lantern) return;
+
+      let dragging = false;
+      let railTop = 0;
+      let travel = 0;
+
+      function metrics() {
+        const rect = rail.getBoundingClientRect();
+        const lanternH = lantern.offsetHeight || 48;
+        railTop = rect.top;
+        travel = Math.max(0, rect.height - lanternH);
+        return { lanternH };
+      }
+
+      function scrollProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        return max > 0 ? window.scrollY / max : 0;
+      }
+
+      function paint(progress) {
+        metrics();
+        const y = progress * travel;
+        lantern.style.transform = 'translateY(' + y + 'px)';
+        rope.style.height = Math.max(0, y + 10) + 'px';
+      }
+
+      function onScroll() {
+        if (dragging) return;
+        paint(scrollProgress());
+      }
+
+      function setScrollFromClientY(clientY) {
+        metrics();
+        const lanternH = lantern.offsetHeight || 48;
+        let y = clientY - railTop - lanternH / 2;
+        y = Math.min(travel, Math.max(0, y));
+        const progress = travel > 0 ? y / travel : 0;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo(0, progress * max);
+        paint(progress);
+      }
+
+      lantern.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        lantern.classList.add('is-dragging');
+        lantern.setPointerCapture(e.pointerId);
+        setScrollFromClientY(e.clientY);
+        e.preventDefault();
+      });
+
+      lantern.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        setScrollFromClientY(e.clientY);
+      });
+
+      function endDrag(e) {
+        if (!dragging) return;
+        dragging = false;
+        lantern.classList.remove('is-dragging');
+        try { lantern.releasePointerCapture(e.pointerId); } catch (_) {}
+      }
+
+      lantern.addEventListener('pointerup', endDrag);
+      lantern.addEventListener('pointercancel', endDrag);
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    })();
+  </script>
 </body>
 
 </html>
