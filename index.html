@@ -521,9 +521,10 @@
       </div>
       <div class="wordcloud-stage">
         <div id="wordcloud-container"></div>
-        <div id="wordcloud-loader" class="wordcloud-loader" hidden>
+        <div id="wordcloud-loader" class="wordcloud-loader is-visible" role="status" aria-live="polite">
           <div class="loader-spinner"></div>
           <div class="loader-text">Building word cloud…</div>
+          <div class="loader-subtext">This can take a few seconds</div>
         </div>
       </div>
       <div id="word-details">
@@ -1114,8 +1115,7 @@
       if (!loader) return;
       const text = loader.querySelector('.loader-text');
       if (text && message) text.textContent = message;
-      if (isLoading) loader.removeAttribute('hidden');
-      else loader.setAttribute('hidden', '');
+      loader.classList.toggle('is-visible', !!isLoading);
     }
 
     function loadQuranForCloud() {
@@ -1448,12 +1448,20 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <div class="footer">
-    © 2026 Ayatica
+    © <span id="footer-year">2025–2026</span> Ayatica
     <a href="https://github.com/ymorsi7/Ayatica" target="_blank">
       <i class="fab fa-github"></i>
     </a>
   </div>
   <br>
+  <script>
+    (function () {
+      const el = document.getElementById('footer-year');
+      if (!el) return;
+      const current = new Date().getFullYear();
+      el.textContent = current > 2025 ? ('2025–' + current) : '2025';
+    })();
+  </script>
 
   <aside class="lantern-scroll" id="lantern-scroll" aria-hidden="true">
     <div class="lantern-scroll__rail"></div>
