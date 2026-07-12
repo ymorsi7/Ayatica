@@ -953,7 +953,9 @@
         return updateVisualization;
       }
 
-      const url = 'data/hadith.json';
+      const url = location.protocol === 'file:'
+        ? 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json'
+        : 'data/hadith.json';
 
       function loadHadithTreemaps() {
       d3.json(url).then(data => {
@@ -1089,30 +1091,42 @@
       d3.select("#ngram-value").text(ngramSize);
       d3.select("#freq-value").text(minFrequency);
 
-      d3.json("data/quran.json")
+      const quranUrl = location.protocol === 'file:'
+        ? 'https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json'
+        : 'data/quran.json';
+
+      d3.json(quranUrl)
         .then(data => {
           const words = {};
           versesPerWord = {};
 
-          data.children.forEach(surah => {
-            (surah.children || []).forEach(verse => {
-              if (verse.ayah_en) {
-                const text = verse.ayah_en.toLowerCase();
-                const ngrams = getNGrams(text, ngramSize);
+          const surahs = (data.children || []).map(node => {
+            if (node.children) return node;
+            return null;
+          }).filter(Boolean);
 
-                ngrams.forEach(ngram => {
-                  words[ngram] = (words[ngram] || 0) + 1;
-                  if (!versesPerWord[ngram]) {
-                    versesPerWord[ngram] = [];
-                  }
-                  versesPerWord[ngram].push({
-                    surah: verse.surah_name_en || surah.name,
-                    verse: verse.ayah_en,
-                    ayah_no: verse.ayah_no_surah
-                  });
+          // Hierarchical (local/remote) OR flat verse list
+          const iterateVerses = surahs.length
+            ? (fn) => surahs.forEach(surah => (surah.children || []).forEach(verse => fn(verse, surah)))
+            : (fn) => (data.children || []).forEach(verse => fn(verse, null));
+
+          iterateVerses((verse, surah) => {
+            if (verse.ayah_en) {
+              const text = verse.ayah_en.toLowerCase();
+              const ngrams = getNGrams(text, ngramSize);
+
+              ngrams.forEach(ngram => {
+                words[ngram] = (words[ngram] || 0) + 1;
+                if (!versesPerWord[ngram]) {
+                  versesPerWord[ngram] = [];
+                }
+                versesPerWord[ngram].push({
+                  surah: verse.surah_name_en || (surah && surah.name) || 'Unknown',
+                  verse: verse.ayah_en,
+                  ayah_no: verse.ayah_no_surah
                 });
-              }
-            });
+              });
+            }
           });
 
           const wordData = Object.entries(words)

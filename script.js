@@ -42,21 +42,63 @@ document.addEventListener("DOMContentLoaded", () => {
         { surah: 'The Heights', ayah: 57, highlightColor: 'gold', explanation: "This miracle is depicted in Verse 57 of Surah Al-Araf (The Heights). This verse mentions clouds being heavy, something that scientists did not know about until much later. Scroll below for more information." },
     ];
 
-
     let scientificOnly = false;
 
-    d3.json("data/quran.json")
-        .then(data => {
-            const hierarchyData = {
-                name: "Quran",
+    const QURAN_URLS = location.protocol === 'file:'
+        ? [
+            'https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json',
+            'https://cdn.jsdelivr.net/gh/ymorsi7/Quran-Interactive-Visualization@main/TheQuranDataset.json'
+          ]
+        : [
+            'data/quran.json',
+            'https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json'
+          ];
+
+    function toQuranHierarchy(data) {
+        const first = data && data.children && data.children[0];
+        if (first && Array.isArray(first.children)) {
+            return {
+                name: 'Quran',
                 children: data.children.map(surah => ({
-                    name: surah.name,
+                    name: surah.name || surah.surah_name_en || 'Surah',
                     children: (surah.children || []).map(verse => ({
                         ...verse,
                         value: +verse.value || +verse.no_of_word_ayah || 1
                     }))
                 }))
             };
+        }
+
+        const nestedData = d3.groups(data.children || [], d => d.surah_name_en);
+        return {
+            name: 'Quran',
+            children: nestedData.map(([surah, verses]) => ({
+                name: surah,
+                children: verses.map(verse => ({
+                    ...verse,
+                    value: +verse.no_of_word_ayah || +verse.value || 1
+                }))
+            }))
+        };
+    }
+
+    async function loadQuranData() {
+        let lastError;
+        for (const url of QURAN_URLS) {
+            try {
+                const data = await d3.json(url);
+                if (data && data.children) return data;
+            } catch (err) {
+                lastError = err;
+                console.warn('Quran data load failed for', url, err);
+            }
+        }
+        throw lastError || new Error('Could not load Quran data');
+    }
+
+    loadQuranData()
+        .then(data => {
+            const hierarchyData = toQuranHierarchy(data);
 
             const width = 800;
             const height = 600;
@@ -66,113 +108,122 @@ document.addEventListener("DOMContentLoaded", () => {
 
             d3.treemap().size([width, height]).padding(1)(root);
 
-            const svgRoot = d3.select("#treemap").append("svg")
-                .attr("width", width)
-                .attr("height", height);
+            const host = d3.select('#treemap');
+            host.selectAll('*').remove();
 
-            const svg = svgRoot.append("g");
+            const svgRoot = host.append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            const svg = svgRoot.append('g');
 
             svgRoot.call(
                 d3.zoom()
                     .scaleExtent([1, 8])
                     .extent([[0, 0], [width, height]])
                     .translateExtent([[0, 0], [width, height]])
-                    .on("zoom", (event) => {
-                        svg.attr("transform", event.transform);
+                    .on('zoom', (event) => {
+                        svg.attr('transform', event.transform);
                     })
-            ).on("dblclick.zoom", null);
+            ).on('dblclick.zoom', null);
 
             const color = d3.scaleOrdinal()
-                .domain(root.children.map(d => d.data.name))
+                .domain((root.children || []).map(d => d.data.name))
                 .range(d3.schemeCategory10);
 
             function renderTreemap() {
-                svg.selectAll("*").remove();
+                svg.selectAll('*').remove();
 
                 const filteredData = scientificOnly
                     ? root.leaves().filter(d => notableVerses.some(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah))
                     : root.leaves();
 
-                svg.selectAll("rect")
+                svg.selectAll('rect')
                     .data(filteredData)
                     .enter()
-                    .append("rect")
-                    .attr("x", d => d.x0)
-                    .attr("y", d => d.y0)
-                    .attr("width", d => d.x1 - d.x0)
-                    .attr("height", d => d.y1 - d.y0)
-                    .style("fill", d => {
+                    .append('rect')
+                    .attr('x', d => d.x0)
+                    .attr('y', d => d.y0)
+                    .attr('width', d => Math.max(0, d.x1 - d.x0))
+                    .attr('height', d => Math.max(0, d.y1 - d.y0))
+                    .style('fill', d => {
                         const notableVerse = notableVerses.find(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah);
                         return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
                     })
-                    .style("stroke", "#333")
-                    .on("click", function (event, d) { displayDetails(d); });
+                    .style('stroke', '#333')
+                    .on('click', function (event, d) { displayDetails(d); });
             }
 
             function displayDetails(d) {
-                const details = d3.select("#verse-details");
-                details.html("");
+                const details = d3.select('#verse-details');
+                details.html('');
 
                 if (d && d.data) {
-                    const surahName = d.data.surah_name_en || "Unknown Surah";
-                    const ayahText = d.data.ayah_en || "No translation available";
-                    const ayahNo = d.data.ayah_no_surah || "No Ayah Number";
+                    const surahName = d.data.surah_name_en || 'Unknown Surah';
+                    const ayahText = d.data.ayah_en || 'No translation available';
+                    const ayahNo = d.data.ayah_no_surah || 'No Ayah Number';
 
-                    details.append("h3").text(`${surahName} - Ayah ${ayahNo}`);
-                    details.append("p").text(ayahText);
+                    details.append('h3').text(`${surahName} - Ayah ${ayahNo}`);
+                    details.append('p').text(ayahText);
 
                     const notableVerse = notableVerses.find(v =>
                         v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah
                     );
 
                     if (notableVerse && notableVerse.explanation) {
-                        const explanationDiv = details.append("div").attr("id", "explanation");
-                        explanationDiv.append("h4").text("Scientific Explanation:");
-                        explanationDiv.append("p").text(notableVerse.explanation);
+                        const explanationDiv = details.append('div').attr('id', 'explanation');
+                        explanationDiv.append('h4').text('Scientific Explanation:');
+                        explanationDiv.append('p').text(notableVerse.explanation);
                     }
                 } else {
-                    details.append("p").text("No data found for this specific verse in the dataset.");
+                    details.append('p').text('No data found for this specific verse in the dataset.');
                 }
             }
 
             function toggleScientificMiracles() {
                 scientificOnly = !scientificOnly;
-                document.getElementById("filter-button").textContent = scientificOnly
-                    ? "Show All Verses"
-                    : "Show Scientific Miracles Only";
+                document.getElementById('filter-button').textContent = scientificOnly
+                    ? 'Show All Verses'
+                    : 'Show Scientific Miracles Only';
                 renderTreemap();
             }
 
             function searchVerses() {
-                const keyword = document.getElementById("search-bar").value.toLowerCase();
+                const keyword = document.getElementById('search-bar').value.toLowerCase();
 
                 const searchData = root.leaves().filter(d =>
                     d.data.ayah_en && d.data.ayah_en.toLowerCase().includes(keyword)
                 );
 
-                svg.selectAll("*").remove();
+                svg.selectAll('*').remove();
 
-                svg.selectAll("rect")
+                svg.selectAll('rect')
                     .data(searchData)
                     .enter()
-                    .append("rect")
-                    .attr("x", d => d.x0)
-                    .attr("y", d => d.y0)
-                    .attr("width", d => d.x1 - d.x0)
-                    .attr("height", d => d.y1 - d.y0)
-                    .style("fill", d => {
+                    .append('rect')
+                    .attr('x', d => d.x0)
+                    .attr('y', d => d.y0)
+                    .attr('width', d => Math.max(0, d.x1 - d.x0))
+                    .attr('height', d => Math.max(0, d.y1 - d.y0))
+                    .style('fill', d => {
                         const notableVerse = notableVerses.find(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah);
                         return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
                     })
-                    .style("stroke", "#333")
-                    .on("click", function (event, d) { displayDetails(d); });
+                    .style('stroke', '#333')
+                    .on('click', function (event, d) { displayDetails(d); });
             }
 
-            document.getElementById("filter-button").onclick = toggleScientificMiracles;
-            document.getElementById("search-bar").addEventListener("input", searchVerses);
-            document.getElementById("search-button").addEventListener("click", searchVerses);
+            document.getElementById('filter-button').onclick = toggleScientificMiracles;
+            document.getElementById('search-bar').addEventListener('input', searchVerses);
+            document.getElementById('search-button').addEventListener('click', searchVerses);
 
             renderTreemap();
         })
-        .catch(error => console.error("Error loading JSON:", error));
+        .catch(error => {
+            console.error('Error loading Quran JSON:', error);
+            const details = document.getElementById('verse-details');
+            if (details) {
+                details.innerHTML = '<h3>Could not load Quran data</h3><p>Check your connection and refresh the page.</p>';
+            }
+        });
 });
