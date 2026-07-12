@@ -519,10 +519,12 @@
           <span id="freq-value">5</span>
         </label>
       </div>
-      <div id="wordcloud-container"></div>
-      <div id="wordcloud-loader" class="wordcloud-loader" style="display: none;">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">Updating Word Cloud...</div>
+      <div class="wordcloud-stage">
+        <div id="wordcloud-container"></div>
+        <div id="wordcloud-loader" class="wordcloud-loader" hidden>
+          <div class="loader-spinner"></div>
+          <div class="loader-text">Building word cloud…</div>
+        </div>
       </div>
       <div id="word-details">
         <h3 style="color:#4db574;">Word Details</h3>
@@ -957,8 +959,20 @@
         ? 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json'
         : 'data/hadith.json';
 
+      let hadithLoadState = 'idle'; // idle | loading | ready | error
+
       function loadHadithTreemaps() {
+        if (hadithLoadState === 'loading' || hadithLoadState === 'ready') return;
+        hadithLoadState = 'loading';
+
+        const loadingEl = document.getElementById("loadingScreen");
+        if (loadingEl) {
+          loadingEl.style.display = "flex";
+          loadingEl.innerHTML = '<div class="loading-spinner"></div><div class="loading-text">Loading Hadith Data...</div>';
+        }
+
       d3.json(url).then(data => {
+        if (hadithLoadState === 'ready') return;
         const bukhariData = {
           name: "Sahih Bukhari",
           children: d3.groups(data.filter(d => d.source === "Sahih Bukhari"), d => d.chapter)
@@ -977,11 +991,17 @@
             }))
         };
 
+        // Prevent duplicate SVGs if this somehow runs twice
+        d3.select("#bukhariTreemap").selectAll("*").remove();
+        d3.select("#muslimTreemap").selectAll("*").remove();
+
         document.getElementById("loadingScreen").style.display = "none";
         document.getElementById("hadithContent").style.display = "block";
 
         bukhariUpdate = createTreemap(bukhariData, "#bukhariTreemap", "hadithDetailsBukhari", 600, 600);
         muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
+        hadithLoadState = 'ready';
+
         let showNotableOnly = false;
         function toggleNotableHadiths() {
           showNotableOnly = !showNotableOnly;
@@ -1011,6 +1031,7 @@
         });
       }).catch(error => {
         console.error("Error loading hadith data:", error);
+        hadithLoadState = 'error';
         document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";
       });
       }
@@ -1061,6 +1082,11 @@
 
   <script>
     let versesPerWord = {};
+    let quranCloudData = null;
+    let quranCloudPromise = null;
+    let wordCloudRequestId = 0;
+    let wordCloudStarted = false;
+    let wordCloudDebounce = null;
 
     const stopWords = new Set(['the', 'your', 'than', 'and', 'were', 'then', 'a', 'to', 'of', 'in', 'that', 'is', 'for', 'on', 'with', 'by', 'as', 'this', 'but', 'from', 'or', 'an', 'will', 'be', 'they', 'who', 'has', 'are', 'their', 'have', 'had', 'what', 'when', 'where', 'which', 'why', 'how']);
 
@@ -1083,29 +1109,53 @@
       return ngrams;
     }
 
+    function setWordCloudLoading(isLoading, message) {
+      const loader = document.getElementById('wordcloud-loader');
+      if (!loader) return;
+      const text = loader.querySelector('.loader-text');
+      if (text && message) text.textContent = message;
+      if (isLoading) loader.removeAttribute('hidden');
+      else loader.setAttribute('hidden', '');
+    }
 
-    function updateWordCloud() {
-      const ngramSize = +d3.select("#ngram-slider").property("value");
-      const minFrequency = +d3.select("#freq-slider").property("value");
-
-      d3.select("#ngram-value").text(ngramSize);
-      d3.select("#freq-value").text(minFrequency);
+    function loadQuranForCloud() {
+      if (quranCloudData) return Promise.resolve(quranCloudData);
+      if (quranCloudPromise) return quranCloudPromise;
 
       const quranUrl = location.protocol === 'file:'
         ? 'https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json'
         : 'data/quran.json';
 
-      d3.json(quranUrl)
+      quranCloudPromise = d3.json(quranUrl)
         .then(data => {
+          quranCloudData = data;
+          return data;
+        })
+        .catch(err => {
+          quranCloudPromise = null;
+          throw err;
+        });
+
+      return quranCloudPromise;
+    }
+
+    function updateWordCloud() {
+      const ngramSize = +d3.select("#ngram-slider").property("value");
+      const minFrequency = +d3.select("#freq-slider").property("value");
+      const requestId = ++wordCloudRequestId;
+
+      d3.select("#ngram-value").text(ngramSize);
+      d3.select("#freq-value").text(minFrequency);
+      setWordCloudLoading(true, quranCloudData ? 'Updating word cloud…' : 'Loading Quran text…');
+
+      loadQuranForCloud()
+        .then(data => {
+          if (requestId !== wordCloudRequestId) return;
+
           const words = {};
           versesPerWord = {};
 
-          const surahs = (data.children || []).map(node => {
-            if (node.children) return node;
-            return null;
-          }).filter(Boolean);
-
-          // Hierarchical (local/remote) OR flat verse list
+          const surahs = (data.children || []).filter(node => node && node.children);
           const iterateVerses = surahs.length
             ? (fn) => surahs.forEach(surah => (surah.children || []).forEach(verse => fn(verse, surah)))
             : (fn) => (data.children || []).forEach(verse => fn(verse, null));
@@ -1117,9 +1167,7 @@
 
               ngrams.forEach(ngram => {
                 words[ngram] = (words[ngram] || 0) + 1;
-                if (!versesPerWord[ngram]) {
-                  versesPerWord[ngram] = [];
-                }
+                if (!versesPerWord[ngram]) versesPerWord[ngram] = [];
                 versesPerWord[ngram].push({
                   surah: verse.surah_name_en || (surah && surah.name) || 'Unknown',
                   verse: verse.ayah_en,
@@ -1128,6 +1176,8 @@
               });
             }
           });
+
+          if (requestId !== wordCloudRequestId) return;
 
           const wordData = Object.entries(words)
             .filter(([_, count]) => count >= minFrequency)
@@ -1146,58 +1196,71 @@
             .padding(5)
             .rotate(() => 0)
             .fontSize(d => d.size)
-            .on("end", draw)
+            .on("end", function draw(laidOut) {
+              if (requestId !== wordCloudRequestId) return;
+
+              d3.select("#wordcloud-container").select("svg").remove();
+
+              const svg = d3.select("#wordcloud-container")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", `translate(${width / 2},${height / 2})`);
+
+              svg.selectAll("text")
+                .data(laidOut)
+                .enter()
+                .append("text")
+                .style("font-size", d => `${d.size}px`)
+                .style("fill", d => d.color)
+                .attr("text-anchor", "middle")
+                .attr("transform", d => `translate(${d.x},${d.y})`)
+                .text(d => d.text)
+                .on("click", function (event, d) {
+                  showWordDetails(d.text, versesPerWord[d.text]);
+                });
+
+              setWordCloudLoading(false);
+            })
             .start();
-
-          function draw(words) {
-            d3.select("#wordcloud-container").select("svg").remove();
-
-            const svg = d3.select("#wordcloud-container")
-              .append("svg")
-              .attr("width", width)
-              .attr("height", height)
-              .append("g")
-              .attr("transform", `translate(${width / 2},${height / 2})`);
-
-            svg.selectAll("text")
-              .data(words)
-              .enter()
-              .append("text")
-              .style("font-size", d => `${d.size}px`)
-              .style("fill", d => d.color)
-              .attr("text-anchor", "middle")
-              .attr("transform", d => `translate(${d.x},${d.y})`)
-              .text(d => d.text)
-              .on("click", function (event, d) {
-                showWordDetails(d.text, versesPerWord[d.text]);
-              });
-          }
+        })
+        .catch(err => {
+          if (requestId !== wordCloudRequestId) return;
+          console.error('Word cloud failed:', err);
+          setWordCloudLoading(true, 'Could not load word cloud. Try again.');
         });
     }
 
-    d3.select("#ngram-slider").on("input", function () {
-      d3.select("#ngram-value").text(this.value);
-      updateWordCloud();
-    });
+    function scheduleWordCloudUpdate() {
+      d3.select("#ngram-value").text(d3.select("#ngram-slider").property("value"));
+      d3.select("#freq-value").text(d3.select("#freq-slider").property("value"));
+      clearTimeout(wordCloudDebounce);
+      wordCloudDebounce = setTimeout(updateWordCloud, 220);
+    }
 
-    d3.select("#freq-slider").on("input", function () {
-      d3.select("#freq-value").text(this.value);
-      updateWordCloud();
-    });
+    d3.select("#ngram-slider").on("input", scheduleWordCloudUpdate);
+    d3.select("#freq-slider").on("input", scheduleWordCloudUpdate);
 
-    // Defer heavy word-cloud build until the section is near view
     (function deferWordCloud() {
       const target = document.getElementById('word-cloud');
-      if (!target || !('IntersectionObserver' in window)) {
+      const start = () => {
+        if (wordCloudStarted) return;
+        wordCloudStarted = true;
         updateWordCloud();
+      };
+
+      if (!target || !('IntersectionObserver' in window)) {
+        start();
         return;
       }
+
       const io = new IntersectionObserver((entries) => {
         if (entries.some(e => e.isIntersecting)) {
           io.disconnect();
-          updateWordCloud();
+          start();
         }
-      }, { rootMargin: '200px' });
+      }, { rootMargin: '180px' });
       io.observe(target);
     })();
   </script>
