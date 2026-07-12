@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Ayatica — Explore Sacred Texts</title>
+  <title>Ayatica</title>
   <meta name="description" content="Ayatica is an interactive exploration of Quran and Hadith through treemaps, word clouds, and scientific miracle visualizations.">
   <link rel="icon" href="images/icon.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
@@ -27,7 +27,6 @@
 <body>
   <header class="site-header">
     <a class="brand-mark" href="#top" aria-label="Ayatica home">
-      <img src="images/smiling.png" alt="">
       <span>Ayatica</span>
     </a>
     <nav class="nav-buttons" aria-label="Primary">
@@ -62,10 +61,7 @@
       clear to them that this ˹Quran˺ is the truth. Is it not enough that your Lord is a Witness over all things?"</p>
   </div>
 
-  <div id="logo" onclick="window.location.href='https://ymorsi.com';" hidden>
-    <img src="images/smiling.png" alt="YM Home">
-    <div class="tooltip">YM - Home</div>
-  </div>
+  <div id="logo" hidden aria-hidden="true"></div>
 
   <div class="intro-section" id="top">
     <p class="brand-hero">Ayatica</p>
@@ -141,7 +137,7 @@
         (Surah Adh-Dhariyat, 51:47)</p>
       <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by
         observations of distant galaxies moving away from us.</p>
-      <audio src="audio/expansion.mp3" controls></audio>
+      <audio preload="none" src="audio/expansion.mp3" controls></audio>
     </div>
     <div class="animation-container">
       <div id="creation-burst-container">
@@ -231,7 +227,7 @@
         sun and the moon; all
         [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
       <p>This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
-      <audio src="audio/orbit.mp3" controls></audio>
+      <audio preload="none" src="audio/orbit.mp3" controls></audio>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
@@ -319,7 +315,7 @@
         [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into
         another creation. So blessed is Allah , the best of creators." (Surah Al-Mu'minun, 23:12-14)</p>
       <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
-      <audio src="audio/emb.mp3" controls></audio>
+      <audio preload="none" src="audio/emb.mp3" controls></audio>
     </div>
     <div class="animation-container">
       <div id="embryonic-development-container">
@@ -395,7 +391,7 @@
   <section class="miracle-section">
     <div style="display: flex; align-items: center; gap: 20px;">
       <div class="animation-container" style="flex: 1;">
-        <img src="images/rome.png" alt="Roman Empire Animation" style="width: 100%; max-width: 400px;">
+        <img src="images/rome.png" alt="Roman Empire Animation" style="width: 100%; max-width: 400px;" loading="lazy">
       </div>
       <div class="verse-content" style="flex: 1;">
         <h2>The Romans' Victory</h2>
@@ -422,7 +418,7 @@
           over the Persians coincided with the Muslim victory over the polytheists. <a style="color:#4db574;">(Source:
             The Unchallengeable
             Miracles of the Quran, Yusuf Al-Hajj Ahmad)</a></p>
-        <audio src="audio/rum.mp3" controls></audio>
+        <audio preload="none" src="audio/rum.mp3" controls></audio>
       </div>
     </div>
   </section>
@@ -439,10 +435,10 @@
         the company of another, forms a pair'; the word is used just as readily for a married couple as for a pair of
         shoes. This is describing how plants come in pairs, implying sexual plant reproduction, which was not something
         that was known at the time of the Quran.</p>
-      <audio src="audio/plant.mp3" controls></audio>
+      <audio preload="none" src="audio/plant.mp3" controls></audio>
     </div>
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center; margin: auto;">
-      <img src="images/plants.gif" alt="Plant Growth Animation" style="height: 250px; margin: 0;">
+      <img src="images/plants.gif" alt="Plant Growth Animation" style="height: 250px; margin: 0;" loading="lazy">
     </div>
   </section>
 
@@ -450,7 +446,7 @@
   <section class="miracle-section">
     <div style="display: flex; align-items: center; gap: 20px;">
       <div class="animation-container" style="flex: 1;">
-        <img src="images/clouds.gif" alt="Clouds" style="width: 100%; max-width: 400px;">
+        <img src="images/clouds.gif" alt="Clouds" style="width: 100%; max-width: 400px;" loading="lazy">
       </div>
       <div class="verse-content" style="flex: 1;">
         <h2>Heavy Clouds</h2>
@@ -485,7 +481,7 @@
           and makes clouds float in the air with thousands of tons of water also sent down the Quran. <a
             href="https://questionsonislam.com/article/weight-clouds" style="color:#4db574;">(Source:
             Questions on Islam)</a></p>
-        <audio src="audio/clouds.mp3" controls></audio>
+        <audio preload="none" src="audio/clouds.mp3" controls></audio>
       </div>
     </div>
   </section>
@@ -610,13 +606,13 @@
         discovered only recently with computer analysis.</p>
     </div>
     <div class="animation-container">
-      <img src="images/sun.gif" alt="Day Count Pattern" style="width: 400px; height: 400px;">
+      <img src="images/sun.gif" alt="Day Count Pattern" style="width: 400px; height: 400px;" loading="lazy">
     </div>
   </section>
 
   <section class="miracle-section">
     <div class="animation-container">
-      <img src="images/sea.gif" alt="Land Sea Ratio" style="width: 300px; height: 300px;">
+      <img src="images/sea.gif" alt="Land Sea Ratio" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
       <h2>The Land and Sea Ratio</h2>
@@ -639,13 +635,13 @@
       <p>This equal frequency emphasizes the Quranic theme of life and death being two sides of the same coin.</p>
     </div>
     <div class="animation-container">
-      <img src="images/death.png" alt="Life Death Balance">
+      <img src="images/death.png" alt="Life Death Balance" loading="lazy">
     </div>
   </section>
 
   <section class="miracle-section">
     <div class="animation-container">
-      <img src="images/gender.png" alt="Gender Equality" style="width: 300px; height: 300px;">
+      <img src="images/gender.png" alt="Gender Equality" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
       <h2>Gender Equality in Words</h2>
@@ -667,7 +663,7 @@
       <p>This perfect alignment of content and position creates a remarkable self-referential miracle.</p>
     </div>
     <div class="animation-container">
-      <img src="images/middle.png" alt="Middle Verse" style="width: 300px; height: 300px;">
+      <img src="images/middle.png" alt="Middle Verse" style="width: 300px; height: 300px;" loading="lazy">
     </div>
   </section>
 
@@ -745,13 +741,13 @@
       </p>
     </div>
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center;">
-      <img src="images/fly.gif" alt="Fly wings" style="width: 400px; height: 400px;">
+      <img src="images/fly.gif" alt="Fly wings" style="width: 400px; height: 400px;" loading="lazy">
     </div>
   </section>
 
   <section class="miracle-section">
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center;">
-      <img src="images/moon.gif" alt="Moon" style="width: 300px; height: 300px;">
+      <img src="images/moon.gif" alt="Moon" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
       <h2>Splitting of the Moon (Muslim ID: 17142)</h2>
@@ -784,13 +780,13 @@
         inspiration.</p>
     </div>
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center;">
-      <img src="images/blackSeed.png" alt="Black Seeds" style="width: 300px; height: 300px;">
+      <img src="images/blackSeed.png" alt="Black Seeds" style="width: 300px; height: 300px;" loading="lazy">
     </div>
   </section>
 
   <section class="miracle-section">
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center;">
-      <img src="images/earth.gif" alt="Earth" style="width: 300px; height: 300px;">
+      <img src="images/earth.gif" alt="Earth" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
       <h2>Signs of the End (Bukhari ID: 6983)</h2>
@@ -845,7 +841,7 @@
         nature.</p>
     </div>
     <div class="animation-container" style="display: flex; align-items: center; justify-content: center;">
-      <img src="images/honey.gif" alt="Honey" style="width: 300px; height: 300px;">
+      <img src="images/honey.gif" alt="Honey" style="width: 300px; height: 300px;" loading="lazy">
     </div>
   </section>
 
@@ -869,11 +865,13 @@
 
         const zoom = d3.zoom()
           .scaleExtent([1, 8])
+          .extent([[0, 0], [width, height]])
+          .translateExtent([[0, 0], [width, height]])
           .on("zoom", (event) => {
             g.attr("transform", event.transform);
           });
 
-        svg.call(zoom);
+        svg.call(zoom).on("dblclick.zoom", null);
 
         const tooltip = d3.select("#tooltip");
         const color = d3.scaleOrdinal().domain(root.children.map(d => d.data.name)).range(d3.schemeCategory10);
@@ -955,8 +953,9 @@
         return updateVisualization;
       }
 
-      const url = 'https://raw.githubusercontent.com/ymorsi7/ExplorableExplanation/refs/heads/main/data/hadith.json';
+      const url = 'data/hadith.json';
 
+      function loadHadithTreemaps() {
       d3.json(url).then(data => {
         const bukhariData = {
           name: "Sahih Bukhari",
@@ -983,23 +982,14 @@
         muslimUpdate = createTreemap(muslimData, "#muslimTreemap", "hadithDetailsMuslim", 600, 600);
         let showNotableOnly = false;
         function toggleNotableHadiths() {
-          console.log("Toggle button clicked");
-          console.log("Current showNotableOnly:", showNotableOnly);
           showNotableOnly = !showNotableOnly;
-          console.log("New showNotableOnly:", showNotableOnly);
 
           document.getElementById("hadith-filter-button").textContent = showNotableOnly
             ? "Show All Hadiths"
             : "Show Examples of Prophetic Wisdom";
 
-          if (bukhariUpdate) {
-            console.log("Calling bukhariUpdate with:", showNotableOnly);
-            bukhariUpdate(showNotableOnly);
-          }
-          if (muslimUpdate) {
-            console.log("Calling muslimUpdate with:", showNotableOnly);
-            muslimUpdate(showNotableOnly);
-          }
+          if (bukhariUpdate) bukhariUpdate(showNotableOnly);
+          if (muslimUpdate) muslimUpdate(showNotableOnly);
         }
 
 
@@ -1021,6 +1011,20 @@
         console.error("Error loading hadith data:", error);
         document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";
       });
+      }
+
+      const hadithSection = document.getElementById('hadith-treemap-the') || document.querySelector('.hadith-section');
+      if (hadithSection && 'IntersectionObserver' in window) {
+        const hadithIO = new IntersectionObserver((entries) => {
+          if (entries.some(e => e.isIntersecting)) {
+            hadithIO.disconnect();
+            loadHadithTreemaps();
+          }
+        }, { rootMargin: '300px' });
+        hadithIO.observe(hadithSection);
+      } else {
+        loadHadithTreemaps();
+      }
     });
   </script>
   <!-- 
@@ -1085,13 +1089,13 @@
       d3.select("#ngram-value").text(ngramSize);
       d3.select("#freq-value").text(minFrequency);
 
-      d3.json("https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json")
+      d3.json("data/quran.json")
         .then(data => {
           const words = {};
           versesPerWord = {};
 
           data.children.forEach(surah => {
-            surah.children.forEach(verse => {
+            (surah.children || []).forEach(verse => {
               if (verse.ayah_en) {
                 const text = verse.ayah_en.toLowerCase();
                 const ngrams = getNGrams(text, ngramSize);
@@ -1102,7 +1106,7 @@
                     versesPerWord[ngram] = [];
                   }
                   versesPerWord[ngram].push({
-                    surah: verse.surah_name_en,
+                    surah: verse.surah_name_en || surah.name,
                     verse: verse.ayah_en,
                     ayah_no: verse.ayah_no_surah
                   });
@@ -1167,7 +1171,21 @@
       updateWordCloud();
     });
 
-    updateWordCloud();
+    // Defer heavy word-cloud build until the section is near view
+    (function deferWordCloud() {
+      const target = document.getElementById('word-cloud');
+      if (!target || !('IntersectionObserver' in window)) {
+        updateWordCloud();
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        if (entries.some(e => e.isIntersecting)) {
+          io.disconnect();
+          updateWordCloud();
+        }
+      }, { rootMargin: '200px' });
+      io.observe(target);
+    })();
   </script>
 
   <script>
@@ -1240,50 +1258,27 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const loadingScreen = document.getElementById('loading-screen');
+      // Don't wait on huge below-fold GIFs/audio — dismiss quickly once the shell is ready
+      const MAX_LOADING_TIME = 900;
 
-
-      const MAX_LOADING_TIME = 3000;
-
-      const timeoutPromise = new Promise(resolve => {
-        setTimeout(resolve, MAX_LOADING_TIME);
-      });
-
-      const imagePromises = Array.from(document.images).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(resolve => {
-          img.onload = resolve;
-          img.onerror = resolve;
-        });
-      });
-
-      const scriptPromises = Array.from(document.scripts).map(script => {
-        if (script.loaded) return Promise.resolve();
-        return new Promise(resolve => {
-          script.onload = resolve;
-          script.onerror = resolve;
-        });
-      });
-
-
-      Promise.race([
-        Promise.all([...imagePromises, ...scriptPromises]),
-        timeoutPromise
-      ])
-        .finally(() => {
-
-          loadingScreen.style.opacity = '0';
-
-          setTimeout(() => {
-            loadingScreen.style.display = 'none';
-          }, 500);
-        });
+      setTimeout(() => {
+        if (!loadingScreen) return;
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => {
+          loadingScreen.style.display = 'none';
+        }, 350);
+      }, MAX_LOADING_TIME);
     });
   </script>
   <script src="script.js"></script>
 
   <div class="section-transition" id="about">
     <div class="journey-container">
-      <h2 class="section-title">Unveiling Ancient Wisdom Through Modern Visualization</h2>
+      <details class="about-collapse">
+        <summary class="about-collapse-summary">
+          <span class="section-title">Unveiling Ancient Wisdom Through Modern Visualization</span>
+        </summary>
+        <div class="about-collapse-body">
       <div class="narrative-journey">
         <div class="journey-step">
           <h3>The Challenge (AND)</h3>
@@ -1368,13 +1363,15 @@
           <iframe width="700" height="393.75" src="https://www.youtube.com/embed/ZkFaq_UCofs?si=A7mOFVc8Q_df5Lvm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </center>
       </div>
+        </div>
+      </details>
     </div>
   </div>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <div class="footer">
-    © 2025 Ayatica
+    © 2026 Ayatica
     <a href="https://github.com/ymorsi7/Ayatica" target="_blank">
       <i class="fab fa-github"></i>
     </a>

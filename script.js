@@ -45,16 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let scientificOnly = false;
 
-    d3.json("https://raw.githubusercontent.com/ymorsi7/Quran-Interactive-Visualization/main/TheQuranDataset.json")
+    d3.json("data/quran.json")
         .then(data => {
-            const nestedData = d3.groups(data.children, d => d.surah_name_en);
             const hierarchyData = {
                 name: "Quran",
-                children: nestedData.map(([surah, verses]) => ({
-                    name: surah,
-                    children: verses.map(verse => ({
+                children: data.children.map(surah => ({
+                    name: surah.name,
+                    children: (surah.children || []).map(verse => ({
                         ...verse,
-                        value: +verse.no_of_word_ayah || 1
+                        value: +verse.value || +verse.no_of_word_ayah || 1
                     }))
                 }))
             };
@@ -67,15 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
             d3.treemap().size([width, height]).padding(1)(root);
 
-            const svg = d3.select("#treemap").append("svg")
+            const svgRoot = d3.select("#treemap").append("svg")
                 .attr("width", width)
-                .attr("height", height)
-                .call(d3.zoom()
-                    .scaleExtent([1, 8]) // [min zoom, max zoom] where 1 is the default view
+                .attr("height", height);
+
+            const svg = svgRoot.append("g");
+
+            svgRoot.call(
+                d3.zoom()
+                    .scaleExtent([1, 8])
+                    .extent([[0, 0], [width, height]])
+                    .translateExtent([[0, 0], [width, height]])
                     .on("zoom", (event) => {
                         svg.attr("transform", event.transform);
-                    }))
-                .append("g");
+                    })
+            ).on("dblclick.zoom", null);
 
             const color = d3.scaleOrdinal()
                 .domain(root.children.map(d => d.data.name))
