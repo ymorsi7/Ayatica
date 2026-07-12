@@ -1439,68 +1439,110 @@
       if (!rail || !rope || !lantern) return;
 
       let dragging = false;
-      let railTop = 0;
-      let travel = 0;
+      let grabOffset = 0;
+      let activePointer = null;
+      let raf = 0;
+      let pendingY = null;
 
-      function metrics() {
+      function maxScroll() {
+        return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      }
+
+      function railMetrics() {
         const rect = rail.getBoundingClientRect();
         const lanternH = lantern.offsetHeight || 48;
-        railTop = rect.top;
-        travel = Math.max(0, rect.height - lanternH);
-        return { lanternH };
+        return {
+          top: rect.top,
+          travel: Math.max(0, rect.height - lanternH),
+          lanternH
+        };
       }
 
-      function scrollProgress() {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        return max > 0 ? window.scrollY / max : 0;
+      function paintFromProgress(progress) {
+        const { travel } = railMetrics();
+        const y = Math.min(1, Math.max(0, progress)) * travel;
+        lantern.style.transform = 'translate3d(0,' + y + 'px,0)';
+        rope.style.height = (y + 12) + 'px';
       }
 
-      function paint(progress) {
-        metrics();
-        const y = progress * travel;
-        lantern.style.transform = 'translateY(' + y + 'px)';
-        rope.style.height = Math.max(0, y + 10) + 'px';
+      function applyLanternY(y) {
+        const { travel } = railMetrics();
+        const clamped = Math.min(travel, Math.max(0, y));
+        lantern.style.transform = 'translate3d(0,' + clamped + 'px,0)';
+        rope.style.height = (clamped + 12) + 'px';
+        const progress = travel > 0 ? clamped / travel : 0;
+        const top = progress * maxScroll();
+        window.scrollTo(0, top);
       }
 
       function onScroll() {
         if (dragging) return;
-        paint(scrollProgress());
+        const max = maxScroll();
+        paintFromProgress(max > 0 ? window.scrollY / max : 0);
       }
 
-      function setScrollFromClientY(clientY) {
-        metrics();
-        const lanternH = lantern.offsetHeight || 48;
-        let y = clientY - railTop - lanternH / 2;
-        y = Math.min(travel, Math.max(0, y));
-        const progress = travel > 0 ? y / travel : 0;
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        window.scrollTo(0, progress * max);
-        paint(progress);
+      function queueDragY(clientY) {
+        const { top } = railMetrics();
+        pendingY = clientY - top - grabOffset;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          if (pendingY == null) return;
+          applyLanternY(pendingY);
+          pendingY = null;
+        });
       }
 
       lantern.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
         dragging = true;
+        activePointer = e.pointerId;
         lantern.classList.add('is-dragging');
+        document.body.classList.add('lantern-dragging');
+
+        const lanternRect = lantern.getBoundingClientRect();
+        grabOffset = e.clientY - lanternRect.top;
+
         lantern.setPointerCapture(e.pointerId);
-        setScrollFromClientY(e.clientY);
+        e.preventDefault();
+        e.stopPropagation();
+      });
+
+      // Also allow grabbing anywhere on the rail / rope
+      rail.addEventListener('pointerdown', (e) => {
+        if (e.target === lantern || lantern.contains(e.target)) return;
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        dragging = true;
+        activePointer = e.pointerId;
+        lantern.classList.add('is-dragging');
+        document.body.classList.add('lantern-dragging');
+        grabOffset = (lantern.offsetHeight || 48) / 2;
+        rail.setPointerCapture(e.pointerId);
+        queueDragY(e.clientY);
         e.preventDefault();
       });
 
-      lantern.addEventListener('pointermove', (e) => {
-        if (!dragging) return;
-        setScrollFromClientY(e.clientY);
-      });
+      function onPointerMove(e) {
+        if (!dragging || (activePointer != null && e.pointerId !== activePointer)) return;
+        queueDragY(e.clientY);
+        e.preventDefault();
+      }
 
       function endDrag(e) {
         if (!dragging) return;
+        if (activePointer != null && e.pointerId !== activePointer) return;
         dragging = false;
+        activePointer = null;
         lantern.classList.remove('is-dragging');
+        document.body.classList.remove('lantern-dragging');
         try { lantern.releasePointerCapture(e.pointerId); } catch (_) {}
+        try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
+        onScroll();
       }
 
-      lantern.addEventListener('pointerup', endDrag);
-      lantern.addEventListener('pointercancel', endDrag);
-
+      window.addEventListener('pointermove', onPointerMove, { passive: false });
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onScroll);
       onScroll();
