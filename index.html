@@ -576,7 +576,7 @@
     <div class="animation-container">
 
       <div style="display: flex; justify-content: center; margin: 20px 0;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/br2wCkrMUNw?si=LXi-bulRgiGzleYJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/xvl3JQoctOk?si=D9YwedUEZlfOosAR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
   </section>
@@ -1506,6 +1506,7 @@
       let activePointer = null;
       let raf = 0;
       let pendingY = null;
+      let scrollRaf = 0;
 
       function maxScroll() {
         return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -1540,8 +1541,13 @@
 
       function onScroll() {
         if (dragging) return;
-        const max = maxScroll();
-        paintFromProgress(max > 0 ? window.scrollY / max : 0);
+        if (scrollRaf) return;
+        scrollRaf = requestAnimationFrame(() => {
+          scrollRaf = 0;
+          if (dragging) return;
+          const max = maxScroll();
+          paintFromProgress(max > 0 ? window.scrollY / max : 0);
+        });
       }
 
       function queueDragY(clientY) {
