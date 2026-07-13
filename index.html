@@ -851,8 +851,22 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const notableBukhariHadiths = [6030, 3187, 6983, 5633, 5583, 3488, 4664, 4668, 4669, 6959, 6983, 1010, 1009];
-      const notableMuslimHadiths = [16791, 15812, 16798, 17142, 16791, 15826, 15817, 15789, 15291, 15301];
+      const notableBukhariHadiths = [
+        6030, 3187, 6983, 5633, 5583, 3488, 4664, 4668, 4669, 6959, 1010, 1009,
+        // Quarantine / plague guidance
+        3332, 3333, 5584, 5585,
+        // Siwak / oral hygiene
+        867, 868,
+        // Honey + cupping medicine
+        5542, 5543, 5546,
+        // Ajwa dates
+        5302, 5623
+      ];
+      const notableMuslimHadiths = [
+        16791, 15812, 16798, 17142, 15826, 15817, 15789, 15291, 15301,
+        // Miswak / tooth-stick emphasis
+        10609, 10610, 11976
+      ];
       let bukhariUpdate, muslimUpdate;
 
       function createTreemap(data, container, detailsId, width, height) {
