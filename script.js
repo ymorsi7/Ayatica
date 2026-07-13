@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 svg.selectAll('*').remove();
 
                 const filteredData = scientificOnly
-                    ? root.leaves().filter(d => notableVerses.some(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah))
+                    ? root.leaves().filter(d => findNotable(d.data))
                     : root.leaves();
 
                 svg.selectAll('rect')
@@ -165,11 +165,35 @@ document.addEventListener("DOMContentLoaded", () => {
                     .attr('width', d => Math.max(0, d.x1 - d.x0))
                     .attr('height', d => Math.max(0, d.y1 - d.y0))
                     .style('fill', d => {
-                        const notableVerse = notableVerses.find(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah);
+                        const notableVerse = findNotable(d.data);
                         return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
                     })
                     .style('stroke', '#333')
                     .on('click', function (event, d) { displayDetails(d); });
+            }
+
+            function t(key, vars) {
+                return (window.AyaticaI18n && window.AyaticaI18n.t)
+                    ? window.AyaticaI18n.t(key, vars)
+                    : key;
+            }
+
+            function findNotable(data) {
+                if (!data) return null;
+                const ayahNum = +data.ayah_no_surah;
+                return notableVerses.find(v =>
+                    v.surah === data.surah_name_en && +v.ayah === ayahNum
+                );
+            }
+
+            function notableExplanation(notableVerse) {
+                if (!notableVerse) return '';
+                const key = `notable.${notableVerse.surah}|${notableVerse.ayah}`;
+                const ar = t(key);
+                if (window.AyaticaI18n && window.AyaticaI18n.getLang() === 'ar' && ar && ar !== key) {
+                    return ar;
+                }
+                return notableVerse.explanation;
             }
 
             function displayDetails(d) {
@@ -177,32 +201,36 @@ document.addEventListener("DOMContentLoaded", () => {
                 details.html('');
 
                 if (d && d.data) {
-                    const surahName = d.data.surah_name_en || 'Unknown Surah';
-                    const ayahText = d.data.ayah_en || 'No translation available';
-                    const ayahNo = d.data.ayah_no_surah || 'No Ayah Number';
+                    const surahName = d.data.surah_name_en || t('js.unknownSurah');
+                    const ayahText = d.data.ayah_en || t('js.noTranslation');
+                    const ayahNo = d.data.ayah_no_surah || t('js.noAyah');
 
-                    details.append('h3').text(`${surahName} - Ayah ${ayahNo}`);
+                    details.append('h3').text(t('js.ayahLabel', { surah: surahName, ayah: ayahNo }));
                     details.append('p').text(ayahText);
 
-                    const notableVerse = notableVerses.find(v =>
-                        v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah
-                    );
+                    const notableVerse = findNotable(d.data);
 
                     if (notableVerse && notableVerse.explanation) {
                         const explanationDiv = details.append('div').attr('id', 'explanation');
-                        explanationDiv.append('h4').text('Scientific Explanation:');
-                        explanationDiv.append('p').text(notableVerse.explanation);
+                        explanationDiv.append('h4').text(t('js.scientificExplanation'));
+                        explanationDiv.append('p').text(notableExplanation(notableVerse));
                     }
                 } else {
-                    details.append('p').text('No data found for this specific verse in the dataset.');
+                    details.append('p').text(t('js.noVerseData'));
                 }
+            }
+
+            function syncFilterButton() {
+                const btn = document.getElementById('filter-button');
+                if (!btn) return;
+                btn.textContent = scientificOnly
+                    ? t('quranSearch.filterAll')
+                    : t('quranSearch.filterShow');
             }
 
             function toggleScientificMiracles() {
                 scientificOnly = !scientificOnly;
-                document.getElementById('filter-button').textContent = scientificOnly
-                    ? 'Show All Verses'
-                    : 'Show Scientific Miracles Only';
+                syncFilterButton();
                 renderTreemap();
             }
 
@@ -224,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     .attr('width', d => Math.max(0, d.x1 - d.x0))
                     .attr('height', d => Math.max(0, d.y1 - d.y0))
                     .style('fill', d => {
-                        const notableVerse = notableVerses.find(v => v.surah === d.data.surah_name_en && v.ayah === d.data.ayah_no_surah);
+                        const notableVerse = findNotable(d.data);
                         return notableVerse ? notableVerse.highlightColor : color(d.parent.data.name);
                     })
                     .style('stroke', '#333')
@@ -234,13 +262,17 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById('filter-button').onclick = toggleScientificMiracles;
             document.getElementById('search-bar').addEventListener('input', searchVerses);
             document.getElementById('search-button').addEventListener('click', searchVerses);
+            window.addEventListener('ayatica:langchange', syncFilterButton);
+            syncFilterButton();
 
             renderTreemap();
         })
         .catch(error => {
             console.error('Error loading Quran JSON:', error);
             const details = document.getElementById('verse-details');
-            if (details) {
+            if (details && window.AyaticaI18n) {
+                details.innerHTML = `<h3>${window.AyaticaI18n.t('js.quranLoadFailTitle')}</h3><p>${window.AyaticaI18n.t('js.quranLoadFailBody')}</p>`;
+            } else if (details) {
                 details.innerHTML = '<h3>Could not load Quran data</h3><p>Check your connection and refresh the page.</p>';
             }
         });

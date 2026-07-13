@@ -5,10 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Ayatica</title>
-  <meta name="description" content="Ayatica is an interactive exploration of Quran and Hadith through treemaps, word clouds, and scientific miracle visualizations.">
+  <title data-i18n="meta.title">Ayatica</title>
+  <meta name="description" data-i18n-content="meta.description" content="Ayatica is an interactive exploration of Quran and Hadith through treemaps, word clouds, and scientific miracle visualizations.">
   <link rel="icon" href="images/icon.png" type="image/x-icon">
+  <script>
+    (function () {
+      try {
+        var l = localStorage.getItem('ayatica-lang');
+        if (l === 'ar' || l === 'en') {
+          document.documentElement.lang = l;
+          document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
+          document.documentElement.classList.toggle('is-ar', l === 'ar');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="style.css">
+  <script src="i18n.js" defer></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,48 +42,53 @@
     <a class="brand-mark" href="#top" aria-label="Ayatica home">
       <span>Ayatica</span>
     </a>
-    <nav class="nav-buttons" aria-label="Primary">
+
+    <nav class="nav-buttons" data-i18n-aria="nav.primary" aria-label="Primary">
       <div class="dropdown">
-        <button class="dropbtn" type="button">Quran</button>
+        <button class="dropbtn" type="button" data-i18n="nav.quran">Quran</button>
         <div class="dropdown-content">
-          <a href="#quran-treemap">Treemap Search</a>
-          <a href="#to-name-a-few">Miracle Examples</a>
-          <a href="#word-cloud">Word Cloud</a>
-          <a href="#relief">Relief</a>
-          <a href="#numerical-patterns">Numerical Patterns</a>
+          <a href="#quran-treemap" data-i18n="nav.quran.treemap">Treemap Search</a>
+          <a href="#to-name-a-few" data-i18n="nav.quran.miracles">Miracle Examples</a>
+          <a href="#word-cloud" data-i18n="nav.quran.wordcloud">Word Cloud</a>
+          <a href="#relief" data-i18n="nav.quran.relief">Relief</a>
+          <a href="#numerical-patterns" data-i18n="nav.quran.numerical">Numerical Patterns</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn" type="button">Hadith</button>
+        <button class="dropbtn" type="button" data-i18n="nav.hadith">Hadith</button>
         <div class="dropdown-content">
-          <a href="#hadith-treemap-the">Treemap Search</a>
-          <a href="#hadith-examples">Miracle Examples</a>
+          <a href="#hadith-treemap-the" data-i18n="nav.hadith.treemap">Treemap Search</a>
+          <a href="#hadith-examples" data-i18n="nav.hadith.miracles">Miracle Examples</a>
         </div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn" type="button" onclick="location.href='#about'">About</button>
+        <button class="dropbtn" type="button" data-i18n="nav.about" onclick="location.href='#about'">About</button>
       </div>
     </nav>
+
+    <div class="lang-switch" role="group" data-i18n-aria="lang.switchLabel" aria-label="Language">
+      <button type="button" class="lang-btn" data-lang-set="en" aria-pressed="true">EN</button>
+      <button type="button" class="lang-btn" data-lang-set="ar" aria-pressed="false">عربي</button>
+    </div>
   </header>
 
   <div class="loading-overlay" id="loading-screen">
     <img src="images/mosque.gif" alt="Loading..." class="loading-icon">
     <p class="arabic-loading">سَنُرِيهِمْ ءَايَـٰتِنَا فِى ٱلْـَٔافَاقِ وَفِىٓ أَنفُسِهِمْ حَتَّىٰ يَتَبَيَّنَ لَهُمْ
       أَنَّهُ ٱلْحَقُّ ۗ أَوَلَمْ يَكْفِ بِرَبِّكَ أَنَّهُۥ عَلَىٰ كُلِّ شَىْءٍۢ شَهِيدٌ </p>
-    <p class="loading-translation">"We will show them Our signs in the universe and within themselves until it becomes
-      clear to them that this ˹Quran˺ is the truth. Is it not enough that your Lord is a Witness over all things?"</p>
+    <p class="loading-translation" data-i18n="loading.translation">"We will show them Our signs in the horizons and within themselves until it becomes clear to them that this [Quran] is the truth. Is it not enough that your Lord is a Witness over all things?" (Fussilat 41:53)</p>
   </div>
 
   <div id="logo" hidden aria-hidden="true"></div>
 
   <div class="intro-section" id="top">
     <p class="brand-hero">Ayatica</p>
-    <p class="brand-tagline">Sacred texts · Living patterns</p>
+    <p class="brand-tagline" data-i18n="brand.tagline">Sacred texts · Living patterns</p>
     <div id="bismillah">
       <img src="images/bismillah.png" alt="Bismillah">
     </div>
-    <h1 class="intro-headline">Are ancient Islamic texts aligned with modern scientific discoveries?</h1>
-    <p class="hook">
+    <h1 class="intro-headline" data-i18n="intro.headline">Are ancient Islamic texts aligned with modern scientific discoveries?</h1>
+    <p class="hook" data-i18n-html="intro.hook">
       The Quran and Hadith are foundational texts for almost 2 billion Muslims,
       preserved meticulously for over 1400 years.<br><br>
       <strong>But</strong> Many skeptics question how ancient religious texts
@@ -84,8 +102,8 @@
   </div>
 
   <div class="section-transition step-section">
-    <h2>Step-By-Step</h2>
-    <p>We could spend thousands upon thousands of hours just exploring one of the individual texts we are looking at.
+    <h2 data-i18n="step.title">Step-By-Step</h2>
+    <p data-i18n-html="step.body">We could spend thousands upon thousands of hours just exploring one of the individual texts we are looking at.
       Let's go <span class="highlight-text">step-by-step</span>
       before looking at the miracles of the Sahih Bukhari and Sahih Muslim hadith, and start off by analyzing
       some miracles, linguistic patterns, and numerical patterns of <span class="highlight-text">the Quran</span>.
@@ -93,35 +111,35 @@
   </div>
 
   <div class="section-transition step-section" id="quran-treemap">
-    <h2>Search for Miracles in the Quran</h2>
-    <p>The Quran contains numerous verses that describe scientific phenomena with remarkable accuracy, centuries before
+    <h2 data-i18n="quranSearch.title">Search for Miracles in the Quran</h2>
+    <p data-i18n="quranSearch.body">The Quran contains numerous verses that describe scientific phenomena with remarkable accuracy, centuries before
       their modern discovery. Use the interactive treemap below to explore these verses and more. You can search for
       specific terms or filter to view scientific miracles specifically.</p>
     <div class="viz-controls">
       <div id="search-container">
-        <input id="search-bar" type="text" placeholder="Search for a Quranic keyword (e.g. loves)" aria-label="Search Quran verses" />
-        <button id="search-button" type="button" aria-label="Search">Search</button>
+        <input id="search-bar" type="text" data-i18n-placeholder="quranSearch.placeholder" data-i18n-aria="quranSearch.ariaSearch" placeholder="Search for a Quranic keyword (e.g. loves)" aria-label="Search Quran verses" />
+        <button id="search-button" type="button" data-i18n="quranSearch.button" data-i18n-aria="quranSearch.button" aria-label="Search">Search</button>
       </div>
-      <button id="filter-button" type="button">Show Scientific Miracles Only</button>
+      <button id="filter-button" type="button" data-i18n="quranSearch.filterShow">Show Scientific Miracles Only</button>
     </div>
     <div class="viz-legend" aria-hidden="true">
-      <span><i class="swatch-gold"></i> Scientific miracle examples</span>
-      <span><i class="swatch-chapter"></i> Verses by chapter</span>
+      <span><i class="swatch-gold"></i> <span data-i18n="quranSearch.legendGold">Scientific miracle examples</span></span>
+      <span><i class="swatch-chapter"></i> <span data-i18n="quranSearch.legendChapter">Verses by chapter</span></span>
     </div>
     <div id="container">
       <div id="treemap"></div>
       <div class="verse-details-wrap">
         <div id="verse-details">
-          <h3>Verse Details</h3>
-          <p>Pick a verse to view its details!</p>
+          <h3 data-i18n="verseDetails.title">Verse Details</h3>
+          <p data-i18n="verseDetails.pick">Pick a verse to view its details!</p>
         </div>
       </div>
     </div>
   </div>
 
   <div class="section-transition step-section" id="to-name-a-few">
-    <h2>To Name a Few...</h2>
-    <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
+    <h2 data-i18n="nameAFew.title">To Name a Few...</h2>
+    <p data-i18n-html="nameAFew.body">The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
       our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
       treemap to find more! <br><br><b class="highlight-text">Although the above activity provides plenty of insight
         into some of the miracles of the Quran, let's take a closer look at some of the miracles in more detail...</b>
@@ -130,12 +148,12 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Expansion of the Universe</h2>
-      <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
-      <p><strong style="color:#4db574;">Translation:</strong> "And the heaven We constructed with strength, and indeed,
+      <h2 data-i18n="miracle.expansion.title">Expansion of the Universe</h2>
+      <p class="arabic">وَالسَّمَاءَ بَنَيْنَاهَا بِأَيْدٍ وَإِنَّا لَمُوسِعُونَ</p>
+      <p><strong style="color:#4db574;" data-i18n="miracle.translationLabel">Translation:</strong> <span data-i18n="miracle.expansion.ayahEn">"And the heaven We constructed with strength, and indeed,
         We are [its] expander."
-        (Surah Adh-Dhariyat, 51:47)</p>
-      <p>This verse aligns with the modern understanding that the universe is expanding, a concept supported by
+        (Surah Adh-Dhariyat, 51:47)</span></p>
+      <p data-i18n="miracle.expansion.body">This verse aligns with the modern understanding that the universe is expanding, a concept supported by
         observations of distant galaxies moving away from us.</p>
       <audio preload="none" src="audio/expansion.mp3" controls></audio>
     </div>
@@ -146,16 +164,23 @@
     </div>
     <script>
       const width = 400, height = 400;
-      const layers = [
-        { name: "Earth", description: "The foundation of life" },
-        { name: "Sky 1", description: "The first heaven" },
-        { name: "Sky 2", description: "The second heaven" },
-        { name: "Sky 3", description: "The third heaven" },
-        { name: "Sky 4", description: "The fourth heaven" },
-        { name: "Sky 5", description: "The fifth heaven" },
-        { name: "Sky 6", description: "The sixth heaven" },
-        { name: "Sky 7", description: "The seventh heaven" },
-      ];
+      function tI18n(key, vars) {
+        return (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(key, vars) : key;
+      }
+      function getCreationLayers() {
+        return [
+          { name: tI18n("creation.earth"), description: tI18n("creation.earth.desc") },
+          { name: tI18n("creation.sky1"), description: tI18n("creation.sky1.desc") },
+          { name: tI18n("creation.sky2"), description: tI18n("creation.sky2.desc") },
+          { name: tI18n("creation.sky3"), description: tI18n("creation.sky3.desc") },
+          { name: tI18n("creation.sky4"), description: tI18n("creation.sky4.desc") },
+          { name: tI18n("creation.sky5"), description: tI18n("creation.sky5.desc") },
+          { name: tI18n("creation.sky6"), description: tI18n("creation.sky6.desc") },
+          { name: tI18n("creation.sky7"), description: tI18n("creation.sky7.desc") },
+        ];
+      }
+      let layers = getCreationLayers();
+      window.addEventListener("ayatica:langchange", () => { layers = getCreationLayers(); });
 
       const tooltip = d3.select("#creation-burst-container")
         .append("div")
@@ -220,17 +245,20 @@
       <div id="orbit-container" style="width: 400px; height: 400px;"></div>
     </div>
     <div class="verse-content" style="flex: 1; padding: 20px; text-align: left;">
-      <h2>Orbits of Celestial Bodies</h2>
+      <h2 data-i18n="miracle.orbits.title">Orbits of Celestial Bodies</h2>
       <p class="arabic">وَهُوَ الَّذِي خَلَقَ اللَّيْلَ وَالنَّهَارَ وَالشَّمْسَ وَالْقَمَرَ ۖ كُلٌّ فِي فَلَكٍ
         يَسْبَحُونَ</p>
-      <p><strong style="color:#4db574;">Translation:</strong> "And it is He who created the night and the day and the
+      <p><strong style="color:#4db574;" data-i18n="miracle.translationLabel">Translation:</strong> <span data-i18n="miracle.orbits.ayahEn">"And it is He who created the night and the day and the
         sun and the moon; all
-        [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</p>
-      <p>This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
+        [heavenly bodies] in an orbit are swimming." (Surah Al-Anbiya, 21:33)</span></p>
+      <p data-i18n="miracle.orbits.body">This verse aligns with modern astronomy, which confirms that celestial bodies move in defined orbits.</p>
       <audio preload="none" src="audio/orbit.mp3" controls></audio>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+      function tI18n(key, vars) {
+        return (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(key, vars) : key;
+      }
       const container = document.getElementById("orbit-container");
       const sceneWidth = container.offsetWidth;
       const sceneHeight = container.offsetHeight;
@@ -288,7 +316,7 @@
             orbitTooltip.style("opacity", 1)
               .style("left", `${event.pageX + 10}px`)
               .style("top", `${event.pageY - 10}px`)
-              .html(`Planet ${index + 1} orbiting around`);
+              .html(tI18n('js.planetOrbit', { n: index + 1 }));
           } else {
             orbitTooltip.style("opacity", 0);
           }
@@ -301,7 +329,7 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Stages of Embryonic Development</h2>
+      <h2 data-i18n="miracle.embryo.title">Stages of Embryonic Development</h2>
       <p class="arabic">
         وَلَقَدْ خَلَقْنَا ٱلْإِنسَـٰنَ مِن سُلَـٰلَةٍۢ مِّن طِينٍۢ ١٢
         ثُمَّ جَعَلْنَـٰهُ نُطْفَةًۭ فِى قَرَارٍۢ مَّكِينٍۢ ١٣
@@ -309,12 +337,12 @@
         فَكَسَوْنَا ٱلْعِظَـٰمَ لَحْمًۭا ثُمَّ أَنشَأْنَـٰهُ خَلْقًا ءَاخَرَ ۚ فَتَبَارَكَ ٱللَّهُ أَحْسَنُ
         ٱلْخَـٰلِقِينَ ١٤
       </p>
-      <p><strong style="color:#4db574;">Translation:</strong> "And certainly did We create man from an extract of clay.
+      <p><strong style="color:#4db574;" data-i18n="miracle.translationLabel">Translation:</strong> <span data-i18n="miracle.embryo.ayahEn">"And certainly did We create man from an extract of clay.
         Then We placed him as a
         sperm-drop in a firm lodging. Then We made the sperm-drop into a clinging clot, and We made the clot into a lump
         [of flesh], and We made [from] the lump, bones, and We covered the bones with flesh; then We developed him into
-        another creation. So blessed is Allah , the best of creators." (Surah Al-Mu'minun, 23:12-14)</p>
-      <p>This verse describes the stages of human development in a way that aligns with modern embryology.</p>
+        another creation. So blessed is Allah , the best of creators." (Surah Al-Mu'minun, 23:12-14)</span></p>
+      <p data-i18n="miracle.embryo.body">This verse describes the stages of human development in a way that aligns with modern embryology.</p>
       <audio preload="none" src="audio/emb.mp3" controls></audio>
     </div>
     <div class="animation-container">
@@ -336,14 +364,19 @@
         .append("g")
         .attr("transform", "translate(200, 150)");
 
-      const stages = [
-        { name: "Nutfah (Drop)", description: "The first cell, marking the beginning of life.", path: "M 50 50 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0 M 60 45 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 70 55 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0 M 55 52 a 3 3 0 1 0 6 0 a 3 3 0 1 0 -6 0 M 65 58 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0", color: "#a1c4fd" },
-        { name: "Alaqah (Clinging Substance)", description: "A stage resembling a leech or clinging substance.", path: "M 60 40 C 70 35, 90 35, 100 45 C 110 55, 110 65, 100 75 C 90 85, 70 85, 60 80 C 50 75, 45 65, 50 55 C 55 45, 60 40, 60 40 M 75 50 C 85 45, 95 45, 100 55 C 105 65, 100 75, 90 80 C 80 85, 70 80, 65 70 C 60 60, 65 55, 75 50 M 80 60 C 85 58, 90 58, 92 62 C 94 66, 92 70, 88 72 C 84 74, 80 72, 78 68 C 76 64, 77 62, 80 60", color: "#9b59b6" },
-        { name: "Mudghah (Chewed Substance)", description: "Shape appears like a chewed lump, with notches.", path: "M 70 50 C 80 45, 100 45, 110 55 C 120 65, 120 85, 110 95 C 100 105, 80 105, 70 95 C 60 85, 60 65, 70 50 M 75 60 L 105 60 M 75 70 L 105 70 M 75 80 L 105 80 M 75 90 L 105 90 M 85 55 L 85 95 M 95 55 L 95 95", color: "#d35400" },
-        { name: "Bone Formation", description: "Early bone structure forming a human shape.", path: "M 80 40 C 100 35, 120 40, 130 50 C 140 60, 140 80, 130 90 C 120 100, 100 105, 80 100 C 60 95, 50 80, 50 70 C 50 60, 60 45, 80 40 M 90 60 L 90 90 M 70 70 L 110 70 M 70 80 L 110 80 M 70 90 L 110 90 M 60 75 L 75 85 M 120 75 L 105 85", color: "#7f8c8d" },
-        { name: "Clothing with Flesh", description: "The body is fleshed out, showing limb buds.", path: "M 80 30 C 100 25, 120 30, 130 40 C 140 50, 140 70, 130 85 C 120 100, 100 110, 80 105 C 60 100, 50 85, 50 70 C 50 55, 60 35, 80 30 M 85 55 C 95 50, 105 50, 115 60 M 85 70 C 95 65, 105 65, 115 75 M 85 85 C 95 80, 105 80, 115 90 M 60 65 C 65 60, 70 60, 75 65 M 125 65 C 120 60, 115 60, 110 65", color: "#f39c12" },
-        { name: "Another Creation", description: "Resembles a basic human form with head, torso, and limbs.", path: "M 90 30 C 105 25, 120 28, 130 40 C 135 45, 138 55, 135 65 L 130 70 C 140 75, 145 85, 142 95 C 138 105, 130 110, 120 112 C 110 115, 100 114, 90 110 C 80 106, 72 100, 68 90 C 65 83, 64 75, 65 68 C 67 62, 70 58, 75 55 C 65 50, 60 40, 62 32 C 65 28, 75 25, 90 30 M 95 45 C 100 43, 105 43, 110 45 C 115 47, 118 50, 118 54 C 118 58, 115 61, 110 62 C 105 63, 100 62, 97 60 C 94 58, 93 55, 93 52 C 93 49, 94 46, 95 45 M 100 48 A 2 2 0 1 0 104 48 A 2 2 0 1 0 100 48 M 110 48 A 2 2 0 1 0 114 48 A 2 2 0 1 0 110 48 M 104 55 C 106 56, 108 56, 110 55 M 75 70 C 85 68, 95 70, 105 75 C 115 80, 122 87, 125 95 M 70 85 C 75 83, 80 84, 85 86 C 90 88, 93 92, 95 98 M 130 75 C 125 80, 122 85, 120 92 M 80 100 C 85 105, 90 108, 95 110 M 115 100 C 110 105, 105 108, 100 110", color: "#27ae60" }
+      function getEmbryoStages() {
+        const ti = (k) => (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(k) : k;
+        return [
+        { name: ti("embryo.nutfah"), description: ti("embryo.nutfah.desc"), path: "M 50 50 a 20 20 0 1 0 40 0 a 20 20 0 1 0 -40 0 M 60 45 a 5 5 0 1 0 10 0 a 5 5 0 1 0 -10 0 M 70 55 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0 M 55 52 a 3 3 0 1 0 6 0 a 3 3 0 1 0 -6 0 M 65 58 a 4 4 0 1 0 8 0 a 4 4 0 1 0 -8 0", color: "#a1c4fd" },
+        { name: ti("embryo.alaqah"), description: ti("embryo.alaqah.desc"), path: "M 60 40 C 70 35, 90 35, 100 45 C 110 55, 110 65, 100 75 C 90 85, 70 85, 60 80 C 50 75, 45 65, 50 55 C 55 45, 60 40, 60 40 M 75 50 C 85 45, 95 45, 100 55 C 105 65, 100 75, 90 80 C 80 85, 70 80, 65 70 C 60 60, 65 55, 75 50 M 80 60 C 85 58, 90 58, 92 62 C 94 66, 92 70, 88 72 C 84 74, 80 72, 78 68 C 76 64, 77 62, 80 60", color: "#9b59b6" },
+        { name: ti("embryo.mudghah"), description: ti("embryo.mudghah.desc"), path: "M 70 50 C 80 45, 100 45, 110 55 C 120 65, 120 85, 110 95 C 100 105, 80 105, 70 95 C 60 85, 60 65, 70 50 M 75 60 L 105 60 M 75 70 L 105 70 M 75 80 L 105 80 M 75 90 L 105 90 M 85 55 L 85 95 M 95 55 L 95 95", color: "#d35400" },
+        { name: ti("embryo.bone"), description: ti("embryo.bone.desc"), path: "M 80 40 C 100 35, 120 40, 130 50 C 140 60, 140 80, 130 90 C 120 100, 100 105, 80 100 C 60 95, 50 80, 50 70 C 50 60, 60 45, 80 40 M 90 60 L 90 90 M 70 70 L 110 70 M 70 80 L 110 80 M 70 90 L 110 90 M 60 75 L 75 85 M 120 75 L 105 85", color: "#7f8c8d" },
+        { name: ti("embryo.flesh"), description: ti("embryo.flesh.desc"), path: "M 80 30 C 100 25, 120 30, 130 40 C 140 50, 140 70, 130 85 C 120 100, 100 110, 80 105 C 60 100, 50 85, 50 70 C 50 55, 60 35, 80 30 M 85 55 C 95 50, 105 50, 115 60 M 85 70 C 95 65, 105 65, 115 75 M 85 85 C 95 80, 105 80, 115 90 M 60 65 C 65 60, 70 60, 75 65 M 125 65 C 120 60, 115 60, 110 65", color: "#f39c12" },
+        { name: ti("embryo.another"), description: ti("embryo.another.desc"), path: "M 90 30 C 105 25, 120 28, 130 40 C 135 45, 138 55, 135 65 L 130 70 C 140 75, 145 85, 142 95 C 138 105, 130 110, 120 112 C 110 115, 100 114, 90 110 C 80 106, 72 100, 68 90 C 65 83, 64 75, 65 68 C 67 62, 70 58, 75 55 C 65 50, 60 40, 62 32 C 65 28, 75 25, 90 30 M 95 45 C 100 43, 105 43, 110 45 C 115 47, 118 50, 118 54 C 118 58, 115 61, 110 62 C 105 63, 100 62, 97 60 C 94 58, 93 55, 93 52 C 93 49, 94 46, 95 45 M 100 48 A 2 2 0 1 0 104 48 A 2 2 0 1 0 100 48 M 110 48 A 2 2 0 1 0 114 48 A 2 2 0 1 0 110 48 M 104 55 C 106 56, 108 56, 110 55 M 75 70 C 85 68, 95 70, 105 75 C 115 80, 122 87, 125 95 M 70 85 C 75 83, 80 84, 85 86 C 90 88, 93 92, 95 98 M 130 75 C 125 80, 122 85, 120 92 M 80 100 C 85 105, 90 108, 95 110 M 115 100 C 110 105, 105 108, 100 110", color: "#27ae60" }
       ];
+      }
+      let stages = getEmbryoStages();
+      window.addEventListener("ayatica:langchange", () => { stages = getEmbryoStages(); });
       let currentStageIndex = 0;
 
       function animateStages() {
@@ -394,16 +427,15 @@
         <img src="images/rome.png" alt="Roman Empire Animation" style="width: 100%; max-width: 400px;" loading="lazy">
       </div>
       <div class="verse-content" style="flex: 1;">
-        <h2>The Romans' Victory</h2>
+        <h2 data-i18n="miracle.romans.title">The Romans' Victory</h2>
         <p class="arabic">الٓمٓ ١ غُلِبَتِ ٱلرُّومُ ٢ فِىٓ أَدْنَى ٱلْأَرْضِ وَهُم مِّنۢ بَعْدِ غَلَبِهِمْ سَيَغْلِبُونَ
           ٣ فِى بِضْعِ سِنِينَ ۗ لِلَّهِ ٱلْأَمْرُ مِن قَبْلُ وَمِنۢ بَعْدُ ۚ وَيَوْمَئِذٍۢ يَفْرَحُ ٱلْمُؤْمِنُونَ ٤
           بِنَصْرِ ٱللَّهِ ۚ يَنصُرُ مَن يَشَآءُ ۖ وَهُوَ ٱلْعَزِيزُ ٱلرَّحِيمُ ٥</p>
-        <p><strong style="color:#4db574;">Translation:</strong> "Alif-Lãm-Mĩm. The Romans have been defeated in a nearby
+        <p><strong style="color:#4db574;" data-i18n="miracle.translationLabel">Translation:</strong> <span data-i18n="miracle.romans.ayahEn">"Alif-Lãm-Mĩm. The Romans have been defeated in a nearby
           land. Yet following their defeat, they will triumph within three to nine years. The ˹whole˺ matter rests with
           Allah before and after ˹victory˺. And on that day the believers will rejoice at the victory willed by Allah.
-          He gives victory to whoever He wills. For He is the Almighty, Most Merciful." (Surah Ar-Rum (Romans), 30:1-5)
-        </p>
-        <p>There was a war between the Persians and Romans, and the Persians defeated the Romans (it was not even
+          He gives victory to whoever He wills. For He is the Almighty, Most Merciful." (Surah Ar-Rum (Romans), 30:1-5)</span></p>
+        <p data-i18n="miracle.romans.p1">There was a war between the Persians and Romans, and the Persians defeated the Romans (it was not even
           close). They occupied their lands and besieged them at Constantinople. Persians at this time would worship the
           sun and fire, and the Romans were people of the scripture, so naturally the Muslims were more inclined to
           support them, while the polytheists of Makkah would support the Persians. When the news of the Persians' siege
@@ -411,7 +443,7 @@
           distress them. However, these Verses (Verses 1-5 of The Romans) were revealed depicting that the Romans will
           rejoice at victory against the Persians. After just a few years the Romans defeated the Persians, manifesting
           another miracle of the Quran.</p>
-        <p>The verses mention the place, "in the nearer land", which means the place where the battle took place. The
+        <p data-i18n-html="miracle.romans.p2">The verses mention the place, "in the nearer land", which means the place where the battle took place. The
           battle had actually taken place on the lowest point of the surface of the Earth. Additionally, concerning the
           time, Allah's statement, "within three to nine years" clearly defined the time that the victory would take
           place, and it actually took place approximately after nine years. In addition, the prophesied Roman victory
@@ -425,13 +457,13 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Plant Reproduction</h2>
+      <h2 data-i18n="miracle.plants.title">Plant Reproduction</h2>
       <p class="arabic">ٱلَّذِى جَعَلَ لَكُمُ ٱلْأَرْضَ مَهْدًۭا وَسَلَكَ لَكُمْ فِيهَا سُبُلًۭا وَأَنزَلَ مِنَ
         ٱلسَّمَآءِ مَآءًۭ فَأَخْرَجْنَا بِهِۦٓ أَزْوَٰجًۭا مِّن نَّبَاتٍۢ شَتَّىٰ </p>
-      <p><strong style="color:#4db574;">Translation:</strong> "˹He is the One˺ Who has laid out the earth for ˹all of˺
+      <p><strong style="color:#4db574;" data-i18n="miracle.translationLabel">Translation:</strong> <span data-i18n="miracle.plants.ayahEn">"˹He is the One˺ Who has laid out the earth for ˹all of˺
         you, and set in it pathways for you, and sends down rain from the sky, causing various types of plants to
-        grow,." (Surah Ta-Ha, 20:53)</p>
-      <p>Here is the translation of the translation of zauj (plural azwaj) whose original meaning is: 'that which, in
+        grow,." (Surah Ta-Ha, 20:53)</span></p>
+      <p data-i18n="miracle.plants.body">Here is the translation of the translation of zauj (plural azwaj) whose original meaning is: 'that which, in
         the company of another, forms a pair'; the word is used just as readily for a married couple as for a pair of
         shoes. This is describing how plants come in pairs, implying sexual plant reproduction, which was not something
         that was known at the time of the Quran.</p>
@@ -449,36 +481,31 @@
         <img src="images/clouds.gif" alt="Clouds" style="width: 100%; max-width: 400px;" loading="lazy">
       </div>
       <div class="verse-content" style="flex: 1;">
-        <h2>Heavy Clouds</h2>
+        <h2 data-i18n="miracle.clouds.title">Heavy Clouds</h2>
         <p class="arabic">وَهُوَ ٱلَّذِى يُرْسِلُ ٱلرِّيَـٰحَ بُشْرًۢا بَيْنَ يَدَىْ رَحْمَتِهِۦ ۖ حَتَّىٰٓ إِذَآ
           أَقَلَّتْ سَحَابًۭا ثِقَالًۭا سُقْنَـٰهُ لِبَلَدٍۢ مَّيِّتٍۢ فَأَنزَلْنَا بِهِ ٱلْمَآءَ فَأَخْرَجْنَا بِهِۦ
           مِن كُلِّ ٱلثَّمَرَٰتِ ۚ كَذَٰلِكَ نُخْرِجُ ٱلْمَوْتَىٰ لَعَلَّكُمْ تَذَكَّرُونَ </p>
-        <p><strong style="color:#4db574;">Translation:</strong> "He is the One Who sends the winds ushering in
+        <p><strong style="color:#4db574;" data-i18n="miracle.translationLabel">Translation:</strong> <span data-i18n="miracle.clouds.ayahEn">"He is the One Who sends the winds ushering in
           His mercy. When they bear heavy clouds, We drive them to a lifeless land and then cause rain to fall,
           producing every type of fruit. Similarly, We will bring the
-          dead to life, so perhaps you will be mindful." (Surah Al-A'raf (The Heights), 57)
+          dead to life, so perhaps you will be mindful." (Surah Al-A'raf (The Heights), 57)</span>
         </p>
-        <p>As you see, the Quran stated 1.400 years ago that clouds were not light at all and described them as "heavy
+        <p data-i18n="miracle.clouds.p1">As you see, the Quran stated 1.400 years ago that clouds were not light at all and described them as "heavy
           clouds". </p>
-        <p>What do scientists say regarding the issue? Are clouds really as heavy as the Quran states?</p>
-        <p>According to the research made in recent years, quite astonishing figures about the weight of clouds have
+        <p data-i18n="miracle.clouds.p2">What do scientists say regarding the issue? Are clouds really as heavy as the Quran states?</p>
+        <p data-i18n="miracle.clouds.p3">According to the research made in recent years, quite astonishing figures about the weight of clouds have
           been found. For example, a cumulonimbus cloud, known as the thunder cloud, can contain up to 300.000 tons of
           water. Yes, you did not misread it; we are mentioning clouds as heavy as 300.000 tons.</p>
-        <p>The fact that a mass of 300.000 tons is caused to stand in the sky without any support is something that
+        <p data-i18n="miracle.clouds.p4">The fact that a mass of 300.000 tons is caused to stand in the sky without any support is something that
           astonishes the mind. It is more interesting that this information is mentioned in the Quran.</p>
-        <p>The weight of the precipitation that covers an area of 50 kilometer square at a height of 1 centimeter is
+        <p data-i18n="miracle.clouds.p5">The weight of the precipitation that covers an area of 50 kilometer square at a height of 1 centimeter is
           about half a ton.</p>
-        <p>Now, let us think of this: At the time when the Qur'an was revealed, it was impossible for people to have
+        <p data-i18n="miracle.clouds.p6">Now, let us think of this: At the time when the Qur'an was revealed, it was impossible for people to have
           this information about the weight of clouds. Furthermore, we probably thought that clouds were very light
           before we learned this fact. However, clouds weigh hundreds of thousands of tons and this fact is included in
           the Quran. </p>
-        <p>How can it be doubted that the Quran is the word of Allah after hearing this information? If it is doubted,
-          how can the information given by the Quran be explained? </p>
-        <p>It cannot be explained in any way. There is only one explanation of the fact that the weight of clouds is
-          mentioned in the Quran: The Quran is the book of the Being, who stores thousands of tons of water in clouds.
-          This Being sends clouds to dry areas through winds and gives life to those areas. Yes, the Being who created
-          clouds
-          and makes clouds float in the air with thousands of tons of water also sent down the Quran. <a
+        <p data-i18n="miracle.clouds.p7">These reports lead many believers to ask: how could such detail about clouds appear in a seventh-century revelation? Sincere readers differ on interpretation, but Muslims regard the Quran as the word of Allah.</p>
+        <p data-i18n-html="miracle.clouds.p8">What cannot be dismissed lightly, for Muslim readers, is that the Quran speaks of "heavy clouds" and of winds driving them to barren land so that rain brings life — while affirming that the same Lord who manages creation revealed the Book. <a
             href="https://questionsonislam.com/article/weight-clouds" style="color:#4db574;">(Source:
             Questions on Islam)</a></p>
         <audio preload="none" src="audio/clouds.mp3" controls></audio>
@@ -487,16 +514,16 @@
   </section>
 
   <div class="section-transition step-section" style="margin-top: 40px; margin-bottom: 10px;">
-    <h2>Uncovering Linguistic Patterns</h2>
-    <p>We've explored some of the remarkable scientific miracles in the Quran - from the expansion of the universe
+    <h2 data-i18n="linguistic.title">Uncovering Linguistic Patterns</h2>
+    <p data-i18n="linguistic.p1">We've explored some of the remarkable scientific miracles in the Quran - from the expansion of the universe
       to the intricacies of plant reproduction. But the miracles of the Quran extend beyond scientific phenomena
       into its linguistic structure and recurring themes.</p>
 
-    <p>Let's shift our focus to analyze the <b style="color: #4db574;">patterns and frequencies of words</b>
+    <p data-i18n-html="linguistic.p2">Let's shift our focus to analyze the <b style="color: #4db574;">patterns and frequencies of words</b>
       in the Quran's English translation. Through this interactive word cloud, we can discover which concepts
       and themes appear most frequently, and explore how they connect across different chapters and verses.</p>
 
-    <p>You can adjust the word grouping size (n-gram) to find common phrases, and set minimum frequency
+    <p data-i18n="linguistic.p3">You can adjust the word grouping size (n-gram) to find common phrases, and set minimum frequency
       thresholds to focus on the most significant patterns. Click any word or phrase to see all verses where it appears.
     </p>
 
@@ -505,16 +532,16 @@
 
   <section class="miracle-section" id="word-cloud">
     <div class="verse-content">
-      <h2>Quranic Word Cloud</h2>
-      <p>Explore the most common words in the Quran's English translation</p>
+      <h2 data-i18n="wordcloud.title">Quranic Word Cloud</h2>
+      <p data-i18n="wordcloud.subtitle">Explore the most common words in the Quran's English translation</p>
       <div class="word-cloud-controls">
         <label>
-          N-gram Size:
+          <span data-i18n="wordcloud.ngram">N-gram Size:</span>
           <input type="range" id="ngram-slider" min="1" max="7" value="1">
           <span id="ngram-value">1</span>
         </label>
         <label>
-          Minimum Frequency:
+          <span data-i18n="wordcloud.freq">Minimum Frequency:</span>
           <input type="range" id="freq-slider" min="2" max="50" value="5">
           <span id="freq-value">5</span>
         </label>
@@ -523,13 +550,13 @@
         <div id="wordcloud-container"></div>
         <div id="wordcloud-loader" class="wordcloud-loader is-visible" role="status" aria-live="polite">
           <div class="loader-spinner"></div>
-          <div class="loader-text">Building word cloud…</div>
-          <div class="loader-subtext">This can take a few seconds</div>
+          <div class="loader-text" data-i18n="wordcloud.building">Building word cloud…</div>
+          <div class="loader-subtext" data-i18n="wordcloud.wait">This can take a few seconds</div>
         </div>
       </div>
       <div id="word-details">
-        <h3 style="color:#4db574;">Word Details</h3>
-        <p>Click on a word to see verses containing it!</p>
+        <h3 style="color:#4db574;" data-i18n="wordcloud.detailsTitle">Word Details</h3>
+        <p data-i18n="wordcloud.detailsHint">Click on a word to see verses containing it!</p>
       </div>
     </div>
   </section>
@@ -540,8 +567,8 @@
 
 
   <div class="section-transition step-section" style="margin-bottom: 10px;" id="relief">
-    <h2>For Times of Distress</h2>
-    <p>The Quran is full of chapters and verses for us to turn to in times of distress and anxiety. One such Surah is
+    <h2 data-i18n="relief.title">For Times of Distress</h2>
+    <p data-i18n-html="relief.body">The Quran is full of chapters and verses for us to turn to in times of distress and anxiety. One such Surah is
       <b style="color: #4db574;">Surah Ad-Duha</b>, which was revealed to the Prophet Muhammad (ﷺ) when he was in a time
       of distress.
     </p>
@@ -550,13 +577,13 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Surah Ad-Duha</h2>
+      <h2 data-i18n="aduha.title">Surah Ad-Duha</h2>
       <p class="arabic">وَالضُّحَىٰ ﴿1﴾ وَاللَّيْلِ إِذَا سَجَىٰ ﴿2﴾ مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ ﴿3﴾
         وَلَلْآخِرَةُ خَيْرٌ لَكَ مِنَ الْأُولَىٰ ﴿4﴾ وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ ﴿5﴾ أَلَمْ يَجِدْكَ
         يَتِيمًا فَآوَىٰ ﴿6﴾ وَوَجَدَكَ ضَالًّا فَهَدَىٰ ﴿7﴾ وَوَجَدَكَ عَائِلًا فَأَغْنَىٰ ﴿8﴾ فَأَمَّا الْيَتِيمَ
         فَلَا تَقْهَرْ ﴿9﴾ وَأَمَّا السَّائِلَ فَلَا تَنْهَرْ ﴿10﴾ وَأَمَّا بِنِعْمَةِ رَبِّكَ فَحَدِّثْ</p>
 
-      <p>In this Surah, Allah is directly communicating with the Prophet (ﷺ). This was an early Meccan Surah so it was
+      <p data-i18n-html="aduha.p1">In this Surah, Allah is directly communicating with the Prophet (ﷺ). This was an early Meccan Surah so it was
         in the early stages of Prophethood where Muhammad (ﷺ) was under a lot of stress and anxiety. He experienced
         mockery and
         ridicule from his personal friends, clansmen, and neighbors
@@ -567,11 +594,7 @@
         given in order to afford [him] peace and tranquility.” Allah sent down this
         Surah to comfort him and let him know he had not forgotten him. <a href="https://myislam.org/surah-ad-duha"
           style="color:#4db574;">(Source)</a></p>
-      <p>As a takeaway, we can find this Surah as a reminder for all of us that God is always with
-        us, and that we should not be discouraged by the hardships we face. No matter the hardship, we are reminded
-        that <strong style="color:#4db574;">God has not left us</strong>, <strong style="color:#4db574;">ease
-          will always succeed it</strong>. Many turn to this Surah in times of distress, and find comfort in its
-        meaning.
+      <p data-i18n-html="aduha.p2">As a takeaway, this Surah reminds us that Allah is always with us, and that we should not despair in hardship. Whatever the difficulty, we are reminded that <strong style="color:#4db574;">Allah has not left us</strong>, and that <strong style="color:#4db574;">ease follows hardship</strong>. Many turn to this Surah in distress and find comfort in its meaning.
       </p>
     </div>
     <div class="animation-container">
@@ -590,8 +613,8 @@
 
 
   <div class="section-transition step-section" style="margin-bottom: 10px;" id="numerical-patterns">
-    <h2>Numerical Patterns</h2>
-    <p>The word cloud activity has given us a good idea of the linguistic patterns of the Quran, and even slowly
+    <h2 data-i18n="numerical.title">Numerical Patterns</h2>
+    <p data-i18n-html="numerical.body">The word cloud activity has given us a good idea of the linguistic patterns of the Quran, and even slowly
       introduced us to some of the numerical patterns as well.
       Before wrapping up our time exploring the Quran and move onto some Hadith, below are some examples of <b
         style="color: #4db574;">numerical patterns</b> in the Quran.</p>
@@ -601,12 +624,10 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>The Day Count Miracle</h2>
+      <h2 data-i18n="day.count.title">The Day Count Miracle</h2>
       <p class="arabic">يَوْم</p>
-      <p><strong style="color:#4db574;">Perfect Calendar Alignment:</strong> The word "day" (يَوْم/yawm) in its singular
-        form appears exactly 365 times in the Quran - matching precisely with the number of days in a solar year.</p>
-      <p>This remarkable correlation between the frequency of the word and the Earth's orbital period around the sun was
-        discovered only recently with computer analysis.</p>
+      <p data-i18n-html="day.count.lead"><strong style="color:#4db574;">A frequently cited count:</strong> Some writers report that the singular word "day" (يَوْم) occurs 365 times in the Quran under a particular counting method — matching the days of a common solar year.</p>
+      <p data-i18n="day.count.body">Such tallies depend on how words are defined and counted, and specialists disagree. They are presented here as a pattern people discuss, not as a settled linguistic proof.</p>
     </div>
     <div class="animation-container">
       <img src="images/sun.gif" alt="Day Count Pattern" style="width: 400px; height: 400px;" loading="lazy">
@@ -618,24 +639,19 @@
       <img src="images/sea.gif" alt="Land Sea Ratio" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
-      <h2>The Land and Sea Ratio</h2>
+      <h2 data-i18n="landSea.title">The Land and Sea Ratio</h2>
       <p class="arabic">بَحْر - بَرّ</p>
-      <p><strong style="color:#4db574;">Geographic Precision:</strong> The word "sea" appears 32 times and "land"
-        appears 13 times. The ratio (32:45 or 71.11% sea to 28.89% land) exactly matches Earth's actual surface ratio of
-        water to land mass.</p>
-      <p>This precise ratio was only confirmed by satellite imagery and modern geographic measurements in recent
-        decades.</p>
+      <p data-i18n-html="landSea.lead"><strong style="color:#4db574;">A frequently cited ratio:</strong> Some counts put "sea" at 32 occurrences and "land" at 13; writers then compare 32:45 (~71% / ~29%) to approximate global water-to-land surface ratios.</p>
+      <p data-i18n="landSea.body">Geographic percentages vary by measurement method, and Quranic word counts are debated. Treat this as an interesting claim found in popular literature, not as an uncontested theorem.</p>
     </div>
   </section>
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Life and Death Balance</h2>
+      <h2 data-i18n="lifeDeath.title">Life and Death Balance</h2>
       <p class="arabic">حَيَاة - مَوْت</p>
-      <p><strong style="color:#4db574;">Perfect Symmetry:</strong> The words "life" (حَيَاة) and "death" (مَوْت) each
-        appear exactly 145 times in the Quran, reflecting the universal truth that every life has its corresponding
-        death.</p>
-      <p>This equal frequency emphasizes the Quranic theme of life and death being two sides of the same coin.</p>
+      <p data-i18n-html="lifeDeath.lead"><strong style="color:#4db574;">A cited symmetry:</strong> Under certain counting methods, "life" (حَيَاة) and "death" (مَوْت) are each reported 145 times.</p>
+      <p data-i18n="lifeDeath.body">Again, results turn on counting rules. The equal figure is often read thematically as life and death paired in the Quranic message.</p>
     </div>
     <div class="animation-container">
       <img src="images/death.png" alt="Life Death Balance" loading="lazy">
@@ -647,23 +663,19 @@
       <img src="images/gender.png" alt="Gender Equality" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
-      <h2>Gender Equality in Words</h2>
+      <h2 data-i18n="genderEq.title">Gender Equality in Words</h2>
       <p class="arabic">رَجُل - اِمْرَأَة</p>
-      <p><strong style="color:#4db574;">Divine Balance:</strong> The word for "man" (رَجُل) and "woman" (اِمْرَأَة) each
-        appear exactly 24 times in the Quran, indicating equality in their spiritual status and religious obligations.
-      </p>
-      <p>This equal representation emphasizes the Quranic principle of spiritual equality between genders.</p>
+      <p data-i18n-html="genderEq.lead"><strong style="color:#4db574;">A cited balance:</strong> Some counts report "man" (رَجُل) and "woman" (ٱمْرَأَة) each 24 times.</p>
+      <p data-i18n="genderEq.body">Word-count equality is not identical to a full legal or theological claim; it is one textual observation among others about representation in the Arabic lexicon of the Quran.</p>
     </div>
   </section>
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>The Middle Verse Miracle</h2>
+      <h2 data-i18n="middleVerse.title">The Middle Verse Miracle</h2>
       <p class="arabic">وَكَذَٰلِكَ جَعَلْنَاكُمْ أُمَّةً وَسَطًا</p>
-      <p><strong style="color:#4db574;">Mathematical Precision:</strong> In Surah Al-Baqarah, which has 286 verses, the
-        exact middle verse (143) contains the word "middle" (وَسَطًا), declaring "Thus We have made you a middle
-        nation."</p>
-      <p>This perfect alignment of content and position creates a remarkable self-referential miracle.</p>
+      <p data-i18n-html="middleVerse.lead"><strong style="color:#4db574;">A noted placement:</strong> Surah Al-Baqarah has 286 verses; verse 143 — the middle by count — contains وَسَطًا in "Thus We have made you a middle community."</p>
+      <p data-i18n="middleVerse.body">Some readers find the alignment of wording and position striking; others note that "middle" here primarily means balanced/just. Both the literary observation and the classical meaning deserve care.</p>
     </div>
     <div class="animation-container">
       <img src="images/middle.png" alt="Middle Verse" style="width: 300px; height: 300px;" loading="lazy">
@@ -671,8 +683,8 @@
   </section>
 
   <div class="section-transition step-section" style="margin-bottom: 10px;" id="hadith-treemap-the">
-    <h2>Time to Explore the Hadith!</h2>
-    <p>Now that we've done some exploration of the Quran, let's take a look through the <b
+    <h2 data-i18n="hadithIntro.title">Time to Explore the Hadith!</h2>
+    <p data-i18n-html="hadithIntro.body">Now that we've done some exploration of the Quran, let's take a look through the <b
         style="color: #4db574;">hadith</b>,
       more specifically the <b style="color: #4db574;">Sahih Bukhari</b> and <b style="color: #4db574;">Sahih
         Muslim</b>.
@@ -683,19 +695,19 @@
   <div class="hadith-section step-section">
     <div class="viz-controls">
       <div id="hadith-search-container">
-        <input id="hadith-search-bar" type="text" placeholder="Search for a Hadith keyword (e.g. prayer)" aria-label="Search Hadith" />
-        <button id="hadith-search-button" type="button" aria-label="Search">Search</button>
+        <input id="hadith-search-bar" type="text" data-i18n-placeholder="hadith.placeholder" data-i18n-aria="hadith.placeholder" placeholder="Search for a Hadith keyword (e.g. prayer)" aria-label="Search Hadith" />
+        <button id="hadith-search-button" type="button" data-i18n="hadith.search" data-i18n-aria="hadith.search" aria-label="Search">Search</button>
       </div>
-      <button id="hadith-filter-button" type="button">Show Examples of Prophetic Wisdom</button>
+      <button id="hadith-filter-button" type="button" data-i18n="hadith.filterShow">Show Examples of Prophetic Wisdom</button>
     </div>
     <div class="viz-legend" aria-hidden="true">
-      <span><i class="swatch-gold"></i> Prophetic wisdom examples</span>
-      <span><i class="swatch-chapter"></i> Hadith by chapter</span>
+      <span><i class="swatch-gold"></i> <span data-i18n="hadith.legendGold">Prophetic wisdom examples</span></span>
+      <span><i class="swatch-chapter"></i> <span data-i18n="hadith.legendChapter">Hadith by chapter</span></span>
     </div>
 
     <div class="loading-container" id="loadingScreen">
       <div class="loading-spinner"></div>
-      <div class="loading-text">Loading Hadith Data...</div>
+      <div class="loading-text" data-i18n="hadith.loading">Loading Hadith Data...</div>
     </div>
 
     <div class="hadith-content" id="hadithContent">
@@ -703,16 +715,16 @@
         <div class="treemap-section">
           <div class="treemap-container" id="bukhariTreemap"></div>
           <div class="details-container" id="detailsBukhari">
-            <h2>Bukhari Hadith Details</h2>
-            <div class="details-content" id="hadithDetailsBukhari">Click on a hadith to view its details here.</div>
+            <h2 data-i18n="hadith.bukhariDetails">Bukhari Hadith Details</h2>
+            <div class="details-content" id="hadithDetailsBukhari" data-i18n="hadith.clickHint">Click on a hadith to view its details here.</div>
           </div>
         </div>
 
         <div class="treemap-section">
           <div class="treemap-container" id="muslimTreemap"></div>
           <div class="details-container" id="detailsMuslim">
-            <h2>Muslim Hadith Details</h2>
-            <div class="details-content" id="hadithDetailsMuslim">Click on a hadith to view its details here.</div>
+            <h2 data-i18n="hadith.muslimDetails">Muslim Hadith Details</h2>
+            <div class="details-content" id="hadithDetailsMuslim" data-i18n="hadith.clickHint">Click on a hadith to view its details here.</div>
           </div>
         </div>
       </div>
@@ -720,8 +732,8 @@
   </div>
 
   <div class="section-transition step-section" id="hadith-examples">
-    <h2>To Name a Few More...</h2>
-    <p>The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
+    <h2 data-i18n="nameAFewMore.title">To Name a Few More...</h2>
+    <p data-i18n-html="nameAFewMore.body">The above activity allowed for us to get a glimpse of the linguistic patterns, and even uncover some miracles on
       our own. Note, the verses signifying miracles (colored in gold) were just some examples. Feel free to use the
       treemap to find more! <br><br><b class="highlight-text">Although the above activity provides plenty of insight
         into some of the miracles of the Hadith, let's take a closer look at some of them in more detail...</b>
@@ -733,10 +745,10 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Fly Wings (Bukhari ID: 3187)</h2>
-      <p>Narrated Abu Huraira: The Prophet said "If a house fly falls in the drink of anyone of you, he should dip it
+      <h2 data-i18n="fly.title">Fly Wings (Bukhari ID: 3187)</h2>
+      <p data-i18n="fly.narration">Narrated Abu Huraira: The Prophet said "If a house fly falls in the drink of anyone of you, he should dip it
         (in the drink), for one of its wings has a disease and the other has the cure for the disease."</p>
-      <p><strong style="color:#4db574;">Evidently:</strong> The Prophet Muhammad (peace be upon him) mentioned that if a
+      <p data-i18n-html="fly.body"><strong style="color:#4db574;">In the hadith:</strong> The Prophet Muhammad (peace be upon him) mentioned that if a
         fly falls into a drink, one wing carries disease while the other carries the cure. Modern research supports
         this, indicating that certain microorganisms on fly wings produce antimicrobial substances. For instance, a
         study published in the Journal of Nutritional Science and Vitaminology found that the right wing of the house
@@ -753,11 +765,11 @@
       <img src="images/moon.gif" alt="Moon" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
-      <h2>Splitting of the Moon (Muslim ID: 17142)</h2>
-      <p>Anas reported that the people of Mecca demanded from Allah's Messenger (may peace be upon him) that he should
+      <h2 data-i18n="moonSplit.title">Splitting of the Moon (Muslim ID: 17142)</h2>
+      <p data-i18n="moonSplit.narration">Anas reported that the people of Mecca demanded from Allah's Messenger (may peace be upon him) that he should
         show them (some) signs (miracles) and he showed tlicin the splitting of the moon. This hadlth has been narrated
         on the authority of Anas through another chain of transmitters.</p>
-      <p><strong style="color:#4db574;">Fun Fact: </strong> During the Meccan era, the Quraish infidels challenged
+      <p data-i18n-html="moonSplit.body"><strong style="color:#4db574;">In the sources:</strong>  During the Meccan era, the Quraysh challenged
         Prophet Muhammad (peace be upon him) to show a sign of his Prophethood, leading to the miraculous splitting of
         the moon. This event is recorded in the Quran (54:1), where Allah states, "The hour drew nigh and the moon was
         rent in twain." The miracle strengthened the faith of Muslims and left the disbelievers perplexed, dismissing it
@@ -770,11 +782,11 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Black Seeds (Muslim ID: 15812)</h2>
-      <p>Abu Huraira reported that he heard Allah's Messenger (may peace be upon him) as saying: Nigella seed is a
+      <h2 data-i18n="blackSeed.title">Black Seeds (Muslim ID: 15812)</h2>
+      <p data-i18n="blackSeed.narration">Abu Huraira reported that he heard Allah's Messenger (may peace be upon him) as saying: Nigella seed is a
         remedy for every disease except death. This hadith has been narrated through another chain of transmitters but
         with a slight variation of wording.</p>
-      <p><strong style="color:#4db574;">In Reality:</strong> The statement about the Nigella seed (black seed) being a
+      <p data-i18n-html="blackSeed.body"><strong style="color:#4db574;">Note:</strong> The statement about the Nigella seed (black seed) being a
         remedy for every disease except death is considered miraculous because it highlights the remarkable medicinal
         properties of this small seed, which modern science has increasingly validated. Studies have shown that black
         seed contains compounds with antimicrobial, anti-inflammatory, antioxidant, and immune-boosting effects, making
@@ -792,8 +804,8 @@
       <img src="images/earth.gif" alt="Earth" style="width: 300px; height: 300px;" loading="lazy">
     </div>
     <div class="verse-content">
-      <h2>Signs of the End (Bukhari ID: 6983)</h2>
-      <p>Narrated Abu Huraira: Allah's Apostle said, "The Hour will not be established (1) till two big groups fight
+      <h2 data-i18n="endSigns.title">Signs of the End (Bukhari ID: 6983)</h2>
+      <p data-i18n="endSigns.narration">Narrated Abu Huraira: Allah's Apostle said, "The Hour will not be established (1) till two big groups fight
         each other whereupon there will be a great number of casualties on both sides and they will be following one and
         the same religious doctrine, (2) till about thirty Dajjals (liars) appear, and each one of them will claim that
         he is Allah's Apostle, (3) till the religious knowledge is taken away (by the death of Religious scholars) (4)
@@ -811,7 +823,7 @@
         taken away the milk but he will not be able to drink it; and the Hour will be established before a man repairing
         a tank (for his livestock) is able to water (his animals) in it; and the Hour will be established when a person
         has raised a morsel (of food) to his mouth but will not be able to eat it."</p>
-      <p><strong style="color:#4db574;">Scarily Enough:</strong> Prophet Muhammad (peace be upon him) foretold events
+      <p data-i18n-html="endSigns.body"><strong style="color:#4db574;">Among reflections on the signs:</strong> Prophet Muhammad (peace be upon him) foretold events
         that align strikingly with real-world developments, reflecting the miraculous nature of his prophecies. He
         predicted the competition in constructing tall buildings, vividly seen in the modern race for skyscrapers,
         particularly in the UAE with the Burj Khalifa. He spoke of large-scale wars between groups with similar
@@ -828,13 +840,13 @@
 
   <section class="miracle-section">
     <div class="verse-content">
-      <h2>Honey As Medicine (Bukhari ID: 5546)</h2>
-      <p>Narrated Abu Sa`id Al-Khudri: A man came to the Prophet and said, "My brother has some Abdominal trouble." The
+      <h2 data-i18n="honey.title">Honey As Medicine (Bukhari ID: 5546)</h2>
+      <p data-i18n="honey.narration">Narrated Abu Sa`id Al-Khudri: A man came to the Prophet and said, "My brother has some Abdominal trouble." The
         Prophet said to him "Let him drink honey." The man came for the second time and the Prophet said to him, 'Let
         him drink honey." He came for the third time and the Prophet said, "Let him drink honey." He returned again and
         said, "I have done that ' The Prophet then said, "Allah has said the truth, but your brother's `Abdomen has told
         a lie. Let him drink honey." So he made him drink honey and he was cured.</p>
-      <p><strong style="color:#4db574;">In Reality:</strong> The incident illustrates a miracle rooted in the Prophet
+      <p data-i18n-html="honey.body"><strong style="color:#4db574;">Note:</strong> The incident illustrates a miracle rooted in the Prophet
         Muhammad's (peace be upon him) knowledge of honey's healing properties, which modern science has since
         validated. Honey is now known to have antimicrobial, anti-inflammatory, and digestive health benefits due to
         compounds like hydrogen peroxide, methylglyoxal, and natural enzymes. In this context, the Prophet's insistence
@@ -895,6 +907,9 @@
 
         const notableHadiths = data.name === "Sahih Bukhari" ? notableBukhariHadiths : notableMuslimHadiths;
 
+        function tHadith(key, vars) {
+          return (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(key, vars) : key;
+        }
         function displayDetails(d, detailsId) {
           const detailsContainer = document.getElementById(detailsId);
           if (d && d.data) {
@@ -904,12 +919,12 @@
             const source = d.data.source;
 
             detailsContainer.innerHTML = `
-                        <h3>${source} - Chapter: ${chapterName}</h3>
-                        <p><strong>Hadith ID:</strong> ${hadithId}</p>
-                        <p><strong>Text:</strong> ${hadithText}</p>
+                        <h3>${tHadith('hadith.sourceChapter', { source: source, chapter: chapterName })}</h3>
+                        <p><strong>${tHadith('hadith.idLabel')}</strong> ${hadithId}</p>
+                        <p><strong>${tHadith('hadith.textLabel')}</strong> ${hadithText}</p>
                     `;
           } else {
-            detailsContainer.innerHTML = "No data available for this hadith.";
+            detailsContainer.innerHTML = tHadith('hadith.noData');
           }
         }
 
@@ -952,7 +967,7 @@
             .style("stroke", "#333")
             .on("mouseover", (event, d) => {
               tooltip.style("visibility", "visible")
-                .text(`Chapter: ${d.parent.data.name}`);
+                .text(tHadith('hadith.tooltipChapter', { name: d.parent.data.name }));
             })
             .on("mousemove", (event) => {
               tooltip.style("top", `${event.pageY + 10}px`)
@@ -983,7 +998,8 @@
         const loadingEl = document.getElementById("loadingScreen");
         if (loadingEl) {
           loadingEl.style.display = "flex";
-          loadingEl.innerHTML = '<div class="loading-spinner"></div><div class="loading-text">Loading Hadith Data...</div>';
+          const loadMsg = (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t('hadith.loading') : 'Loading Hadith Data...';
+          loadingEl.innerHTML = '<div class="loading-spinner"></div><div class="loading-text">' + loadMsg + '</div>';
         }
 
       d3.json(url).then(data => {
@@ -1021,9 +1037,10 @@
         function toggleNotableHadiths() {
           showNotableOnly = !showNotableOnly;
 
+          const th = (k) => (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(k) : k;
           document.getElementById("hadith-filter-button").textContent = showNotableOnly
-            ? "Show All Hadiths"
-            : "Show Examples of Prophetic Wisdom";
+            ? th("hadith.filterAll")
+            : th("hadith.filterShow");
 
           if (bukhariUpdate) bukhariUpdate(showNotableOnly);
           if (muslimUpdate) muslimUpdate(showNotableOnly);
@@ -1031,6 +1048,13 @@
 
 
         document.getElementById("hadith-filter-button").addEventListener("click", toggleNotableHadiths);
+        window.addEventListener("ayatica:langchange", () => {
+          const th = (k) => (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(k) : k;
+          const btn = document.getElementById("hadith-filter-button");
+          if (btn) {
+            btn.textContent = showNotableOnly ? th("hadith.filterAll") : th("hadith.filterShow");
+          }
+        });
         document.getElementById("hadith-search-button").addEventListener("click", () => {
           const searchTerm = document.getElementById("hadith-search-bar").value;
           if (bukhariUpdate) bukhariUpdate(searchTerm);
@@ -1047,7 +1071,7 @@
       }).catch(error => {
         console.error("Error loading hadith data:", error);
         hadithLoadState = 'error';
-        document.getElementById("loadingScreen").innerHTML = "Error loading hadith data. Please try refreshing the page.";
+        document.getElementById("loadingScreen").innerHTML = (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t('hadith.error') : "Error loading hadith data. Please try refreshing the page.";
       });
       }
 
@@ -1160,7 +1184,8 @@
 
       d3.select("#ngram-value").text(ngramSize);
       d3.select("#freq-value").text(minFrequency);
-      setWordCloudLoading(true, quranCloudData ? 'Updating word cloud…' : 'Loading Quran text…');
+      const tw = (k) => (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(k) : k;
+      setWordCloudLoading(true, quranCloudData ? tw('wordcloud.updating') : tw('wordcloud.loadingText'));
 
       loadQuranForCloud()
         .then(data => {
@@ -1242,7 +1267,7 @@
         .catch(err => {
           if (requestId !== wordCloudRequestId) return;
           console.error('Word cloud failed:', err);
-          setWordCloudLoading(true, 'Could not load word cloud. Try again.');
+          setWordCloudLoading(true, (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t('wordcloud.error') : 'Could not load word cloud. Try again.');
         });
     }
 
@@ -1282,14 +1307,15 @@
   <script>
     function showWordDetails(word, verses) {
       const detailsContainer = document.getElementById('word-details');
+      const tw = (k, v) => (window.AyaticaI18n && window.AyaticaI18n.t) ? window.AyaticaI18n.t(k, v) : k;
       if (!verses || verses.length === 0) {
-        detailsContainer.innerHTML = '<p>No verses found containing this word.</p>';
+        detailsContainer.innerHTML = '<p>' + tw('wordcloud.noVerses') + '</p>';
         return;
       }
 
       let html = `
             <div class="word-details-header">
-                <h3>Verses containing "${word}" (${verses.length} occurrences)</h3>
+                <h3>${tw('wordcloud.versesContaining', { word: word, count: verses.length })}</h3>
                 <button class="collapse-btn" onclick="toggleWordDetails(this)">−</button>
             </div>
             <div class="verses-list">
@@ -1306,7 +1332,7 @@
                 <div class="verse-item">
                     <div class="verse-header">
                         <strong>${verse.surah}</strong>
-                        <span class="verse-number">Verse ${verse.ayah_no}</span>
+                        <span class="verse-number">${tw('wordcloud.verseLabel', { n: verse.ayah_no })}</span>
                     </div>
                     <p class="verse-text">${highlightedVerse}</p>
                 </div>
@@ -1367,89 +1393,86 @@
     <div class="journey-container">
       <details class="about-collapse">
         <summary class="about-collapse-summary">
-          <span class="section-title">Unveiling Ancient Wisdom Through Modern Visualization</span>
+          <span class="section-title" data-i18n="about.summaryTitle">Unveiling Ancient Wisdom Through Modern Visualization</span>
         </summary>
         <div class="about-collapse-body">
       <div class="narrative-journey">
         <div class="journey-step">
-          <h3>The Challenge (AND)</h3>
-          <p>Ancient religious texts have fascinated scholars for centuries, with the Quran and Hadith making specific
+          <h3 data-i18n="about.challenge.h">The Challenge (AND)</h3>
+          <p data-i18n="about.challenge.p">Ancient religious texts have fascinated scholars for centuries, with the Quran and Hadith making specific
             claims about the natural world that seem to transcend their historical context. These texts, preserved for
             over 1,400 years, contain thousands of verses describing everything from celestial bodies to human
             embryology.</p>
         </div>
         <div class="journey-step">
-          <h3>The Skepticism (BUT)</h3>
-          <p>Modern scientific analysis demands rigorous evidence and reproducible results. Many argue that finding
+          <h3 data-i18n="about.skepticism.h">The Skepticism (BUT)</h3>
+          <p data-i18n="about.skepticism.p">Modern scientific analysis demands rigorous evidence and reproducible results. Many argue that finding
             scientific accuracy in ancient texts is merely confirmation bias - seeing patterns where we want to see
             them. Without systematic analysis methods, these claims remain controversial.</p>
         </div>
         <div class="journey-step">
-          <h3>The Discovery (THEREFORE)</h3>
-          <p>By applying data visualization and statistical analysis, we can systematically examine these claims,
+          <h3 data-i18n="about.discovery.h">The Discovery (THEREFORE)</h3>
+          <p data-i18n="about.discovery.p">By applying data visualization and statistical analysis, we can systematically examine these claims,
             revealing both confirmed correlations and potential coincidences in a transparent, reproducible way. Our
             analysis revealed:</p>
           <ul class="discovery-list">
-            <li>Statistically significant patterns in scientific terminology usage</li>
-            <li>Verifiable numerical correlations with natural phenomena</li>
-            <li>Documented historical predictions that were later confirmed</li>
+            <li data-i18n="about.discovery.li1">Statistically significant patterns in scientific terminology usage</li>
+            <li data-i18n="about.discovery.li2">Verifiable numerical correlations with natural phenomena</li>
+            <li data-i18n="about.discovery.li3">Documented historical predictions that were later confirmed</li>
           </ul>
         </div>
       </div>
       <br>
       <hr>
       <div class="key-findings">
-        <h2>Key Findings and Methodological Considerations</h2>
+        <h2 data-i18n="about.findings.title">Key Findings and Methodological Considerations</h2>
         <div class="takeaways-grid">
           <div class="takeaway-card">
-            <h3>Pattern Analysis</h3>
-            <p>Using computational analysis, we identified recurring scientific themes across chapters. Our methodology
-              included:
+            <h3 data-i18n="about.pattern.h">Pattern Analysis</h3>
+            <p data-i18n="about.pattern.p">Using computational analysis, we identified recurring scientific themes across chapters. Our methodology
+              included:</p>
             <ul>
-              <li>Text mining and natural language processing</li>
-              <li>Statistical frequency analysis</li>
-              <li>Cross-reference verification</li>
+              <li data-i18n="about.pattern.li1">Text mining and natural language processing</li>
+              <li data-i18n="about.pattern.li2">Statistical frequency analysis</li>
+              <li data-i18n="about.pattern.li3">Cross-reference verification</li>
             </ul>
-            </p>
           </div>
           <div class="takeaway-card">
-            <h3>Limitations and Bias Control</h3>
-            <p>We acknowledge several important considerations:
+            <h3 data-i18n="about.limits.h">Limitations and Bias Control</h3>
+            <p data-i18n="about.limits.p">We acknowledge several important considerations:</p>
             <ul>
-              <li>Translation variations may affect interpretation</li>
-              <li>Historical context must be considered</li>
-              <li>Need for control group comparisons</li>
+              <li data-i18n="about.limits.li1">Translation variations may affect interpretation</li>
+              <li data-i18n="about.limits.li2">Historical context must be considered</li>
+              <li data-i18n="about.limits.li3">Need for control group comparisons</li>
             </ul>
-            </p>
           </div>
           <div class="takeaway-card">
-            <h3>Future Research Directions</h3>
-            <p>Our findings suggest several areas for further study:
+            <h3 data-i18n="about.future.h">Future Research Directions</h3>
+            <p data-i18n="about.future.p">Our findings suggest several areas for further study:</p>
             <ul>
-              <li>Comparative analysis with other historical texts</li>
-              <li>Development of more sophisticated pattern detection algorithms</li>
-              <li>Integration of archaeological and historical evidence</li>
+              <li data-i18n="about.future.li1">Comparative analysis with other historical texts</li>
+              <li data-i18n="about.future.li2">Development of more sophisticated pattern detection algorithms</li>
+              <li data-i18n="about.future.li3">Integration of archaeological and historical evidence</li>
             </ul>
-            </p>
           </div>
         </div>
       </div>
 
       <div class="final-reflection">
-        <h3>Why This Matters: Beyond Religious Texts</h3>
-        <p>This project demonstrates how modern data visualization can unlock hidden patterns in ancient texts. The
+        <h3 data-i18n="about.matters.h">Why This Matters: Beyond Religious Texts</h3>
+        <p data-i18n="about.matters.p">This project demonstrates how modern data visualization can unlock hidden patterns in ancient texts. The
           implications extend beyond religious studies – this approach could revolutionize how we analyze any historical
           document. Our interactive visualizations have transformed abstract concepts into tangible patterns, making
           complex relationships accessible to everyone.</p>
         <div class="evidence-box">
-          <h4>Project Impact:</h4>
+          <h4 data-i18n="about.impact.h">Project Impact:</h4>
           <ul>
-            <li>Developed novel ways to visualize textual patterns through interactive treemaps</li>
-            <li>Created engaging word clouds that reveal hidden linguistic connections</li>
-            <li>Demonstrated the power of data visualization in bridging ancient wisdom with modern understanding</li>
+            <li data-i18n="about.impact.li1">Developed novel ways to visualize textual patterns through interactive treemaps</li>
+            <li data-i18n="about.impact.li2">Created engaging word clouds that reveal hidden linguistic connections</li>
+            <li data-i18n="about.impact.li3">Demonstrated the power of data visualization in bridging ancient wisdom with modern understanding</li>
           </ul>
         </div>
-        <h3>Video Demo</h3>
+        <h3 data-i18n="about.videoDemo">Video Demo</h3>
         <center>
           <iframe width="700" height="393.75" src="https://www.youtube.com/embed/ZkFaq_UCofs?si=A7mOFVc8Q_df5Lvm" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </center>
@@ -1480,7 +1503,7 @@
   <aside class="lantern-scroll" id="lantern-scroll" aria-hidden="true">
     <div class="lantern-scroll__rail"></div>
     <div class="lantern-scroll__rope" id="lantern-rope"></div>
-    <div class="lantern-scroll__lantern" id="lantern-thumb" title="Drag to scroll">
+    <div class="lantern-scroll__lantern" id="lantern-thumb" data-i18n-title="footer.dragScroll" title="Drag to scroll">
       <svg viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <radialGradient id="lanternFlame" cx="50%" cy="55%" r="50%">

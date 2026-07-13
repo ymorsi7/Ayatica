@@ -158,12 +158,13 @@ h3 { font-size: 1.35rem; color: var(--gold); }
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 0.85rem clamp(1rem, 3vw, 2rem);
   background: rgba(11, 18, 16, 0.72);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
+  /* Brand left, lang switch always physical top-right (even in Arabic RTL) */
+  direction: ltr;
 }
 
 .brand-mark {
@@ -171,6 +172,7 @@ h3 { font-size: 1.35rem; color: var(--gold); }
   align-items: center;
   text-decoration: none;
   color: var(--text);
+  flex-shrink: 0;
 }
 
 .brand-mark span {
@@ -188,6 +190,112 @@ h3 { font-size: 1.35rem; color: var(--gold); }
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(18, 28, 24, 0.65);
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-btn:hover {
+  color: var(--text);
+}
+
+.lang-btn.is-active {
+  color: var(--ink);
+  background: linear-gradient(120deg, var(--gold), var(--accent-hover));
+}
+
+/* ——— Arabic / RTL ——— */
+html.is-ar body {
+  font-family: var(--font-arabic);
+  padding-right: 0;
+  padding-left: 2.5rem;
+}
+
+html.is-ar h1,
+html.is-ar h2,
+html.is-ar h3,
+html.is-ar h4,
+html.is-ar .brand-mark span,
+html.is-ar .brand-hero,
+html.is-ar .intro-headline,
+html.is-ar .section-title {
+  font-family: var(--font-arabic);
+  letter-spacing: 0;
+}
+
+html.is-ar .dropbtn,
+html.is-ar .lang-btn,
+html.is-ar button,
+html.is-ar input,
+html.is-ar label {
+  font-family: var(--font-arabic);
+}
+
+html.is-ar .hook,
+html.is-ar .verse-content,
+html.is-ar .section-transition,
+html.is-ar .hadith-section,
+html.is-ar .journey-container,
+html.is-ar #verse-details,
+html.is-ar .details-content,
+html.is-ar .word-cloud-controls {
+  text-align: right;
+}
+
+html.is-ar .verse-content[style*="text-align: left"],
+html.is-ar .verse-content[style*="text-align:left"] {
+  text-align: right !important;
+}
+
+html.is-ar .lantern-scroll {
+  right: auto;
+  left: 0.55rem;
+}
+
+html.is-ar .dropdown-content {
+  left: auto;
+  right: 0;
+  text-align: right;
+}
+
+html.is-ar .nav-buttons,
+html.is-ar .dropdown-content {
+  direction: rtl;
+}
+
+@media (max-width: 720px) {
+  html.is-ar body {
+    padding-left: 0;
+  }
+
+  html.is-ar .lantern-scroll {
+    display: none;
+  }
 }
 
 .dropdown {
@@ -1665,9 +1773,15 @@ body.lantern-dragging * {
   }
 
   .nav-buttons {
+    order: 3;
     width: 100%;
+    margin-left: 0;
     justify-content: flex-end;
     flex-wrap: wrap;
+  }
+
+  .lang-switch {
+    margin-left: auto;
   }
 
   .intro-section {
